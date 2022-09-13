@@ -4,7 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class RegistrationFinal extends StatelessWidget {
+class Registrationfinal extends StatefulWidget {
+  const Registrationfinal({Key? key}) : super(key: key);
+
+  @override
+  State<Registrationfinal> createState() => _RegistrationfinalState();
+}
+
+class _RegistrationfinalState extends State<Registrationfinal> {
   final _pass = TextEditingController();
   @override
   Widget build(BuildContext context) {

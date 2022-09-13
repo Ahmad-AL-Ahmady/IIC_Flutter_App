@@ -79,7 +79,7 @@ class Dashboard extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Alice()));
+                                        builder: (context) => ChatPage()));
                               },
                               splashColor: Colors.white,
                               elevation: 20,

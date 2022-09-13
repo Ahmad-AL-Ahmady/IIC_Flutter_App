@@ -1,14 +1,19 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login_app/Pages/registerotp.dart';
+import 'package:http/http.dart' as http;
+import 'package:login_app/Pages/registerationotp.dart';
 import 'package:login_app/Pages/registration2.dart';
+import 'package:login_app/Pages/resetpassotp.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 
 // ignore: must_be_immutable
 class Registration extends StatefulWidget {
   bool rememberpwd = false;
+  bool _isloading = false;
   bool sec = true;
   var visable = const Icon(
     Icons.visibility,
@@ -24,9 +29,38 @@ class Registration extends StatefulWidget {
   State<Registration> createState() => _RegistrationState();
 }
 
+Future<String> Register(String Phone, String UnitNumber) async {
+  var response = await http.post(
+      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+          '/api/v1/register/unitAndPhone'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        "phone": Phone,
+        "unitNumber": UnitNumber,
+      }));
+  print(Phone);
+  print(UnitNumber);
+  var data = response.body;
+
+  print("======================");
+  print(data);
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return 'failure';
+  }
+}
+
 class _RegistrationState extends State<Registration> {
   bool rememberpwd = false;
   bool sec = true;
+  bool _isloading = false;
+  final phone = TextEditingController();
+  final unitnumber = TextEditingController();
+
   var visable = const Icon(
     Icons.visibility,
     color: Color(0xff4c5166),
@@ -103,6 +137,7 @@ class _RegistrationState extends State<Registration> {
                           height: 30,
                         ),
                         CustomTextField(
+                          controler: phone,
                           label: "Phone Number",
                           type: TextInputType.phone,
                           hint: "Enter Phone Number",
@@ -124,6 +159,7 @@ class _RegistrationState extends State<Registration> {
                           height: 20,
                         ),
                         CustomTextField(
+                          controler: unitnumber,
                           label: "Unit Number",
                           type: TextInputType.streetAddress,
                           hint: "Enter Unit Number",
@@ -145,30 +181,53 @@ class _RegistrationState extends State<Registration> {
                           padding: const EdgeInsets.symmetric(vertical: 25),
                           child: SizedBox(
                             width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                primary: Color(0xff3c6970),
+                                padding: EdgeInsets.all(30),
+                              ),
+                              child: _isloading
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 24,
+                                        ),
+                                        Text("Please Wait")
+                                      ],
+                                    )
+                                  : Text("Register"),
+                              onPressed: () async {
                                 if (_formkey.currentState!.validate()) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => RegisterOTP()));
+                                  String phone1 = phone.text;
+                                  String unitnumber1 = unitnumber.text;
+                                  setState(() => _isloading = true);
+                                  var statues =
+                                      await Register(phone1, unitnumber1);
+                                  if (statues == 'failure') {
+                                    print('Registration Failed');
+                                    setState(() => _isloading = false);
+                                  } else {
+                                    print(statues);
+                                    setState(() => _isloading = false);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegistrationOtp(
+                                                    phone: phone1)));
+                                  }
                                 }
                                 ;
                               },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              color: const Color(0xff3c6970),
-                              padding: const EdgeInsets.all(30),
-                              child: const Text(
-                                "Register",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
                             ),
                           ),
                         ),

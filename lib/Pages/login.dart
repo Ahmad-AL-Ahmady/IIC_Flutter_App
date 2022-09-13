@@ -11,22 +11,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/resetpassword.dart';
 import 'dart:convert';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-Future<String> LOGIN(String name, String password) async {
+Future<String> LOGIN(String email, String password) async {
   var response = await http.post(
-      Uri.https(
-          'iic-simple-toolchain-20220912122755303-intelligent-genet.mybluemix.net',
+      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/login'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({"username": name, "password": password}));
+      body: jsonEncode({"email": email, "password": password}));
+  print(email);
+  print(password);
   var data = response.body;
+
+  print("======================");
   print(data);
 
   if (response.statusCode == 200) {
@@ -37,6 +41,7 @@ Future<String> LOGIN(String name, String password) async {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _isloading = false;
   bool rememberpwd = false;
   bool sec = true;
   final _user = TextEditingController();
@@ -167,19 +172,43 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 25),
                           child: Container(
                             width: 250,
-                            child: RaisedButton(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                primary: Color(0xff3c6970),
+                                padding: EdgeInsets.all(30),
+                              ),
+                              child: _isloading
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 24,
+                                        ),
+                                        Text("Please Wait")
+                                      ],
+                                    )
+                                  : Text("Login"),
                               onPressed: () async {
                                 if (_loginkey.currentState!.validate()) {
                                   String username1 = _user.text;
                                   String password1 = _pass.text;
-
+                                  setState(() => _isloading = true);
                                   var statues =
                                       await LOGIN(username1, password1);
                                   if (statues == 'failure') {
                                     print('login failed');
+                                    setState(() => _isloading = false);
                                   } else {
                                     print(statues);
-
+                                    setState(() => _isloading = false);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -188,20 +217,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 ;
                               },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              color: Color(0xff3c6970),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
                             ),
                           ),
                         ),
