@@ -1,32 +1,37 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
+import 'package:login_app/Pages/login.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Registrationfinal extends StatefulWidget {
   final String phone;
-  const Registrationfinal({Key? key, required this.phone}) : super(key: key);
+  final String? token;
+  const Registrationfinal({Key? key, required this.phone, required this.token})
+      : super(key: key);
 
   @override
-  State<Registrationfinal> createState() => _RegistrationfinalState();
+  State<Registrationfinal> createState() =>
+      _RegistrationfinalState(phone, token);
 }
 
-Future<String> RegisterUserData(String username, String email, String password, String phone) async {
+Future<String> RegisterUserData(String username, String email, String password,
+    String phone, String _token) async {
   var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/register/registerUser'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
-      },
+      headers: {'Content-Type': 'application/json', 'Authorization': _token},
       body: jsonEncode({
         "phone": phone,
         "username": username,
         "email": email,
         "password": password
       }));
-      
+
   var token = response.body;
 
   print("======================");
@@ -35,7 +40,7 @@ Future<String> RegisterUserData(String username, String email, String password, 
   if (response.statusCode == 200) {
     return 'success';
   } else {
-    return;
+    return "failure";
   }
 }
 
@@ -43,9 +48,12 @@ class _RegistrationfinalState extends State<Registrationfinal> {
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _pass = TextEditingController();
+  var phone;
+  var token;
 
-  _RegistrationfinalState( phoneInput) {
+  _RegistrationfinalState(phoneInput, tokenInput) {
     this.phone = phoneInput;
+    this.token = tokenInput;
   }
 
   @override
@@ -214,16 +222,21 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                                 if (_finalregisterkey.currentState!
                                     .validate()) {
                                   // TODO: register the user data
-                                  var token = RegisterUserData(_name, _email, _pass, this.phone);
+                                  var token = RegisterUserData(
+                                      _name.text,
+                                      _email.text,
+                                      _pass.text,
+                                      this.phone,
+                                      this.token);
 
-                                  if (token == 'success') { // it means there is a token
+                                  if (token == 'success') {
+                                    // it means there is a token
                                     // navigate to the login
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                login(
-                                                    phone: phone1)));
+                                                LoginScreen()));
                                   } else {
                                     // TODO: show error
                                   }

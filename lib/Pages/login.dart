@@ -146,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            buildRememberassword(),
                             Container(
                               alignment: Alignment.centerRight,
                               child: TextButton(
@@ -212,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Dashboard(token: result )));
+                                            builder: (context) => Dashboard()));
                                   }
                                 }
                                 ;

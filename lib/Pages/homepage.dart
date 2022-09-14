@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login.dart';
 import 'registration.dart';
-import 'package:login_app/UI/custom_button.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -45,7 +44,7 @@ class _homepageState extends State<homepage> {
                       children: [
                         SizedBox(height: 50),
                         Image.asset(
-                          "assets/IIC LOGO.png",
+                          "assets/New logo.png",
                           width: 200,
                           height: 200,
                         ),

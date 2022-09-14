@@ -68,7 +68,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         )),
                         SizedBox(
-                          height: 50,
+                          height: 20,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -99,7 +99,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -120,7 +120,7 @@ class Dashboard extends StatelessWidget {
                               color: Color(0xff3c6970),
                               padding: EdgeInsets.all(30),
                               child: Text(
-                                "Services",
+                                "Service Ticketing",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,
@@ -130,7 +130,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -156,7 +156,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
