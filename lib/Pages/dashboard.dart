@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/services.dart';
+import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 
@@ -121,6 +123,68 @@ class Dashboard extends StatelessWidget {
                               padding: EdgeInsets.all(30),
                               child: Text(
                                 "Service Ticketing",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: Container(
+                            width: 250,
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Violations()));
+                              },
+                              splashColor: Colors.white,
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              color: Color(0xff3c6970),
+                              padding: EdgeInsets.all(30),
+                              child: Text(
+                                "Report Violations",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: Container(
+                            width: 250,
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Incedents()));
+                              },
+                              splashColor: Colors.white,
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              color: Color(0xff3c6970),
+                              padding: EdgeInsets.all(30),
+                              child: Text(
+                                "Report Incedents",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,

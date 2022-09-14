@@ -218,18 +218,18 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                           child: Container(
                             width: 250,
                             child: RaisedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_finalregisterkey.currentState!
                                     .validate()) {
                                   // TODO: register the user data
-                                  var token = RegisterUserData(
+                                  var token2 = await RegisterUserData(
                                       _name.text,
                                       _email.text,
                                       _pass.text,
                                       this.phone,
                                       this.token);
 
-                                  if (token == 'success') {
+                                  if (token2 == 'success') {
                                     // it means there is a token
                                     // navigate to the login
                                     Navigator.push(
@@ -238,7 +238,7 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                                             builder: (context) =>
                                                 LoginScreen()));
                                   } else {
-                                    // TODO: show error
+                                    print('failure login screen');
                                   }
                                 }
                               },

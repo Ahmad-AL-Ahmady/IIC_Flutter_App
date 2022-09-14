@@ -7,16 +7,22 @@ import 'package:login_app/UI/custom_text_field.dart';
 
 import 'dashboard.dart';
 
-class Services extends StatefulWidget {
-  const Services({Key? key}) : super(key: key);
+class Incedents extends StatefulWidget {
+  const Incedents({Key? key}) : super(key: key);
 
   @override
-  State<Services> createState() => _ServicesState();
+  State<Incedents> createState() => _IncedentsState();
 }
 
-class _ServicesState extends State<Services> {
-  final date = TextEditingController();
-  final items = ["Electricity", "Plumbing", "Gardening"];
+class _IncedentsState extends State<Incedents> {
+  final incedent = TextEditingController();
+  final items = [
+    "Building Violation",
+    "Property Maintenance",
+    "Housing Violation",
+    "Public Area Violation",
+    "Other",
+  ];
   String? value;
 
   @override
@@ -24,7 +30,7 @@ class _ServicesState extends State<Services> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Service Ticketing",
+          "Report Incedent",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 2, 47, 98),
@@ -70,7 +76,7 @@ class _ServicesState extends State<Services> {
                         ),
                         Center(
                             child: Text(
-                          "Order The Service You Desire",
+                          "Report The Incedent",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -80,53 +86,51 @@ class _ServicesState extends State<Services> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          width: 300,
-                          margin: EdgeInsets.all(16),
-                          padding: EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 14,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 3,
-                            ),
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: value,
-                              iconSize: 36,
-                              hint: Text(
-                                "Choose Service",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 166, 163, 163),
-                                    fontWeight: FontWeight.bold),
-                              ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Incedent",
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 166, 163, 163)),
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.white,
-                              ),
-                              isExpanded: true,
-                              dropdownColor: Colors.white,
-                              items: items.map(buildMenuItem).toList(),
-                              onChanged: (value) =>
-                                  setState(() => this.value = value),
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 100,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffebefff),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0, 2),
+                                    )
+                                  ]),
+                              child: TextFormField(
+                                minLines: 1,
+                                maxLines: 10,
+                                controller: incedent,
+                                keyboardType: TextInputType.text,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(15),
+                                    hintText: "Enter the Incedent here",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black38)),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 30,
-                        ),
-                        CustomTextField(
-                          label: "Date of Request",
-                          type: TextInputType.datetime,
-                          controler: date,
-                          hint: "Enter Desired Date",
-                          prefixIcon: Icon(Icons.date_range_outlined),
                         ),
                         SizedBox(
                           height: 30,
@@ -150,14 +154,14 @@ class _ServicesState extends State<Services> {
                                       backgroundColor: Colors.transparent,
                                       child: Container(
                                         alignment: Alignment.center,
-                                        height: 50,
-                                        width: 30,
+                                        height: 100,
+                                        width: 100,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                             color: Color(0xff3c6970)),
                                         child: Text(
-                                          "Service Requested",
+                                          "Incedent Reported",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
@@ -173,7 +177,7 @@ class _ServicesState extends State<Services> {
                               color: Color(0xff3c6970),
                               padding: EdgeInsets.all(30),
                               child: Text(
-                                "Request",
+                                "Report",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,
