@@ -165,11 +165,14 @@ class _RegistrationOtpState extends State<RegistrationOtp> {
                                   } else {
                                     print(statues);
                                     setState(() => loading = false);
+                                    print(statues);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                Registrationfinal()));
+                                                Registrationfinal(
+                                                    phone: phone,
+                                                    token: statues)));
                                   }
                                 }
                                 ;
