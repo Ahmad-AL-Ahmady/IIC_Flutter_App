@@ -136,24 +136,68 @@ class _RegistrationState extends State<Registration> {
                         const SizedBox(
                           height: 30,
                         ),
-                        CustomTextField(
-                          controler: phone,
-                          label: "Phone Number",
-                          type: TextInputType.phone,
-                          hint: "Enter Phone Number",
-                          prefixIcon: Icon(
-                            Icons.phone,
-                          ),
-                          validation: (String? value) {
-                            var reg = RegExp(r'^01[0125][0-9]{8}$');
-                            if (value == null ||
-                                value.isEmpty ||
-                                !reg.hasMatch(value)) {
-                              return "Please enter correct phone number";
-                            } else {
-                              return null;
-                            }
-                          },
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Phone Number",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 62,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffebefff),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0, 2),
+                                    )
+                                  ]),
+                              child: TextFormField(
+                                controller: phone,
+                                validator: (String? value) {
+                                  var reg = RegExp(r'^01[0125][0-9]{8}$');
+                                  if (value == null ||
+                                      value.isEmpty ||
+                                      !reg.hasMatch(value)) {
+                                    return "Please enter correct phone number";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                keyboardType: TextInputType.phone,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 14, bottom: 14),
+                                    prefixIcon: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 14,
+                                      ),
+                                      child: Text(
+                                        "(+2)",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 2, 47, 98),
+                                        ),
+                                      ),
+                                    ),
+                                    hintText: "Enter Phone Number",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black38)),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 20,

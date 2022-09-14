@@ -146,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            buildRememberassword(),
                             Container(
                               alignment: Alignment.centerRight,
                               child: TextButton(
