@@ -201,18 +201,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   String username1 = _user.text;
                                   String password1 = _pass.text;
                                   setState(() => _isloading = true);
-                                  var statues =
+                                  var result =
                                       await LOGIN(username1, password1);
-                                  if (statues == 'failure') {
+                                  if (result == 'failure') {
                                     print('login failed');
                                     setState(() => _isloading = false);
                                   } else {
-                                    print(statues);
+                                    print(result);
                                     setState(() => _isloading = false);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Dashboard()));
+                                            builder: (context) => Dashboard(token: result )));
                                   }
                                 }
                                 ;

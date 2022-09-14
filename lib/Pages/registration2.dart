@@ -5,14 +5,49 @@ import 'package:login_app/UI/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class Registrationfinal extends StatefulWidget {
-  const Registrationfinal({Key? key}) : super(key: key);
+  final String phone;
+  const Registrationfinal({Key? key, required this.phone}) : super(key: key);
 
   @override
   State<Registrationfinal> createState() => _RegistrationfinalState();
 }
 
+Future<String> RegisterUserData(String username, String email, String password, String phone) async {
+  var response = await http.post(
+      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+          '/api/v1/register/registerUser'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
+      body: jsonEncode({
+        "phone": phone,
+        "username": username,
+        "email": email,
+        "password": password
+      }));
+      
+  var token = response.body;
+
+  print("======================");
+  print(token);
+
+  if (response.statusCode == 200) {
+    return 'success';
+  } else {
+    return;
+  }
+}
+
 class _RegistrationfinalState extends State<Registrationfinal> {
+  final _name = TextEditingController();
+  final _email = TextEditingController();
   final _pass = TextEditingController();
+
+  _RegistrationfinalState( phoneInput) {
+    this.phone = phoneInput;
+  }
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> _finalregisterkey = GlobalKey();
@@ -85,6 +120,7 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                           prefixIcon: Icon(
                             Icons.face,
                           ),
+                          controler: _name,
                           validation: (String? value) {
                             var reg2 = RegExp(r'^[a-zA-Z0-9]+$');
                             if (value == null ||
@@ -106,6 +142,7 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                           prefixIcon: Icon(
                             Icons.email,
                           ),
+                          controler: _email,
                           validation: (String? value) {
                             var reg3 = RegExp(
                                 r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
@@ -176,31 +213,20 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                               onPressed: () {
                                 if (_finalregisterkey.currentState!
                                     .validate()) {
-                                  showDialog(
-                                    barrierColor:
-                                        Colors.black12.withOpacity(.6),
-                                    context: context,
-                                    builder: (_) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 50,
-                                          width: 30,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              color: Color(0xff3c6970)),
-                                          child: Text(
-                                            "Registered Succefully",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
+                                  // TODO: register the user data
+                                  var token = RegisterUserData(_name, _email, _pass, this.phone);
+
+                                  if (token == 'success') { // it means there is a token
+                                    // navigate to the login
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                login(
+                                                    phone: phone1)));
+                                  } else {
+                                    // TODO: show error
+                                  }
                                 }
                               },
                               splashColor: Colors.white,
