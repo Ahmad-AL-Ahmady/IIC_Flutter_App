@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'registration2.dart';
 import 'package:login_app/UI/custom_text_field.dart';
+import 'package:otp_text_field/otp_text_field.dart';
 
 class RegistrationOtp extends StatefulWidget {
   final String phone;
@@ -48,6 +49,7 @@ class _RegistrationOtpState extends State<RegistrationOtp> {
     GlobalKey<FormState> _otpkey = GlobalKey();
     bool loading = false;
     final otp = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
