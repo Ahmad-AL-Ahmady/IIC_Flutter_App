@@ -38,7 +38,8 @@ class _IncedentsState extends State<Incedents> {
         leadingWidth: 100,
         elevation: 0,
         leading: ElevatedButton.icon(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Dashboard())),
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('Back'),
           style: ElevatedButton.styleFrom(

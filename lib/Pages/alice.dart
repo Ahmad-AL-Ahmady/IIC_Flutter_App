@@ -10,6 +10,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:login_app/Pages/dashboard.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -81,7 +82,8 @@ class _ChatPageState extends State<ChatPage> {
           leadingWidth: 100,
           elevation: 0,
           leading: ElevatedButton.icon(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Dashboard())),
             icon: const Icon(Icons.arrow_left_sharp),
             label: const Text('Back'),
             style: ElevatedButton.styleFrom(

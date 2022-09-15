@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/incedents.dart';
+import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/services.dart';
 import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
 import 'package:login_app/UI/custom_text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -21,12 +23,17 @@ class Dashboard extends StatelessWidget {
         ),
         backgroundColor: Color.fromARGB(255, 2, 47, 98),
         automaticallyImplyLeading: false,
-        leadingWidth: 100,
+        leadingWidth: 200,
         elevation: 0,
         leading: ElevatedButton.icon(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () async {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('token', "");
+          },
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Back'),
+          label: const Text('Sign Out'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),

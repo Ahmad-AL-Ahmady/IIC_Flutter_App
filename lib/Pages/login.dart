@@ -3,6 +3,7 @@
 //import 'dart:ffi';
 //import 'dart:js';
 import 'package:login_app/Pages/dashboard.dart';
+import 'package:login_app/Pages/homepage.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
 import 'resetpassword.dart';
@@ -77,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
         leadingWidth: 100,
         elevation: 0,
         leading: ElevatedButton.icon(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => homepage())),
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('Back'),
           style: ElevatedButton.styleFrom(
