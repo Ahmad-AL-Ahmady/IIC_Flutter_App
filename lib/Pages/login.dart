@@ -12,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:login_app/Pages/resetpassword.dart';
 import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'globels.dart' as globels;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -28,16 +30,22 @@ Future<String> LOGIN(String email, String password) async {
       body: jsonEncode({"email": email, "password": password}));
   print(email);
   print(password);
-  var data = response.body;
+  var token = response.body;
 
   print("======================");
-  print(data);
+  print(token); // THIS IS THE TOKEN
 
   if (response.statusCode == 200) {
+    await addStringToSF(token);
     return response.body;
   } else {
     return 'failure';
   }
+}
+
+addStringToSF(String token2) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('token', token2);
 }
 
 class _LoginScreenState extends State<LoginScreen> {
