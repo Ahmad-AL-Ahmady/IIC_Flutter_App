@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -13,6 +14,7 @@ import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -23,12 +25,48 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
-  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
+  final _user = const types.User(
+      id: '82091008-a484-4a89-ae75-a22bf8d6f3ac', firstName: 'User');
+  final _Alice = const types.User(
+      id: '82091008-a484-4a89-ae75-a22bf8d6f3ab', firstName: 'Alice');
 
   @override
   void initState() {
     super.initState();
     _loadMessages();
+    sendText('');
+  }
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    String? token = prefs.getString('token');
+    return token;
+  }
+
+  Future<void> sendText(String _text) async {
+    var response = await http.post(
+        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+            '/api/v1/sendText'),
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': await getStringValuesSF(),
+        },
+        body: jsonEncode({
+          "input": {
+            "component": {"value": _text, "type": "text"}
+          }
+        }));
+
+    var data = jsonDecode(response.body) as Map<String, dynamic>;
+    data = data['output'][0];
+
+    if (response.statusCode == 200) {
+      final msg = data['component']['text'];
+      _handleRecievedMessages(msg);
+    } else {
+      print(response);
+    }
   }
 
   @override
@@ -222,6 +260,17 @@ class _ChatPageState extends State<ChatPage> {
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: const Uuid().v4(),
       text: message.text,
+    );
+
+    _addMessage(textMessage);
+  }
+
+  void _handleRecievedMessages(String text) {
+    final textMessage = types.TextMessage(
+      author: _Alice,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      id: const Uuid().v4(),
+      text: text,
     );
 
     _addMessage(textMessage);
