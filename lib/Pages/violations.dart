@@ -2,23 +2,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
-import 'package:http/http.dart' as http;
-import 'dashboard.dart';
-import 'dart:convert';
 
-class Services extends StatefulWidget {
-  const Services({Key? key}) : super(key: key);
+import 'dashboard.dart';
+
+class Violations extends StatefulWidget {
+  const Violations({Key? key}) : super(key: key);
 
   @override
-  State<Services> createState() => _ServicesState();
+  State<Violations> createState() => _ViolationsState();
 }
 
-class _ServicesState extends State<Services> {
-  final date = TextEditingController();
-  final items = ["Electricity", "Plumbing", "Gardening"];
+class _ViolationsState extends State<Violations> {
+  final violation = TextEditingController();
+  final unitCode = TextEditingController();
+  final items = [
+    "Building Violation",
+    "Property Maintenance",
+    "Housing Violation",
+    "Public Area Violation",
+    "Other",
+  ];
   String? value;
 
   @override
@@ -26,7 +31,7 @@ class _ServicesState extends State<Services> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Service Ticketing",
+          "Report Violations",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 2, 47, 98),
@@ -72,7 +77,7 @@ class _ServicesState extends State<Services> {
                         ),
                         Center(
                             child: Text(
-                          "Order The Service You Desire",
+                          "Report The Violation",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -101,7 +106,7 @@ class _ServicesState extends State<Services> {
                               value: value,
                               iconSize: 36,
                               hint: Text(
-                                "Choose Service",
+                                "Choose Category",
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 166, 163, 163),
                                     fontWeight: FontWeight.bold),
@@ -123,12 +128,58 @@ class _ServicesState extends State<Services> {
                         SizedBox(
                           height: 30,
                         ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Violation",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 100,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffebefff),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0, 2),
+                                    )
+                                  ]),
+                              child: TextFormField(
+                                minLines: 1,
+                                maxLines: 10,
+                                controller: violation,
+                                keyboardType: TextInputType.text,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(15),
+                                    hintText: "Enter the Violation here",
+                                    hintStyle:
+                                        TextStyle(color: Colors.black38)),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
                         CustomTextField(
-                          label: "Date of Request",
-                          type: TextInputType.datetime,
-                          controler: date,
-                          hint: "Enter Desired Date",
-                          prefixIcon: Icon(Icons.date_range_outlined),
+                          label: "Unit code",
+                          type: TextInputType.streetAddress,
+                          controler: unitCode,
+                          hint: "Enter Unit Code Of who did it",
+                          prefixIcon: Icon(Icons.home),
                         ),
                         SizedBox(
                           height: 30,
@@ -152,14 +203,14 @@ class _ServicesState extends State<Services> {
                                       backgroundColor: Colors.transparent,
                                       child: Container(
                                         alignment: Alignment.center,
-                                        height: 50,
-                                        width: 30,
+                                        height: 100,
+                                        width: 100,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                             color: Color(0xff3c6970)),
                                         child: Text(
-                                          "Service Requested",
+                                          "Violation Reported",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
@@ -175,7 +226,7 @@ class _ServicesState extends State<Services> {
                               color: Color(0xff3c6970),
                               padding: EdgeInsets.all(30),
                               child: Text(
-                                "Request",
+                                "Report",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,
