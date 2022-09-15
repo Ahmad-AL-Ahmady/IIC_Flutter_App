@@ -35,7 +35,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _loadMessages();
-    sendText('');
+    sendText('اهلا');
   }
 
   getStringValuesSF() async {
@@ -265,6 +265,7 @@ class _ChatPageState extends State<ChatPage> {
     );
 
     _addMessage(textMessage);
+    sendText(message.text);
   }
 
   void _handleRecievedMessages(String text) {
