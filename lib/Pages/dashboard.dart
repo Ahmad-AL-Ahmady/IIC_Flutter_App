@@ -108,7 +108,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -139,7 +139,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -170,7 +170,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -201,7 +201,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -227,7 +227,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
@@ -240,6 +240,9 @@ class Dashboard extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 15),
                           ),
                         ),
+                        SizedBox(
+                          height: 5,
+                        )
                       ],
                     ),
                   ),
