@@ -63,8 +63,34 @@ class _ChatPageState extends State<ChatPage> {
     data = data['output'][0];
 
     if (response.statusCode == 200) {
-      final msg = data['component']['text'];
-      _handleRecievedMessages(msg);
+      // handle simple responses from Alice which is a text
+      if (data['message_type'] == "text") {
+        final msg = data['component']['text'];
+        _handleRecievedMessages(msg);
+      } else if (data['message_type'] == "option") {
+        // here we display several options to the user
+        data = data['component'];
+
+        // _handleRecievedMessages("text\nsdfsdf");
+
+        String outputToUser = "";
+        outputToUser = data['title'] + ":" + '\n' + '\n';
+
+        var options = data['options'];
+
+        for (var i = 0; i < options.length; i++) {
+          var optionLabel = options[i]['label'];
+          var optionValue = options[i]['value']['input']['text'];
+          print(options[i]);
+
+          outputToUser =
+              outputToUser + "لإضافة $optionLabel ادخل $optionValue" + '\n';
+          // _handleRecievedMessages("$optionLabel ادخل $optionValue");
+        }
+
+        outputToUser = outputToUser + '\n' + "ادخل رقم الختيار الذى ترغب فيه";
+        _handleRecievedMessages(outputToUser);
+      }
     } else {
       print(response);
     }
