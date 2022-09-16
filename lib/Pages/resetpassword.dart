@@ -10,7 +10,9 @@ import 'package:http/http.dart' as http;
 import 'resetpassotp.dart';
 
 class Resetpassword extends StatefulWidget {
-  const Resetpassword({Key? key}) : super(key: key);
+  const Resetpassword({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Resetpassword> createState() => _ResetpasswordState();
@@ -33,11 +35,11 @@ class _ResetpasswordState extends State<Resetpassword> {
   Future<String> Forgetpass(String phone, String unitnumber) async {
     var response = await http.post(
         Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-            '/api/v1/forgetpassword'),
+            '/api/v1/forgotPassword/unitAndPhone'),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({"phone": phone, "unitnumber": unitnumber}));
+        body: jsonEncode({"phone": phone, "unitNumber": unitnumber}));
     print(phone);
     print(unitnumber);
     var token = response.body;
@@ -121,16 +123,34 @@ class _ResetpasswordState extends State<Resetpassword> {
                             type: TextInputType.phone,
                             hint: "Enter your phone number",
                             prefixIcon: Icon(Icons.phone),
+                            validation: (String? value) {
+                              var reg = RegExp(r'^01[0125][0-9]{8}$');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
+                                return "Please enter correct phone number";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           SizedBox(
                             height: 20,
                           ),
                           CustomTextField(
-                              controler: unitnum,
-                              label: "Unit Number",
-                              type: TextInputType.streetAddress,
-                              hint: "Enter Your Unit Number",
-                              prefixIcon: Icon(Icons.home)),
+                            controler: unitnum,
+                            label: "Unit Number",
+                            type: TextInputType.streetAddress,
+                            hint: "Enter Your Unit Number",
+                            prefixIcon: Icon(Icons.home),
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "please enter a valid unit number";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                           SizedBox(
                             height: 30,
                           ),
@@ -150,7 +170,8 @@ class _ResetpasswordState extends State<Resetpassword> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => OtpScreen(),
+                                        builder: (context) =>
+                                            OtpScreen(phone: phone1),
                                       ),
                                     );
                                   }
