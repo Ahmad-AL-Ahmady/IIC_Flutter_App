@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'login.dart';
+import 'dart:convert';
 import 'homepage.dart';
 import 'registration.dart';
+import 'package:http/http.dart' as http;
 import 'resetpassotp.dart';
 
 class Resetpassword extends StatefulWidget {
@@ -17,6 +19,8 @@ class Resetpassword extends StatefulWidget {
 class _ResetpasswordState extends State<Resetpassword> {
   bool rememberpwd = false;
   bool sec = true;
+  final unitnum = TextEditingController();
+  final phonenum = TextEditingController();
   var visable = Icon(
     Icons.visibility,
     color: Color(0xff4c5166),
@@ -25,8 +29,33 @@ class _ResetpasswordState extends State<Resetpassword> {
     Icons.visibility_off,
     color: Color(0xff4c5166),
   );
+
+  Future<String> Forgetpass(String phone, String unitnumber) async {
+    var response = await http.post(
+        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+            '/api/v1/forgetpassword'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({"phone": phone, "unitnumber": unitnumber}));
+    print(phone);
+    print(unitnumber);
+    var token = response.body;
+
+    print("======================");
+    print(token); // THIS IS THE TOKEN
+
+    if (response.statusCode == 200) {
+      await addStringToSF(token);
+      return response.body;
+    } else {
+      return 'failure';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> resetpass = GlobalKey();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -47,111 +76,128 @@ class _ResetpasswordState extends State<Resetpassword> {
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color.fromARGB(255, 0, 43, 91),
-                        Color.fromARGB(255, 43, 72, 101),
-                        Color.fromARGB(255, 37, 109, 133),
-                        Color.fromARGB(255, 143, 227, 207),
-                      ]),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                            child: Text(
-                          "Fill in the form to reset Your Password",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
+        child: Form(
+          key: resetpass,
+          child: GestureDetector(
+            child: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color.fromARGB(255, 0, 43, 91),
+                          Color.fromARGB(255, 43, 72, 101),
+                          Color.fromARGB(255, 37, 109, 133),
+                          Color.fromARGB(255, 143, 227, 207),
+                        ]),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, left: 20),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
                           ),
-                        )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        CustomTextField(
-                          label: "Phone Number",
-                          type: TextInputType.phone,
-                          hint: "Enter your phone number",
-                          prefixIcon: Icon(Icons.phone),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        CustomTextField(
-                            label: "Unit Number",
-                            type: TextInputType.streetAddress,
-                            hint: "Enter Your Unit Number",
-                            prefixIcon: Icon(Icons.home)),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => OtpScreen()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              color: Color(0xff3c6970),
-                              padding: EdgeInsets.all(30),
+                          Center(
                               child: Text(
-                                "Reset Password",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                            "Fill in the form to reset Your Password",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomTextField(
+                            controler: phonenum,
+                            label: "Phone Number",
+                            type: TextInputType.phone,
+                            hint: "Enter your phone number",
+                            prefixIcon: Icon(Icons.phone),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomTextField(
+                              controler: unitnum,
+                              label: "Unit Number",
+                              type: TextInputType.streetAddress,
+                              hint: "Enter Your Unit Number",
+                              prefixIcon: Icon(Icons.home)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () async {
+                                  String phone1 = phonenum.text;
+                                  String unit1 = unitnum.text;
+                                  var result = await Forgetpass(phone1, unit1);
+                                  if (result == 'failure') {
+                                    print('login failed');
+                                  } else {
+                                    print(result);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OtpScreen(),
+                                      ),
+                                    );
+                                  }
+                                  ;
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                color: Color(0xff3c6970),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "Reset Password",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white),
+                          SizedBox(
+                            height: 30,
                           ),
-                          child: Text(
-                            "Terms and Conditions Apllied.",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.white),
+                            ),
+                            child: Text(
+                              "Terms and Conditions Apllied.",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

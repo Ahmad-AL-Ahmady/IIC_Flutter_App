@@ -30,7 +30,7 @@ class _IncedentsState extends State<Incedents> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Report Incedent",
+          "Report Incident",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 2, 47, 98),
@@ -77,7 +77,7 @@ class _IncedentsState extends State<Incedents> {
                         ),
                         Center(
                             child: Text(
-                          "Report The Incedent",
+                          "Report The Iniedent",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -91,7 +91,7 @@ class _IncedentsState extends State<Incedents> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Incedent",
+                              "Inciedent",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -123,7 +123,7 @@ class _IncedentsState extends State<Incedents> {
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.all(15),
-                                    hintText: "Enter the Incedent here",
+                                    hintText: "Enter the Iniedent here",
                                     hintStyle:
                                         TextStyle(color: Colors.black38)),
                               ),
@@ -162,7 +162,7 @@ class _IncedentsState extends State<Incedents> {
                                                 BorderRadius.circular(50),
                                             color: Color(0xff3c6970)),
                                         child: Text(
-                                          "Incedent Reported",
+                                          "Incident Reported",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),

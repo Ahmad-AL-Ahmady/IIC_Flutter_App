@@ -191,7 +191,7 @@ class Dashboard extends StatelessWidget {
                               color: Color(0xff3c6970),
                               padding: EdgeInsets.all(30),
                               child: Text(
-                                "Report Incedents",
+                                "Report Incidents",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,

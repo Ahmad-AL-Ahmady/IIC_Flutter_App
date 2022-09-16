@@ -87,7 +87,7 @@ class _ChatPageState extends State<ChatPage> {
           // _handleRecievedMessages("$optionLabel ادخل $optionValue");
         }
 
-        outputToUser = outputToUser + '\n' + "ادخل رقم الختيار الذى ترغب فيه";
+        outputToUser = outputToUser + '\n' + "ادخل رقم الاختيار الذى ترغب فيه";
         _handleRecievedMessages(outputToUser);
       }
     } else {
