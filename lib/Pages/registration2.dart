@@ -266,7 +266,7 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                                         Text("Please Wait")
                                       ],
                                     )
-                                  : Text("Regiser"),
+                                  : Text("Register"),
                             ),
                           ),
                         ),
