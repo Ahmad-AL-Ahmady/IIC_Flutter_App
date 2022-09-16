@@ -81,7 +81,6 @@ class _ChatPageState extends State<ChatPage> {
         for (var i = 0; i < options.length; i++) {
           var optionLabel = options[i]['label'];
           var optionValue = options[i]['value']['input']['text'];
-          print(options[i]);
 
           outputToUser =
               outputToUser + "لإضافة $optionLabel ادخل $optionValue" + '\n';
