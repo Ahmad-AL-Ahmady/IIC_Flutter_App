@@ -152,7 +152,7 @@ class _ServicesState extends State<Services> {
                         TextFormField(
                           controller: date,
                           decoration: InputDecoration(
-                            icon: Icon(Icons.calendar_today_rounded),
+                            icon: Icon(Icons.calendar_month_rounded),
                             labelText: "Select a Date",
                           ),
                           onTap: (() async {
