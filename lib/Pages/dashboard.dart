@@ -32,9 +32,9 @@ class _DashboardState extends State<Dashboard> {
         'authorization': getStringValuesSF(),
       },
     );
-    firstname = response.body;
+    //firstname = response.body;
     if (response.statusCode == 200) {
-      return firstname;
+      //return firstname;
     } else {
       return 'failure';
     }
@@ -107,7 +107,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         Center(
                             child: Text(
-                          "Welcome $firstname",
+                          "Welcome To IIC",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
