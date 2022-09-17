@@ -54,6 +54,20 @@ Future<String> Register(String Phone, String UnitNumber) async {
   }
 }
 
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text("Error"),
+    content: Text("Invalid Phone or Unit Number"),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 class _RegistrationState extends State<Registration> {
   bool rememberpwd = false;
   bool sec = true;
@@ -259,6 +273,7 @@ class _RegistrationState extends State<Registration> {
                                   if (statues == 'failure') {
                                     print('Registration Failed');
                                     setState(() => _isloading = false);
+                                    ShowMessage(context);
                                   } else {
                                     print(statues);
                                     setState(() => _isloading = false);

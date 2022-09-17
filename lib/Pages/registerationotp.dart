@@ -36,6 +36,20 @@ Future<String> OtpRegister(String Otp, String phone) async {
   }
 }
 
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text("Error"),
+    content: Text("Invalid OTP"),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 class _RegistrationOtpState extends State<RegistrationOtp> {
   var phone;
 
@@ -163,6 +177,7 @@ class _RegistrationOtpState extends State<RegistrationOtp> {
                                   if (statues == 'failure') {
                                     print('Registration Failed');
                                     setState(() => loading = false);
+                                    ShowMessage(context);
                                   } else {
                                     print(statues);
                                     setState(() => loading = false);

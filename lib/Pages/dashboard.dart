@@ -69,7 +69,7 @@ class Dashboard extends StatelessWidget {
                         ),
                         Center(
                             child: Text(
-                          "Welcome, Resident",
+                          "Welcome in IIC",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -203,29 +203,29 @@ class Dashboard extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {},
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color(0xff3c6970),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Visitors List",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(vertical: 25),
+                        //   child: Container(
+                        //     width: 250,
+                        //     child: RaisedButton(
+                        //       onPressed: () {},
+                        //       splashColor: Colors.white,
+                        //       elevation: 20,
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(50),
+                        //       ),
+                        //       color: Color(0xff3c6970),
+                        //       padding: EdgeInsets.all(30),
+                        //       child: Text(
+                        //         "Visitors List",
+                        //         style: TextStyle(
+                        //             fontSize: 15,
+                        //             color: Colors.white,
+                        //             fontWeight: FontWeight.bold),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 5,
                         ),

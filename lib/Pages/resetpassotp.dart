@@ -36,6 +36,20 @@ Future<String> OtpReset(String Otp, String phone) async {
   }
 }
 
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text("Error"),
+    content: Text("Invalid OTP"),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 class _OtpScreenState extends State<OtpScreen> {
   var phone;
 
@@ -137,6 +151,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                     var statues = await OtpReset(otp1, phone);
                                     if (statues == 'failure') {
                                       print('Registration Failed');
+                                      ShowMessage(context);
                                     } else {
                                       print(statues);
                                       print(statues);

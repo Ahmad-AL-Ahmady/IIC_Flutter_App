@@ -25,6 +25,22 @@ class _ViolationsState extends State<Violations> {
     "Other",
   ];
   String? value;
+  void ShowMessage(BuildContext context) {
+    final alert = AlertDialog(
+      title: Text(
+        "Done",
+        textAlign: TextAlign.center,
+      ),
+      content: Text("Violation Reported"),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,29 +211,7 @@ class _ViolationsState extends State<Violations> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Dashboard()));
-                                showDialog(
-                                  barrierColor: Colors.black12.withOpacity(.6),
-                                  context: context,
-                                  builder: (_) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: Color(0xff3c6970)),
-                                        child: Text(
-                                          "Violation Reported",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
+                                ShowMessage(context);
                               },
                               splashColor: Colors.white,
                               elevation: 20,

@@ -55,6 +55,20 @@ class _ResetpasswordState extends State<Resetpassword> {
     }
   }
 
+  void ShowMessage(BuildContext context) {
+    final alert = AlertDialog(
+      title: Text("Error"),
+      content: Text("Invalid Phone or Unit Number"),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> resetpass = GlobalKey();
@@ -165,6 +179,7 @@ class _ResetpasswordState extends State<Resetpassword> {
                                   var result = await Forgetpass(phone1, unit1);
                                   if (result == 'failure') {
                                     print('login failed');
+                                    ShowMessage(context);
                                   } else {
                                     print(result);
                                     Navigator.push(

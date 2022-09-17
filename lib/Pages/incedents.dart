@@ -1,9 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dashboard.dart';
 
@@ -14,19 +18,53 @@ class Incedents extends StatefulWidget {
   State<Incedents> createState() => _IncedentsState();
 }
 
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text("Done"),
+    content: Text("Incident Reported"),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+Future<String> Incidents(String Description) async {
+  var response = await http.post(
+      Uri.https(
+          'iic-simple-toolchain-20220912122755303.mybluemix.net', '/api/v1/'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({"decription": Description}));
+  print(Description);
+  var data = response.body;
+
+  print("======================");
+  print(data);
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return 'failure';
+  }
+}
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  return token;
+}
+
 class _IncedentsState extends State<Incedents> {
   final incedent = TextEditingController();
-  final items = [
-    "Building Violation",
-    "Property Maintenance",
-    "Housing Violation",
-    "Public Area Violation",
-    "Other",
-  ];
-  String? value;
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> inc = GlobalKey();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -77,7 +115,7 @@ class _IncedentsState extends State<Incedents> {
                         ),
                         Center(
                             child: Text(
-                          "Report The Iniedent",
+                          "Report The Inciedent",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -115,6 +153,13 @@ class _IncedentsState extends State<Incedents> {
                               child: TextFormField(
                                 minLines: 1,
                                 maxLines: 10,
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please Enter The Incident Description";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                                 controller: incedent,
                                 keyboardType: TextInputType.text,
                                 style: TextStyle(
@@ -141,34 +186,12 @@ class _IncedentsState extends State<Incedents> {
                           child: Container(
                             width: 250,
                             child: RaisedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Dashboard()));
-                                showDialog(
-                                  barrierColor: Colors.black12.withOpacity(.6),
-                                  context: context,
-                                  builder: (_) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: Color(0xff3c6970)),
-                                        child: Text(
-                                          "Incident Reported",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
+                                ShowMessage(context);
                               },
                               splashColor: Colors.white,
                               elevation: 20,

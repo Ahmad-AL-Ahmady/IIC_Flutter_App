@@ -44,6 +44,20 @@ Future<String> LOGIN(String email, String password) async {
   }
 }
 
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text("Error"),
+    content: Text("Invalid Email or Password"),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 addStringToSF(String token2) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('token', token2);
@@ -215,6 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (result == 'failure') {
                                     print('login failed');
                                     setState(() => _isloading = false);
+                                    ShowMessage(context);
                                   } else {
                                     print(result);
                                     setState(() => _isloading = false);

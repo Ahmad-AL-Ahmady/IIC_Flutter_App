@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:login_app/Pages/globels.dart';
 import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
 import 'dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class Services extends StatefulWidget {
@@ -14,6 +16,29 @@ class Services extends StatefulWidget {
 
   @override
   State<Services> createState() => _ServicesState();
+}
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  return token;
+}
+
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text(
+      "Done",
+      textAlign: TextAlign.center,
+    ),
+    content: Text("Service Requested"),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
 
 class _ServicesState extends State<Services> {
@@ -160,29 +185,7 @@ class _ServicesState extends State<Services> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Dashboard()));
-                                showDialog(
-                                  barrierColor: Colors.black12.withOpacity(.6),
-                                  context: context,
-                                  builder: (_) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: 50,
-                                        width: 30,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: Color(0xff3c6970)),
-                                        child: Text(
-                                          "Service Requested",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
+                                ShowMessage(context);
                               },
                               splashColor: Colors.white,
                               elevation: 20,
