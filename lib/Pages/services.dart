@@ -17,7 +17,7 @@ class Services extends StatefulWidget {
 }
 
 class _ServicesState extends State<Services> {
-  final date = TextEditingController();
+  TextEditingController date = TextEditingController();
   final items = ["Electricity", "Plumbing", "Gardening"];
   String? value;
 
@@ -124,12 +124,28 @@ class _ServicesState extends State<Services> {
                         SizedBox(
                           height: 30,
                         ),
-                        CustomTextField(
-                          label: "Date of Request",
-                          type: TextInputType.datetime,
-                          controler: date,
-                          hint: "Enter Desired Date",
-                          prefixIcon: Icon(Icons.date_range_outlined),
+                        TextFormField(
+                          controller: date,
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.calendar_today_rounded),
+                            labelText: "Select a Date",
+                          ),
+                          onTap: (() async {
+                            DateTime? pickeddate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickeddate != null) {
+                              setState(
+                                () {
+                                  date.text = DateFormat('yyyy-MM-dd')
+                                      .format(pickeddate);
+                                },
+                              );
+                            }
+                          }),
                         ),
                         SizedBox(
                           height: 30,
