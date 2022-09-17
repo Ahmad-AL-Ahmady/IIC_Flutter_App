@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/incedents.dart';
@@ -8,10 +10,46 @@ import 'package:login_app/Pages/services.dart';
 import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
 import 'package:login_app/UI/custom_text_field.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  String? firstname;
+  Dashboard({
+    this.firstname = "...",
+  });
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  Future<String?> FirstName() async {
+    var response = await http.get(
+      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+          '/api/v1/getFirstName'),
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': getStringValuesSF(),
+      },
+    );
+    firstname = response.body;
+    if (response.statusCode == 200) {
+      return firstname;
+    } else {
+      return 'failure';
+    }
+  }
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    return token;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +107,7 @@ class Dashboard extends StatelessWidget {
                         ),
                         Center(
                             child: Text(
-                          "Welcome in IIC",
+                          "Welcome $firstname",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
