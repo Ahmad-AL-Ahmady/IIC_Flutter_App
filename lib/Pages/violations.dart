@@ -1,9 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dashboard.dart';
 
@@ -17,14 +21,15 @@ class Violations extends StatefulWidget {
 class _ViolationsState extends State<Violations> {
   final violation = TextEditingController();
   final unitCode = TextEditingController();
-  final items = [
+  final List<String> items = [
     "Building Violation",
     "Property Maintenance",
     "Housing Violation",
     "Public Area Violation",
     "Other",
   ];
-  String? value;
+  // String? value;
+  String value = "Building Violation";
   void ShowMessage(BuildContext context) {
     final alert = AlertDialog(
       title: Text(
@@ -40,6 +45,34 @@ class _ViolationsState extends State<Violations> {
         return alert;
       },
     );
+  }
+
+  Future<String> reportViolation(
+      String _description, String _category, String _unitCode) async {
+    var response = await http.post(
+        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+            '/api/v1/reportViolation'),
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': await getStringValuesSF()
+        },
+        body: jsonEncode({
+          "description": _description,
+          "category": _category,
+          "unitCode": _unitCode
+        }));
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return 'failure';
+    }
+  }
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    return token;
   }
 
   @override
@@ -137,8 +170,7 @@ class _ViolationsState extends State<Violations> {
                               isExpanded: true,
                               dropdownColor: Colors.white,
                               items: items.map(buildMenuItem).toList(),
-                              onChanged: (value) =>
-                                  setState(() => this.value = value),
+                              onChanged: (inp) => setState(() => value = inp!),
                             ),
                           ),
                         ),
@@ -206,12 +238,19 @@ class _ViolationsState extends State<Violations> {
                           child: Container(
                             width: 250,
                             child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Dashboard()));
-                                ShowMessage(context);
+                              onPressed: () async {
+                                String result = await reportViolation(
+                                    violation.text, value, unitCode.text);
+                                if (result == "failure") {
+                                  print("Error");
+                                  return;
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Dashboard()));
+                                  ShowMessage(context);
+                                }
                               },
                               splashColor: Colors.white,
                               elevation: 20,
