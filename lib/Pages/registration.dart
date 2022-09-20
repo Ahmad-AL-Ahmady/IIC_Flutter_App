@@ -97,7 +97,7 @@ class _RegistrationState extends State<Registration> {
           "Registration Page",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: const Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 100,
         elevation: 0,
@@ -120,13 +120,12 @@ class _RegistrationState extends State<Registration> {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                       colors: [
-                        const Color.fromARGB(255, 0, 43, 91),
-                        Color.fromARGB(255, 43, 72, 101),
-                        const Color.fromARGB(255, 37, 109, 133),
-                        const Color.fromARGB(255, 143, 227, 207),
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
                       ]),
                 ),
                 child: Padding(
@@ -245,7 +244,7 @@ class _RegistrationState extends State<Registration> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                primary: Color(0xff3c6970),
+                                primary: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                               ),
                               child: _isloading

@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'login.dart';
 import 'registration.dart';
 
@@ -30,10 +31,9 @@ class _homepageState extends State<homepage> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromARGB(255, 0, 43, 91),
-                        Color.fromARGB(255, 43, 72, 101),
-                        Color.fromARGB(255, 37, 109, 133),
-                        Color.fromARGB(255, 143, 227, 207),
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
                       ]),
                 ),
                 child: Padding(
@@ -90,7 +90,7 @@ class _homepageState extends State<homepage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
-                              color: Color(0xff3c6970),
+                              color: Color.fromARGB(255, 34, 141, 203),
                               padding: EdgeInsets.all(30),
                               child: Text(
                                 "Login",
@@ -124,7 +124,7 @@ class _homepageState extends State<homepage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
-                              color: Color(0xff3c6970),
+                              color: Color.fromARGB(255, 34, 141, 203),
                               padding: EdgeInsets.all(30),
                               child: Text(
                                 "Register",
