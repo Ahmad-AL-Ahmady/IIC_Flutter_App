@@ -27,7 +27,7 @@ Future<String> Send(String date, String type) async {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),
       },
-      body: jsonEncode({"type": type, "dateOfRequest": date}));
+      body: jsonEncode({"serviceType": type, "dateOfRequest": date}));
   print(type);
   print(date);
   var token = response.body;
@@ -218,22 +218,24 @@ class _ServicesState extends State<Services> {
                               width: 250,
                               child: RaisedButton(
                                 onPressed: () async {
-                                  String? _type = value;
-                                  String date1 = date.text;
-                                  var result = await Send(_type!, date1);
-                                  if (result == 'failure') {
-                                    print('login failed');
-                                  } else {
-                                    print(result);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Dashboard(),
-                                      ),
-                                    );
-                                    ShowMessage(context);
+                                  if (servicekey.currentState!.validate()) {
+                                    String? _type = value;
+                                    String date1 = date.text;
+                                    var result = await Send(_type!, date1);
+                                    if (result == 'failure') {
+                                      print('login failed');
+                                    } else {
+                                      print(result);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Dashboard(),
+                                        ),
+                                      );
+                                      ShowMessage(context);
+                                    }
+                                    ;
                                   }
-                                  ;
                                 },
                                 splashColor: Colors.white,
                                 elevation: 20,
