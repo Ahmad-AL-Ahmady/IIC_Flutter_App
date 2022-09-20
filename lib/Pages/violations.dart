@@ -84,7 +84,7 @@ class _ViolationsState extends State<Violations> {
           "Report Violations",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 100,
         elevation: 0,
@@ -112,10 +112,9 @@ class _ViolationsState extends State<Violations> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromARGB(255, 0, 43, 91),
-                        Color.fromARGB(255, 43, 72, 101),
-                        Color.fromARGB(255, 37, 109, 133),
-                        Color.fromARGB(255, 143, 227, 207),
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
                       ],
                     ),
                   ),
@@ -257,17 +256,20 @@ class _ViolationsState extends State<Violations> {
                               width: 250,
                               child: RaisedButton(
                                 onPressed: () async {
-                                  String result = await reportViolation(
-                                      violation.text, value, unitCode.text);
-                                  if (result == "failure") {
-                                    print("Error");
-                                    return;
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Dashboard()));
-                                    ShowMessage(context);
+                                  if (violationKey.currentState!.validate()) {
+                                    String result = await reportViolation(
+                                        violation.text, value, unitCode.text);
+                                    if (result == "failure") {
+                                      print("Error");
+                                      return;
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Dashboard()));
+                                      ShowMessage(context);
+                                    }
                                   }
                                 },
                                 splashColor: Colors.white,
@@ -275,7 +277,7 @@ class _ViolationsState extends State<Violations> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                color: Color(0xff3c6970),
+                                color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
                                   "Report",

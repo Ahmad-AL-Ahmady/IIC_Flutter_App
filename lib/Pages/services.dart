@@ -69,6 +69,7 @@ class _ServicesState extends State<Services> {
   TextEditingController date = TextEditingController();
   final items = ["Electricity", "Plumbing", "Gardening"];
   String? value;
+  String? Date;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class _ServicesState extends State<Services> {
           "Service Ticketing",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 100,
         elevation: 0,
@@ -108,10 +109,9 @@ class _ServicesState extends State<Services> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromARGB(255, 0, 43, 91),
-                        Color.fromARGB(255, 43, 72, 101),
-                        Color.fromARGB(255, 37, 109, 133),
-                        Color.fromARGB(255, 143, 227, 207),
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
                       ],
                     ),
                   ),
@@ -159,14 +159,14 @@ class _ServicesState extends State<Services> {
                                 hint: Text(
                                   "Choose Service",
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 166, 163, 163),
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                       fontWeight: FontWeight.bold),
                                 ),
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 166, 163, 163)),
+                                    color: Color.fromARGB(255, 255, 255, 255)),
                                 icon: Icon(
                                   Icons.arrow_drop_down,
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 166, 163, 163),
                                 ),
                                 isExpanded: true,
                                 dropdownColor: Colors.white,
@@ -199,6 +199,7 @@ class _ServicesState extends State<Services> {
                                 firstDate: DateTime(2000),
                                 lastDate: DateTime(2101),
                               );
+                              Date = pickeddate as String;
                               if (pickeddate != null) {
                                 setState(
                                   () {
@@ -220,8 +221,8 @@ class _ServicesState extends State<Services> {
                                 onPressed: () async {
                                   if (servicekey.currentState!.validate()) {
                                     String? _type = value;
-                                    String date1 = date.text;
-                                    var result = await Send(_type!, date1);
+                                    String? date1 = Date;
+                                    var result = await Send(_type!, date1!);
                                     if (result == 'failure') {
                                       print('login failed');
                                     } else {
@@ -242,7 +243,7 @@ class _ServicesState extends State<Services> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                color: Color(0xff3c6970),
+                                color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
                                   "Request",

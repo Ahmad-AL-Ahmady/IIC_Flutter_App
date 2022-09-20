@@ -57,7 +57,7 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
           "Reset Password",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 100,
         elevation: 0,
@@ -81,13 +81,12 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                         colors: [
-                          Color.fromARGB(255, 0, 43, 91),
-                          Color.fromARGB(255, 43, 72, 101),
-                          Color.fromARGB(255, 37, 109, 133),
-                          Color.fromARGB(255, 143, 227, 207),
+                          Color.fromARGB(255, 0, 144, 201),
+                          Color.fromARGB(255, 103, 204, 255),
+                          Color.fromARGB(252, 201, 229, 255),
                         ]),
                   ),
                   child: Padding(
@@ -160,7 +159,6 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                               child: RaisedButton(
                                 onPressed: () async {
                                   if (resetpass.currentState!.validate()) {
-                                    // TODO: register the user data
                                     var token2 = await ResetPassFinal(
                                         password.text, this.phone, this.token);
 
@@ -180,7 +178,7 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                color: Color(0xff3c6970),
+                                color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
                                   "Reset Password",
