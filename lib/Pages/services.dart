@@ -27,7 +27,7 @@ Future<String> Send(String date, String type) async {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),
       },
-      body: jsonEncode({"type": type, "dateOfRequest": date}));
+      body: jsonEncode({"serviceType": type, "dateOfRequest": date}));
   print(type);
   print(date);
   var token = response.body;
