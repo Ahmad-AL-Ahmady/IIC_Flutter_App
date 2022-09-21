@@ -65,7 +65,7 @@ class _QrCodeState extends State<QrCode> {
           "Dashboard",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 200,
         elevation: 0,
@@ -77,7 +77,7 @@ class _QrCodeState extends State<QrCode> {
             prefs.setString('token', "");
           },
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Sign Out'),
+          label: const Text('Back'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),
@@ -93,12 +93,11 @@ class _QrCodeState extends State<QrCode> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
-                    end: Alignment.bottomLeft,
+                    end: Alignment.bottomCenter,
                     colors: [
-                      Color.fromARGB(255, 0, 43, 91),
-                      Color.fromARGB(255, 43, 72, 101),
-                      Color.fromARGB(255, 37, 109, 133),
-                      Color.fromARGB(255, 143, 227, 207),
+                      Color.fromARGB(255, 0, 144, 201),
+                      Color.fromARGB(255, 103, 204, 255),
+                      Color.fromARGB(252, 201, 229, 255),
                     ],
                   ),
                 ),

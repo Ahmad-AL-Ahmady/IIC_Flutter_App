@@ -193,18 +193,6 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                           SizedBox(
                             height: 30,
                           ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Text(
-                              "Terms and Conditions Apllied.",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                          ),
                           SizedBox(
                             height: 10,
                           )

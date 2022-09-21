@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+import 'dart:math';
 import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,9 +20,11 @@ class Incedents extends StatefulWidget {
 }
 
 void ShowMessage(BuildContext context) {
+  Random random = new Random();
+  late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
     title: Text("Done"),
-    content: Text("Incident Reported"),
+    content: Text("Incident Reported, Refrence Number ($randomNumber)"),
   );
 
   showDialog(
@@ -32,19 +35,20 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-Future<String> Incidents(String Description) async {
+Future<String> ReortIncident(String _description) async {
   var response = await http.post(
-      Uri.https(
-          'iic-simple-toolchain-20220912122755303.mybluemix.net', '/api/v1/'),
-      headers: {
-        'Content-Type': 'application/json',
+    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+        '/api/v1/reportViolation'),
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': await getStringValuesSF()
+    },
+    body: jsonEncode(
+      {
+        "description": _description,
       },
-      body: jsonEncode({"decription": Description}));
-  print(Description);
-  var data = response.body;
-
-  print("======================");
-  print(data);
+    ),
+  );
 
   if (response.statusCode == 200) {
     return response.body;
@@ -57,6 +61,33 @@ getStringValuesSF() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
   return token;
+}
+
+Future<String> Incidents(String Description) async {
+  var response = await http.post(
+    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+        '/api/v1/reportIncident'),
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': await getStringValuesSF(),
+    },
+    body: jsonEncode(
+      {
+        "decription": Description,
+      },
+    ),
+  );
+
+  print(Description);
+  var data = response.body;
+  print("======================");
+  print(data);
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return 'failure';
+  }
 }
 
 class _IncedentsState extends State<Incedents> {
@@ -169,7 +200,7 @@ class _IncedentsState extends State<Incedents> {
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       contentPadding: EdgeInsets.all(15),
-                                      hintText: "Enter the Iniedent here",
+                                      hintText: "Enter the Incident here",
                                       hintStyle:
                                           TextStyle(color: Colors.black38)),
                                 ),
@@ -189,17 +220,22 @@ class _IncedentsState extends State<Incedents> {
                               child: RaisedButton(
                                 onPressed: () async {
                                   if (inc.currentState!.validate()) {
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 1500), () {
-                                      setState(() {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Dashboard()));
-                                      });
-                                    });
-                                    ShowMessage(context);
+                                    String Description = incedent.text;
+                                    var result =
+                                        await ReortIncident(Description);
+                                    if (result == 'failure') {
+                                      print('Reporting Failed');
+                                    } else {
+                                      print(result);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Dashboard(),
+                                        ),
+                                      );
+                                      ShowMessage(context);
+                                    }
+                                    ;
                                   }
                                 },
                                 splashColor: Colors.white,
@@ -221,18 +257,6 @@ class _IncedentsState extends State<Incedents> {
                           ),
                           SizedBox(
                             height: 30,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Text(
-                              "Terms and Conditions Apply.",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
                           ),
                         ],
                       ),

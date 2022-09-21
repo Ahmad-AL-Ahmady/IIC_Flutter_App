@@ -292,17 +292,6 @@ class _RegistrationState extends State<Registration> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: const Text(
-                              "Terms and Conditions Apllied.",
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            )),
                         const SizedBox(
                           height: 20,
                         )

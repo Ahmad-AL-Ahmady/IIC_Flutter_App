@@ -60,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
           "Dashboard",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 200,
         elevation: 0,
@@ -74,7 +74,9 @@ class _DashboardState extends State<Dashboard> {
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('Sign Out'),
           style: ElevatedButton.styleFrom(
-              elevation: 0, primary: Colors.transparent),
+            elevation: 0,
+            primary: Color.fromARGB(0, 34, 141, 203),
+          ),
         ),
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -88,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
-                    end: Alignment.bottomLeft,
+                    end: Alignment.bottomCenter,
                     colors: [
                       Color.fromARGB(255, 0, 144, 201),
                       Color.fromARGB(255, 103, 204, 255),
@@ -257,7 +259,7 @@ class _DashboardState extends State<Dashboard> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              color: Color(0xff3c6970),
+                              color: Color.fromARGB(255, 34, 141, 203),
                               padding: EdgeInsets.all(30),
                               child: Text(
                                 "Generate QR Code",
@@ -271,17 +273,6 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         SizedBox(
                           height: 5,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white),
-                          ),
-                          child: Text(
-                            "Terms and Conditions Apllied.",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          ),
                         ),
                         SizedBox(
                           height: 5,
