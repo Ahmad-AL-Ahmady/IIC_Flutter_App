@@ -232,10 +232,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   } else {
                                     print(result);
                                     setState(() => _isloading = false);
-                                    Navigator.push(
-                                        context,
+                                    Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
-                                            builder: (context) => Dashboard()));
+                                            builder: (context) => Dashboard()),
+                                        (route) => route.isFirst);
                                   }
                                 }
                                 ;
