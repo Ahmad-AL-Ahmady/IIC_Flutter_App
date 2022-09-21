@@ -237,7 +237,7 @@ class _ViolationsState extends State<Violations> {
                             label: "Unit code",
                             type: TextInputType.streetAddress,
                             controler: unitCode,
-                            hint: "Enter Unit Code Of who did it",
+                            hint: "Enter Unit Number",
                             prefixIcon: Icon(Icons.home),
                             validation: (String? value) {
                               if (value == null || value.isEmpty) {

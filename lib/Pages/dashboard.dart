@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/QR_code.dart';
 import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
@@ -273,6 +274,34 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         SizedBox(
                           height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: Container(
+                            width: 250,
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Payment()));
+                              },
+                              splashColor: Colors.white,
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              color: Color.fromARGB(255, 34, 141, 203),
+                              padding: EdgeInsets.all(30),
+                              child: Text(
+                                "Payment",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 5,
