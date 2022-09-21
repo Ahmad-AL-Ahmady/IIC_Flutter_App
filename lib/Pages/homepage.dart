@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 import 'registration.dart';
 
@@ -15,6 +16,11 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
