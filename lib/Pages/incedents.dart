@@ -38,7 +38,7 @@ void ShowMessage(BuildContext context) {
 Future<String> ReortIncident(String _description) async {
   var response = await http.post(
     Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/reportViolation'),
+        '/api/v1/reportIncident'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -63,7 +63,7 @@ getStringValuesSF() async {
   return token;
 }
 
-Future<String> Incidents(String Description) async {
+Future<String> Incidents(String description) async {
   var response = await http.post(
     Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
         '/api/v1/reportIncident'),
@@ -73,12 +73,12 @@ Future<String> Incidents(String Description) async {
     },
     body: jsonEncode(
       {
-        "decription": Description,
+        "decription": description,
       },
     ),
   );
 
-  print(Description);
+  print(description);
   var data = response.body;
   print("======================");
   print(data);
@@ -270,15 +270,4 @@ class _IncedentsState extends State<Incedents> {
       ),
     );
   }
-
-  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-      );
 }
