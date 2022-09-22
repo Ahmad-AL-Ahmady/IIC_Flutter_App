@@ -164,10 +164,10 @@ class _ViolationsState extends State<Violations> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 166, 163, 163)),
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                                 icon: Icon(
                                   Icons.arrow_drop_down,
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                                 isExpanded: true,
                                 dropdownColor: Colors.white,
@@ -237,7 +237,7 @@ class _ViolationsState extends State<Violations> {
                             label: "Unit code",
                             type: TextInputType.streetAddress,
                             controler: unitCode,
-                            hint: "Enter Unit Code Of who did it",
+                            hint: "Enter Unit Number",
                             prefixIcon: Icon(Icons.home),
                             validation: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -291,18 +291,6 @@ class _ViolationsState extends State<Violations> {
                           ),
                           SizedBox(
                             height: 30,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Text(
-                              "Terms and Conditions Apllied.",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
                           ),
                         ],
                       ),

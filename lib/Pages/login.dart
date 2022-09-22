@@ -2,15 +2,15 @@
 
 //import 'dart:ffi';
 //import 'dart:js';
+import 'package:login_app/Pages/ResetPassword/resetpassword.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'package:login_app/Pages/homepage.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
-import 'resetpassword.dart';
+import 'package:login_app/Pages/ResetPassword/resetpassword.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login_app/Pages/resetpassword.dart';
 import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'globels.dart' as globels;
@@ -232,10 +232,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   } else {
                                     print(result);
                                     setState(() => _isloading = false);
-                                    Navigator.push(
-                                        context,
+                                    Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
-                                            builder: (context) => Dashboard()));
+                                            builder: (context) => Dashboard()),
+                                        (route) => route.isFirst);
                                   }
                                 }
                                 ;
@@ -246,17 +246,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Text(
-                              "Terms and Conditions Apllied.",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )),
                         SizedBox(
                           height: 10,
                         )

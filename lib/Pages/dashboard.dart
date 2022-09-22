@@ -2,12 +2,14 @@
 
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/QR_code.dart';
+import 'package:login_app/Pages/ServiceTicketing.dart';
 import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
-import 'package:login_app/Pages/services.dart';
 import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
 import 'package:login_app/UI/custom_text_field.dart';
@@ -50,17 +52,60 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    _checkDeviceNotificationToken();
+  }
+
+  _checkDeviceNotificationToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    //TODO:: send token to backend to save with user
+    await sendTokentToBackend(token);
+    FirebaseMessaging.instance.onTokenRefresh.listen((event) {
+      sendTokentToBackend(event);
+    });
+  }
+
+  Future<String> sendTokentToBackend(String? token) async {
+    var response = await http.post(
+        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+            '/api/v1/register/unitAndPhone'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'Token': token}));
+
+    var data = response.body;
+
+    print("======================");
+
+    if (response.statusCode == 200) {
+      print("token has been sent sucessfuly");
+      return response.body;
+    } else {
+      return 'failure';
+    }
+  }
+
+  _checkNotificationMsg() {
+    SharedPreferences.getInstance().then((value) {
+      bool isPressed = value.getBool("notification_pressed") ?? false;
+      if (isPressed) {
+        value.remove("notification_pressed");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ChatPage()));
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    _checkNotificationMsg();
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Dashboard",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
         automaticallyImplyLeading: false,
         leadingWidth: 200,
         elevation: 0,
@@ -74,7 +119,9 @@ class _DashboardState extends State<Dashboard> {
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('Sign Out'),
           style: ElevatedButton.styleFrom(
-              elevation: 0, primary: Colors.transparent),
+            elevation: 0,
+            primary: Color.fromARGB(0, 34, 141, 203),
+          ),
         ),
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -88,7 +135,7 @@ class _DashboardState extends State<Dashboard> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
-                    end: Alignment.bottomLeft,
+                    end: Alignment.bottomCenter,
                     colors: [
                       Color.fromARGB(255, 0, 144, 201),
                       Color.fromARGB(255, 103, 204, 255),
@@ -157,7 +204,8 @@ class _DashboardState extends State<Dashboard> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Services()));
+                                        builder: (context) =>
+                                            ServiceTicketing()));
                               },
                               splashColor: Colors.white,
                               elevation: 20,
@@ -257,7 +305,7 @@ class _DashboardState extends State<Dashboard> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              color: Color(0xff3c6970),
+                              color: Color.fromARGB(255, 34, 141, 203),
                               padding: EdgeInsets.all(30),
                               child: Text(
                                 "Generate QR Code",
@@ -272,15 +320,32 @@ class _DashboardState extends State<Dashboard> {
                         SizedBox(
                           height: 5,
                         ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white),
-                          ),
-                          child: Text(
-                            "Terms and Conditions Apllied.",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: Container(
+                            width: 250,
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Payment()));
+                              },
+                              splashColor: Colors.white,
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              color: Color.fromARGB(255, 34, 141, 203),
+                              padding: EdgeInsets.all(30),
+                              child: Text(
+                                "Payment",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(

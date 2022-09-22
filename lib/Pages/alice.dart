@@ -35,7 +35,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _loadMessages();
-    sendText('اهلا');
+    sendText("اهلا");
   }
 
   getStringValuesSF() async {
@@ -87,7 +87,7 @@ class _ChatPageState extends State<ChatPage> {
           // _handleRecievedMessages("$optionLabel ادخل $optionValue");
         }
 
-        outputToUser = outputToUser + '\n' + "ادخل رقم الاختيار الذى ترغب فيه";
+        outputToUser = outputToUser + '\n' + "ادخل رقم الاختيار الذى ترغب به";
         _handleRecievedMessages(outputToUser);
       }
     } else {

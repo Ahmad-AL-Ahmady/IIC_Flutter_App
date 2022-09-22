@@ -4,8 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:login_app/Pages/Registration/registration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
-import 'registration.dart';
+import 'package:login_app/Pages/Registration/registration.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -15,6 +17,11 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,17 +146,6 @@ class _homepageState extends State<homepage> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Text(
-                              "Terms and Conditions Apllied.",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ))
                       ],
                     ),
                   ),
