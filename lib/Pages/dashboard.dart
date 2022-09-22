@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/QR_code.dart';
+import 'package:login_app/Pages/ServiceTicketing.dart';
 import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/services.dart';
@@ -160,7 +161,8 @@ class _DashboardState extends State<Dashboard> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Services()));
+                                        builder: (context) =>
+                                            ServiceTicketing()));
                               },
                               splashColor: Colors.white,
                               elevation: 20,

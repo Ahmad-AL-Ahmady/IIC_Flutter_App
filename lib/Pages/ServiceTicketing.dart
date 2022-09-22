@@ -1,87 +1,81 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:intl/intl.dart';
+import 'package:login_app/Pages/globels.dart';
 import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
-class Violations extends StatefulWidget {
-  const Violations({Key? key}) : super(key: key);
+class ServiceTicketing extends StatefulWidget {
+  const ServiceTicketing({Key? key}) : super(key: key);
 
   @override
-  State<Violations> createState() => _ViolationsState();
+  State<ServiceTicketing> createState() => _ServiceTicketingState();
 }
 
-class _ViolationsState extends State<Violations> {
-  final violation = TextEditingController();
-  final unitCode = TextEditingController();
-  final List<String> items = [
-    "Building Violation",
-    "Property Maintenance",
-    "Housing Violation",
-    "Public Area Violation",
-    "Other",
-  ];
-  // String? value;
-  String value = "Building Violation";
-  void ShowMessage(BuildContext context) {
-    final alert = AlertDialog(
-      title: Text(
-        "Done",
-        textAlign: TextAlign.center,
-      ),
-      content: Text("Violation Reported"),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
+Future<String> Send(String date, String type) async {
+  var response = await http.post(
+      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+          '/api/v1/requestService'),
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': await getStringValuesSF(),
       },
-    );
+      body: jsonEncode({"serviceType": type, "dateOfRequest": date}));
+  print(type);
+  print(date);
+  var token = response.body;
+
+  print("======================");
+  print(token); // THIS IS THE TOKEN
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return 'failure';
   }
+}
 
-  Future<String> reportViolation(
-      String _description, String _category, String _unitCode) async {
-    var response = await http.post(
-        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-            '/api/v1/reportViolation'),
-        headers: {
-          'Content-Type': 'application/json',
-          'authorization': await getStringValuesSF()
-        },
-        body: jsonEncode({
-          "description": _description,
-          "category": _category,
-          "unitCode": _unitCode
-        }));
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  return token;
+}
 
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      return 'failure';
-    }
-  }
+void ShowMessage(BuildContext context) {
+  final alert = AlertDialog(
+    title: Text(
+      "Done",
+      textAlign: TextAlign.center,
+    ),
+    content: Text("Service Requested"),
+  );
 
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-    return token;
-  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 
+class _ServiceTicketingState extends State<ServiceTicketing> {
+  final List<String> items = ["Electricity", "Plumbing", "Gardening"];
+  String value = "Electricity";
+  final date = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> violationKey = GlobalKey();
+    GlobalKey<FormState> _Service = GlobalKey();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Report Violations",
+          "Service Ticketing",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -100,7 +94,7 @@ class _ViolationsState extends State<Violations> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Form(
-          key: violationKey,
+          key: _Service,
           child: GestureDetector(
             child: Stack(
               children: [
@@ -129,12 +123,12 @@ class _ViolationsState extends State<Violations> {
                           ),
                           Center(
                               child: Text(
-                            "Report The Violation",
+                            "Choose the Service You Desire",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                            ),
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                           )),
                           SizedBox(
                             height: 20,
@@ -180,72 +174,38 @@ class _ViolationsState extends State<Violations> {
                           SizedBox(
                             height: 30,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Violation",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                height: 100,
-                                alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffebefff),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        offset: Offset(0, 2),
-                                      )
-                                    ]),
-                                child: TextFormField(
-                                  validator: (String? value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "please enter a valid Text";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  minLines: 1,
-                                  maxLines: 10,
-                                  controller: violation,
-                                  keyboardType: TextInputType.text,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.all(15),
-                                      hintText: "Enter the Violation here",
-                                      hintStyle:
-                                          TextStyle(color: Colors.black38)),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          CustomTextField(
-                            label: "Unit code",
-                            type: TextInputType.streetAddress,
-                            controler: unitCode,
-                            hint: "Enter Unit Number",
-                            prefixIcon: Icon(Icons.home),
-                            validation: (String? value) {
+                          TextFormField(
+                            validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return "please enter a valid unit number";
+                                print("null choice");
+                                return "please enter a valid date";
                               } else {
                                 return null;
                               }
                             },
+                            controller: date,
+                            decoration: InputDecoration(
+                              icon: Icon(Icons.calendar_month_rounded),
+                              labelText: "Select a Date",
+                            ),
+                            onTap: (() async {
+                              DateTime? pickeddate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2101),
+                              );
+                              if (pickeddate != null) {
+                                setState(
+                                  () {
+                                    date.text = DateFormat('yyyy-MM-dd')
+                                        .format(pickeddate);
+                                  },
+                                );
+                              } else {
+                                print('Failure');
+                              }
+                            }),
                           ),
                           SizedBox(
                             height: 30,
@@ -256,20 +216,23 @@ class _ViolationsState extends State<Violations> {
                               width: 250,
                               child: RaisedButton(
                                 onPressed: () async {
-                                  if (violationKey.currentState!.validate()) {
-                                    String result = await reportViolation(
-                                        violation.text, value, unitCode.text);
-                                    if (result == "failure") {
-                                      print("Error");
-                                      return;
+                                  if (_Service.currentState!.validate()) {
+                                    String? _type = value;
+                                    String? date1 = date.text;
+                                    var result = await Send(date1, _type);
+                                    if (result == 'failure') {
+                                      print('login failed');
                                     } else {
+                                      print(result);
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Dashboard()));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Dashboard(),
+                                        ),
+                                      );
                                       ShowMessage(context);
                                     }
+                                    ;
                                   }
                                 },
                                 splashColor: Colors.white,
@@ -280,7 +243,7 @@ class _ViolationsState extends State<Violations> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "Report",
+                                  "Request",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
