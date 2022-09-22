@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
@@ -10,11 +11,11 @@ import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Electricity extends StatefulWidget {
-  const Electricity({Key? key}) : super(key: key);
+class Maintenance extends StatefulWidget {
+  const Maintenance({Key? key}) : super(key: key);
 
   @override
-  State<Electricity> createState() => _ElectricityState();
+  State<Maintenance> createState() => _MaintenanceState();
 }
 
 void ShowMessage(BuildContext context) {
@@ -22,7 +23,7 @@ void ShowMessage(BuildContext context) {
   late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
     title: Text("Done"),
-    content: Text("Electricity Paid"),
+    content: Text("Mintenance Paid"),
   );
 
   showDialog(
@@ -33,16 +34,45 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-class _ElectricityState extends State<Electricity> {
-  TextEditingController amount = TextEditingController();
+Future<String> PayMaintenance(int amount) async {
+  var response = await http.post(
+    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+        '/api/v1/======='),
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': await getStringValuesSF()
+    },
+    body: jsonEncode(
+      {
+        "amount": amount,
+      },
+    ),
+  );
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return 'failure';
+  }
+}
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  return token;
+}
+
+class _MaintenanceState extends State<Maintenance> {
+  final amount = TextEditingController();
   TextEditingController credit = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> ElectricityKey = GlobalKey();
+    GlobalKey<FormState> MaintenanceKey = GlobalKey();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Electricity",
+          "Maintenance",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -61,7 +91,7 @@ class _ElectricityState extends State<Electricity> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Form(
-          key: ElectricityKey,
+          key: MaintenanceKey,
           child: GestureDetector(
             child: Stack(
               children: [
@@ -90,7 +120,7 @@ class _ElectricityState extends State<Electricity> {
                           ),
                           Center(
                             child: Text(
-                              "Electricity",
+                              "Maintenance",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
@@ -139,18 +169,22 @@ class _ElectricityState extends State<Electricity> {
                               width: 250,
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  if (ElectricityKey.currentState!.validate()) {
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 1500), () {
-                                      setState(() {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Dashboard()));
-                                      });
-                                    });
-                                    ShowMessage(context);
+                                  if (MaintenanceKey.currentState!.validate()) {
+                                    int _amount = amount.hashCode;
+                                    var result = await PayMaintenance(_amount);
+                                    if (result == 'failure') {
+                                      print('Reporting Failed');
+                                    } else {
+                                      print(result);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Dashboard(),
+                                        ),
+                                      );
+                                      ShowMessage(context);
+                                    }
+                                    ;
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

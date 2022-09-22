@@ -3,9 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:login_app/Pages/dashboard.dart';
 import 'package:login_app/Pages/globels.dart';
-import 'package:login_app/Pages/registerationotp.dart';
-import 'package:login_app/Pages/registration2.dart';
-import 'package:login_app/Pages/resetpassotp.dart';
+import 'package:login_app/Pages//ResetPassword/resetpassotp.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';

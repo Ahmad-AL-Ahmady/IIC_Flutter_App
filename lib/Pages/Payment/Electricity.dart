@@ -10,11 +10,11 @@ import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Gardening extends StatefulWidget {
-  const Gardening({Key? key}) : super(key: key);
+class Electricity extends StatefulWidget {
+  const Electricity({Key? key}) : super(key: key);
 
   @override
-  State<Gardening> createState() => _GardeningState();
+  State<Electricity> createState() => _ElectricityState();
 }
 
 void ShowMessage(BuildContext context) {
@@ -22,7 +22,7 @@ void ShowMessage(BuildContext context) {
   late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
     title: Text("Done"),
-    content: Text("Gardening Paid"),
+    content: Text("Electricity Paid"),
   );
 
   showDialog(
@@ -33,17 +33,44 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-class _GardeningState extends State<Gardening> {
-  TextEditingController amount = TextEditingController();
+Future<String> PayElectricity(int amount) async {
+  var response = await http.post(
+    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+        '/api/v1/======='),
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': await getStringValuesSF()
+    },
+    body: jsonEncode(
+      {
+        "amount": amount,
+      },
+    ),
+  );
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return 'failure';
+  }
+}
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  return token;
+}
+
+class _ElectricityState extends State<Electricity> {
+  final amount = TextEditingController();
   TextEditingController credit = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> GardeningKey = GlobalKey();
-
+    GlobalKey<FormState> ElectricityKey = GlobalKey();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Gardening",
+          "Electricity",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -62,7 +89,7 @@ class _GardeningState extends State<Gardening> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Form(
-          key: GardeningKey,
+          key: ElectricityKey,
           child: GestureDetector(
             child: Stack(
               children: [
@@ -91,7 +118,7 @@ class _GardeningState extends State<Gardening> {
                           ),
                           Center(
                             child: Text(
-                              "Gardening",
+                              "Electricity",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
@@ -140,18 +167,22 @@ class _GardeningState extends State<Gardening> {
                               width: 250,
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  if (GardeningKey.currentState!.validate()) {
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 1500), () {
-                                      setState(() {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Dashboard()));
-                                      });
-                                    });
-                                    ShowMessage(context);
+                                  if (ElectricityKey.currentState!.validate()) {
+                                    int _amount = amount.hashCode;
+                                    var result = await PayElectricity(_amount);
+                                    if (result == 'failure') {
+                                      print('Reporting Failed');
+                                    } else {
+                                      print(result);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Dashboard(),
+                                        ),
+                                      );
+                                      ShowMessage(context);
+                                    }
+                                    ;
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

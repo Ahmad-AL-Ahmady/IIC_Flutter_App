@@ -63,33 +63,6 @@ getStringValuesSF() async {
   return token;
 }
 
-Future<String> Incidents(String description) async {
-  var response = await http.post(
-    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/reportIncident'),
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': await getStringValuesSF(),
-    },
-    body: jsonEncode(
-      {
-        "decription": description,
-      },
-    ),
-  );
-
-  print(description);
-  var data = response.body;
-  print("======================");
-  print(data);
-
-  if (response.statusCode == 200) {
-    return response.body;
-  } else {
-    return 'failure';
-  }
-}
-
 class _IncedentsState extends State<Incedents> {
   final incedent = TextEditingController();
 
