@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/Payment.dart';
+import 'package:login_app/Pages/Payment/Plumbing.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'dart:math';
 import 'package:login_app/UI/dropdownlist.dart';
@@ -36,7 +37,7 @@ void ShowMessage(BuildContext context) {
 Future<String> PayElectricity(int amount) async {
   var response = await http.post(
     Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/======='),
+        '/api/v1/payService'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -44,6 +45,7 @@ Future<String> PayElectricity(int amount) async {
     body: jsonEncode(
       {
         "amount": amount,
+        "service": "Electricity",
       },
     ),
   );
@@ -168,7 +170,7 @@ class _ElectricityState extends State<Electricity> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (ElectricityKey.currentState!.validate()) {
-                                    int _amount = amount.hashCode;
+                                    int _amount = int.parse(amount.text);
                                     var result = await PayElectricity(_amount);
                                     if (result == 'failure') {
                                       print('Reporting Failed');

@@ -34,18 +34,16 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-Future<String> PayMaintenance(int amount) async {
+Future<String> PayMaintenance() async {
   var response = await http.post(
     Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/======='),
+        '/api/v1/payMaintenance'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
     },
     body: jsonEncode(
-      {
-        "amount": amount,
-      },
+      {},
     ),
   );
 
@@ -170,8 +168,7 @@ class _MaintenanceState extends State<Maintenance> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (MaintenanceKey.currentState!.validate()) {
-                                    int _amount = amount.hashCode;
-                                    var result = await PayMaintenance(_amount);
+                                    var result = await PayMaintenance();
                                     if (result == 'failure') {
                                       print('Reporting Failed');
                                     } else {

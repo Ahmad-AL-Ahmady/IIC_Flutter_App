@@ -33,10 +33,12 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-Future<String> PayPlumbing(int amount) async {
+Future<String> PayPlumbing(
+  int amount,
+) async {
   var response = await http.post(
     Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/======='),
+        '/api/v1/payService'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -44,6 +46,7 @@ Future<String> PayPlumbing(int amount) async {
     body: jsonEncode(
       {
         "amount": amount,
+        "service": "Plumbing",
       },
     ),
   );
@@ -169,7 +172,7 @@ class _PlumbingState extends State<Plumbing> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (PlumbingKey.currentState!.validate()) {
-                                    int _amount = amount.hashCode;
+                                    int _amount = int.parse(amount.text);
                                     var result = await PayPlumbing(_amount);
                                     if (result == 'failure') {
                                       print('Reporting Failed');
