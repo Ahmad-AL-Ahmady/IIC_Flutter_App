@@ -36,7 +36,7 @@ void ShowMessage(BuildContext context) {
 Future<String> PayGardening(int amount) async {
   var response = await http.post(
     Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/======='),
+        '/api/v1/payService'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -44,6 +44,7 @@ Future<String> PayGardening(int amount) async {
     body: jsonEncode(
       {
         "amount": amount,
+        "service": "Gardening",
       },
     ),
   );
@@ -62,7 +63,7 @@ getStringValuesSF() async {
 }
 
 class _GardeningState extends State<Gardening> {
-  TextEditingController amount = TextEditingController();
+  final amount = TextEditingController();
   TextEditingController credit = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -169,7 +170,7 @@ class _GardeningState extends State<Gardening> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (GardeningKey.currentState!.validate()) {
-                                    int _amount = amount.hashCode;
+                                    int _amount = int.parse(amount.text);
                                     var result = await PayGardening(_amount);
                                     if (result == 'failure') {
                                       print('Reporting Failed');
