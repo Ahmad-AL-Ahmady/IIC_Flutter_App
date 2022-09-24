@@ -12,7 +12,6 @@ import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
-import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
 
   _checkDeviceNotificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
-    //TODO:: send token to backend to save with user
+    print(token);
     await sendTokentToBackend(token);
     FirebaseMessaging.instance.onTokenRefresh.listen((event) {
       sendTokentToBackend(event);

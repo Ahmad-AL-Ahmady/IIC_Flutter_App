@@ -55,11 +55,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      print("App opend");
-      SharedPreferences.getInstance()
-          .then((value) => value.setBool("notification_pressed", true));
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (event) {
+        print("App opend");
+        SharedPreferences.getInstance()
+            .then((value) => value.setBool("notification_pressed", true));
+      },
+    );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Mesage recieved");
       // RemoteNotification? notification = message.notification;

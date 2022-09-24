@@ -7,13 +7,9 @@ import 'package:login_app/Pages/dashboard.dart';
 import 'package:login_app/Pages/homepage.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
-import 'package:login_app/Pages/ResetPassword/resetpassword.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'globels.dart' as globels;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {

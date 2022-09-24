@@ -4,7 +4,6 @@ import 'package:login_app/UI/custom_text_field.dart';
 import 'ResetPassword2.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phone;
