@@ -43,8 +43,10 @@ class _DashboardState extends State<Dashboard> {
         Future.delayed(Duration(milliseconds: 100), () => {});
         Navigator.of(gContext!).pushAndRemoveUntil(
             MaterialPageRoute(
-                builder: (context) =>
-                    DeliveryResponse(orderId: message.data["orderId"])),
+              builder: (context) => DeliveryResponse(
+                orderId: message.data["orderId"].toString(),
+              ),
+            ),
             (route) => route.isFirst);
       }
     });
