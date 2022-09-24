@@ -5,7 +5,7 @@ import 'dart:ffi';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:login_app/Pages/DeliveryNotification.dart';
 import 'package:login_app/Pages/alice.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,8 +61,8 @@ class _MyAppState extends State<MyApp> {
         print("App opend");
         SharedPreferences.getInstance()
             .then((value) => value.setBool("notification_pressed", true));
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChatPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DeliveryResponse()));
       },
     );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: homepage(),
+      home: DeliveryResponse(),
     );
   }
 }

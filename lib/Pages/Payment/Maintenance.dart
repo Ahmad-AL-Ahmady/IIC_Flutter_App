@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'dart:math';
-import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
