@@ -20,6 +20,7 @@ class Services extends StatefulWidget {
 }
 
 Future<String> Send(String date, String type) async {
+  print(date);
   var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/requestService'),
