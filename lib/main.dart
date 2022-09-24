@@ -44,6 +44,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  BuildContext? gcontext;
   AndroidNotificationChannel channel = AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
@@ -61,8 +62,6 @@ class _MyAppState extends State<MyApp> {
         print("App opend");
         SharedPreferences.getInstance()
             .then((value) => value.setBool("notification_pressed", true));
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DeliveryResponse()));
       },
     );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -89,9 +88,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    gcontext = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: homepage(),
     );
   }
 }
+//onmessage recieved => listen
