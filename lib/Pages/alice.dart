@@ -35,7 +35,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _loadMessages();
-    sendText('');
+    sendText("اهلا");
   }
 
   getStringValuesSF() async {
@@ -47,17 +47,20 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<void> sendText(String _text) async {
     var response = await http.post(
-        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-            '/api/v1/sendText'),
-        headers: {
-          'Content-Type': 'application/json',
-          'authorization': await getStringValuesSF(),
-        },
-        body: jsonEncode({
+      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
+          '/api/v1/sendText'),
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': await getStringValuesSF(),
+      },
+      body: jsonEncode(
+        {
           "input": {
             "component": {"value": _text, "type": "text"}
           }
-        }));
+        },
+      ),
+    );
 
     var data = jsonDecode(response.body) as Map<String, dynamic>;
     data = data['output'][0];

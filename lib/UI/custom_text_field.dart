@@ -29,6 +29,7 @@ class CustomTextField extends StatelessWidget {
           height: 10,
         ),
         Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
           height: 62,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
@@ -46,6 +47,7 @@ class CustomTextField extends StatelessWidget {
             keyboardType: type,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             decoration: InputDecoration(
+                border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14, bottom: 14),
                 prefixIcon: prefixIcon,
                 hintText: hint,

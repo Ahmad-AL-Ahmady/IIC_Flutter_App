@@ -4,9 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:login_app/Pages/Registration/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
-import 'registration.dart';
+import 'package:login_app/Pages/Registration/registration.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);

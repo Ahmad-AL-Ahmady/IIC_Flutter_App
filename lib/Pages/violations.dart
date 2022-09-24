@@ -164,10 +164,10 @@ class _ViolationsState extends State<Violations> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 166, 163, 163)),
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                                 icon: Icon(
                                   Icons.arrow_drop_down,
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                                 isExpanded: true,
                                 dropdownColor: Colors.white,

@@ -12,15 +12,14 @@ import 'dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class Services extends StatefulWidget {
-  const Services({Key? key}) : super(key: key);
+class ServiceTicketing extends StatefulWidget {
+  const ServiceTicketing({Key? key}) : super(key: key);
 
   @override
-  State<Services> createState() => _ServicesState();
+  State<ServiceTicketing> createState() => _ServiceTicketingState();
 }
 
 Future<String> Send(String date, String type) async {
-  print(date);
   var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/requestService'),
@@ -66,16 +65,13 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-class _ServicesState extends State<Services> {
-  TextEditingController date = TextEditingController();
-  final items = ["Electricity", "Plumbing", "Gardening"];
-  String? value;
-  String? Date;
-
+class _ServiceTicketingState extends State<ServiceTicketing> {
+  final List<String> items = ["Electricity", "Plumbing", "Gardening"];
+  String value = "Electricity";
+  final date = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> servicekey = GlobalKey();
-
+    GlobalKey<FormState> _Service = GlobalKey();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -98,7 +94,7 @@ class _ServicesState extends State<Services> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Form(
-          key: servicekey,
+          key: _Service,
           child: GestureDetector(
             child: Stack(
               children: [
@@ -127,12 +123,12 @@ class _ServicesState extends State<Services> {
                           ),
                           Center(
                               child: Text(
-                            "Order The Service You Desire",
+                            "Choose the Service You Desire",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                            ),
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                           )),
                           SizedBox(
                             height: 20,
@@ -154,26 +150,24 @@ class _ServicesState extends State<Services> {
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: value,
-                                iconDisabledColor: Colors.white,
-                                iconEnabledColor: Colors.white,
                                 iconSize: 36,
                                 hint: Text(
-                                  "Choose Service",
+                                  "Choose Category",
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      color: Color.fromARGB(255, 166, 163, 163),
                                       fontWeight: FontWeight.bold),
                                 ),
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 255, 255, 255)),
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                                 icon: Icon(
                                   Icons.arrow_drop_down,
-                                  color: Color.fromARGB(255, 166, 163, 163),
+                                  color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                                 isExpanded: true,
                                 dropdownColor: Colors.white,
                                 items: items.map(buildMenuItem).toList(),
-                                onChanged: (value) =>
-                                    setState(() => this.value = value),
+                                onChanged: (inp) =>
+                                    setState(() => value = inp!),
                               ),
                             ),
                           ),
@@ -183,6 +177,7 @@ class _ServicesState extends State<Services> {
                           TextFormField(
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
+                                print("null choice");
                                 return "please enter a valid date";
                               } else {
                                 return null;
@@ -200,7 +195,6 @@ class _ServicesState extends State<Services> {
                                 firstDate: DateTime(2000),
                                 lastDate: DateTime(2101),
                               );
-                              Date = pickeddate as String;
                               if (pickeddate != null) {
                                 setState(
                                   () {
@@ -208,6 +202,8 @@ class _ServicesState extends State<Services> {
                                         .format(pickeddate);
                                   },
                                 );
+                              } else {
+                                print('Failure');
                               }
                             }),
                           ),
@@ -220,10 +216,10 @@ class _ServicesState extends State<Services> {
                               width: 250,
                               child: RaisedButton(
                                 onPressed: () async {
-                                  if (servicekey.currentState!.validate()) {
+                                  if (_Service.currentState!.validate()) {
                                     String? _type = value;
-                                    String? date1 = Date;
-                                    var result = await Send(_type!, date1!);
+                                    String? date1 = date.text;
+                                    var result = await Send(date1, _type);
                                     if (result == 'failure') {
                                       print('login failed');
                                     } else {

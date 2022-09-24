@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "371080348175",
+    "project_id": "iic-flutter-application",
+    "storage_bucket": "iic-flutter-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371080348175:android:996717486a4d9248a7997a",
+        "android_client_info": {
+          "package_name": "com.example.login_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371080348175-e3j1a27mvdvs0t1nerj405qukqj3osk8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvMDbUeDhxn3oNZYzScvW3fPBLUiB6NLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371080348175-e3j1a27mvdvs0t1nerj405qukqj3osk8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
