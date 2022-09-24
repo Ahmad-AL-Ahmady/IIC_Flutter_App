@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app/Pages/DeliveryNotification.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/QR_code.dart';
 import 'package:login_app/Pages/ServiceTicketing.dart';
@@ -14,90 +15,65 @@ import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Dashboard extends StatefulWidget {
   String? firstname;
-  Dashboard({
-    this.firstname = "...",
-  });
+
   @override
   State<Dashboard> createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  Future<String?> FirstName() async {
-    var response = await http.get(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/getFirstName'),
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': getStringValuesSF(),
-      },
-    );
-    //firstname = response.body;
-    if (response.statusCode == 200) {
-      //return firstname;
-    } else {
-      return 'failure';
-    }
-  }
-
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-    return token;
-  }
+  BuildContext? gContext;
 
   @override
   void initState() {
     super.initState();
     _checkDeviceNotificationToken();
+
+    // listening to messages in the foreground
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      // print('Message data: ${message.data["orderId"]}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+
+        Future.delayed(Duration(milliseconds: 100), () => {});
+        Navigator.of(gContext!).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) =>
+                    DeliveryResponse(orderId: message.data["orderId"])),
+            (route) => route.isFirst);
+      }
+    });
+
+    //
   }
 
   _checkDeviceNotificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     print(token);
-    await sendTokentToBackend(token);
-    FirebaseMessaging.instance.onTokenRefresh.listen((event) {
-      sendTokentToBackend(event);
-    });
+    // FirebaseMessaging.instance.onTokenRefresh.listen((event) {});
   }
 
-  Future<String> sendTokentToBackend(String? token) async {
-    var response = await http.post(
-        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-            '/api/v1/register/unitAndPhone'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({'Token': token}));
-
-    var data = response.body;
-
-    print("======================");
-
-    if (response.statusCode == 200) {
-      print("token has been sent sucessfuly");
-      return response.body;
-    } else {
-      return 'failure';
-    }
-  }
-
-  _checkNotificationMsg() {
-    SharedPreferences.getInstance().then((value) {
-      bool isPressed = value.getBool("notification_pressed") ?? false;
-      if (isPressed) {
-        value.remove("notification_pressed");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChatPage()));
-      }
-    });
-  }
+  // _checkNotificationMsg() {
+  //   SharedPreferences.getInstance().then((value) {
+  //     bool isPressed = value.getBool("notification_pressed") ?? false;
+  //     if (isPressed) {
+  //       value.remove("notification_pressed");
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => ChatPage()));
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _checkNotificationMsg();
+    // _checkNotificationMsg();
+    gContext = context;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -10,10 +10,11 @@ import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryResponse extends StatefulWidget {
-  const DeliveryResponse({Key? key}) : super(key: key);
+  final String? orderId;
+  const DeliveryResponse({Key? key, this.orderId}) : super(key: key);
 
   @override
-  State<DeliveryResponse> createState() => _DeliveryResponseState();
+  State<DeliveryResponse> createState() => _DeliveryResponseState(this.orderId);
 }
 
 void ShowMessageYes(BuildContext context) {
@@ -66,6 +67,12 @@ Future<String> Response(String _res) async {
 }
 
 class _DeliveryResponseState extends State<DeliveryResponse> {
+  String orderId = "";
+
+  _DeliveryResponseState(orderId) {
+    this.orderId = orderId;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
