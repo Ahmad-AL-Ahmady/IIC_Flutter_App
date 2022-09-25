@@ -14,12 +14,15 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
 
+BuildContext? gcontext;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await _initNotification();
+  FirebaseMessaging.onBackgroundMessage(_firebasemessagingbackgroundhandler);
   runApp(const MyApp());
 }
 
@@ -34,6 +37,17 @@ _initNotification() async {
 
 Future<void> _firebasemessagingbackgroundhandler(RemoteMessage message) async {
   print('A new message just showed up: ${message.messageId}');
+
+  Future.delayed(
+    Duration(milliseconds: 50),
+    () {
+      Navigator.pushReplacement(
+          gcontext!,
+          MaterialPageRoute(
+              builder: (context) =>
+                  DeliveryResponse(orderId: message.data['orderId'])));
+    },
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -44,7 +58,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  BuildContext? gcontext;
   AndroidNotificationChannel channel = AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
