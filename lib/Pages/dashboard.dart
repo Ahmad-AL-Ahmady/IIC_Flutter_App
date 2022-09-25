@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +11,6 @@ import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -31,6 +28,24 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     super.initState();
     _checkDeviceNotificationToken();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      // print('Message data: ${message.data["orderId"]}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+
+        Future.delayed(Duration(milliseconds: 100), () => {});
+        Navigator.of(gContext!).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => DeliveryResponse(
+                orderId: message.data["orderId"].toString(),
+              ),
+            ),
+            (route) => route.isFirst);
+      }
+    });
 
     // listening to messages in the foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
