@@ -146,6 +146,11 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                         print('Reporting Failed');
                                       } else {
                                         print(result);
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (gcontext) =>
+                                                    Dashboard()));
                                         ShowMessageNo(context);
                                       }
                                       ;
@@ -182,6 +187,11 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                         print('Reporting Failed');
                                       } else {
                                         print(result);
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (gcontext) =>
+                                                    Dashboard()));
                                         ShowMessageYes(context);
                                         ;
                                       }
