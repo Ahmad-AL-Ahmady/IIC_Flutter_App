@@ -35,8 +35,7 @@ void ShowMessage(BuildContext context) {
 
 Future<String> PayGardening(int amount) async {
   var response = await http.post(
-    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/payService'),
+    Uri.https('iic-delivery.mybluemix.net', '/api/v1/payService'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()

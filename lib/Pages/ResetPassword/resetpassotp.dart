@@ -15,8 +15,8 @@ class OtpScreen extends StatefulWidget {
 
 Future<String> OtpReset(String Otp, String phone) async {
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/forgotPassword/validateOtp'),
+      Uri.https(
+          'iic-delivery.mybluemix.net', '/api/v1/forgotPassword/validateOtp'),
       headers: {
         'Content-Type': 'application/json',
       },

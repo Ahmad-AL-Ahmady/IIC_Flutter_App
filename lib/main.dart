@@ -37,17 +37,6 @@ _initNotification() async {
 
 Future<void> _firebasemessagingbackgroundhandler(RemoteMessage message) async {
   print('A new message just showed up: ${message.messageId}');
-
-  Future.delayed(
-    Duration(milliseconds: 50),
-    () {
-      Navigator.pushReplacement(
-          gcontext!,
-          MaterialPageRoute(
-              builder: (context) =>
-                  DeliveryResponse(orderId: message.data['orderId'])));
-    },
-  );
 }
 
 class MyApp extends StatefulWidget {

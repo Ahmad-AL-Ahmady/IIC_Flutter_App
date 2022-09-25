@@ -27,8 +27,7 @@ class _QrCodeState extends State<QrCode> {
 
   Future<void> Generate_qrcode() async {
     var response = await http.post(
-        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-            '/qr/generate'),
+        Uri.https('iic-delivery.mybluemix.net', '/qr/generate'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': await getStringValuesSF()
