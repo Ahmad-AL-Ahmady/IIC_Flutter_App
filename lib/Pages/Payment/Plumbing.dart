@@ -158,7 +158,10 @@ class _PlumbingState extends State<Plumbing> {
                             type: TextInputType.number,
                             hint: "Enter Your Credit Card Number",
                             validation: (String? value) {
-                              if (value == null || value.isEmpty) {
+                              var reg = RegExp(r'^[0-9]{16}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
                                 return "Please Enter The Credit Card Number";
                               } else {
                                 return null;
@@ -168,67 +171,54 @@ class _PlumbingState extends State<Plumbing> {
                           SizedBox(
                             height: 30,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "CVV",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                height: 62,
-                                alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffebefff),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        offset: Offset(0, 2),
-                                      )
-                                    ]),
-                                child: TextFormField(
-                                  controller: CVV,
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding:
-                                          EdgeInsets.only(top: 14, bottom: 14),
-                                      hintText: 'CVV',
-                                      prefixIcon: Icon(Icons.credit_card),
-                                      hintStyle:
-                                          TextStyle(color: Colors.black38)),
-                                ),
-                              ),
-                            ],
-                          ),
                           CustomTextField(
-                            label: 'Expiry Date',
-                            type: TextInputType.datetime,
-                            controler: ExpDate,
-                            hint: "Enter Expiry Date",
+                            controler: CVV,
+                            label: "CVV",
+                            type: TextInputType.number,
+                            prefixIcon: Icon(Icons.credit_card),
+                            hint: "Enter Your CVV",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The CVV";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           SizedBox(
                             height: 30,
                           ),
                           CustomTextField(
-                            label: 'Name on Card',
-                            type: TextInputType.name,
-                            controler: nameOnCard,
-                            hint: 'Enter Name On Card',
+                            controler: ExpDate,
+                            label: "Expiry Date",
+                            type: TextInputType.datetime,
+                            hint: "Enter Your Expiry Date",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The Expiry Date";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: nameOnCard,
+                            label: "Name On Card",
+                            type: TextInputType.name,
+                            hint: "Enter Your Name",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The Name On Card";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 25),

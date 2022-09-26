@@ -16,8 +16,7 @@ class RegistrationOtp extends StatefulWidget {
 
 Future<String> OtpRegister(String Otp, String phone) async {
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/register/validateOTP'),
+      Uri.https('iic-delivery.mybluemix.net', '/api/v1/register/validateOTP'),
       headers: {
         'Content-Type': 'application/json',
       },
