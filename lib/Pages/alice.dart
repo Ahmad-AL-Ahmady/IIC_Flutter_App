@@ -101,8 +101,9 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
-            "Alice Chatbot",
+            "Alice",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
           backgroundColor: Color.fromARGB(255, 2, 47, 98),

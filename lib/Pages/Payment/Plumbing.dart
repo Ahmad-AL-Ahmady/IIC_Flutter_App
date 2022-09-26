@@ -66,6 +66,10 @@ getStringValuesSF() async {
 class _PlumbingState extends State<Plumbing> {
   TextEditingController amount = TextEditingController();
   TextEditingController credit = TextEditingController();
+  final CVV = TextEditingController();
+  final ExpDate = TextEditingController();
+  final nameOnCard = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> PlumbingKey = GlobalKey();
@@ -160,6 +164,68 @@ class _PlumbingState extends State<Plumbing> {
                                 return null;
                               }
                             },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "CVV",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                height: 62,
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xffebefff),
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        offset: Offset(0, 2),
+                                      )
+                                    ]),
+                                child: TextFormField(
+                                  controller: CVV,
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      contentPadding:
+                                          EdgeInsets.only(top: 14, bottom: 14),
+                                      hintText: 'CVV',
+                                      prefixIcon: Icon(Icons.credit_card),
+                                      hintStyle:
+                                          TextStyle(color: Colors.black38)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          CustomTextField(
+                            label: 'Expiry Date',
+                            type: TextInputType.datetime,
+                            controler: ExpDate,
+                            hint: "Enter Expiry Date",
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            label: 'Name on Card',
+                            type: TextInputType.name,
+                            controler: nameOnCard,
+                            hint: 'Enter Name On Card',
                           ),
                           SizedBox(
                             height: 20,
