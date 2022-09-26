@@ -178,7 +178,10 @@ class _PlumbingState extends State<Plumbing> {
                             prefixIcon: Icon(Icons.credit_card),
                             hint: "Enter Your CVV",
                             validation: (String? value) {
-                              if (value == null || value.isEmpty) {
+                              var reg = RegExp(r'^[0-9]{3}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
                                 return "Please Enter The CVV";
                               } else {
                                 return null;

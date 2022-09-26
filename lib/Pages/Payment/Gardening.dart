@@ -173,7 +173,10 @@ class _GardeningState extends State<Gardening> {
                             hint: "Enter Your CVV",
                             prefixIcon: Icon(Icons.credit_card),
                             validation: (String? value) {
-                              if (value == null || value.isEmpty) {
+                              var reg = RegExp(r'^[0-9]{3}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
                                 return "Please Enter The CVV";
                               } else {
                                 return null;
