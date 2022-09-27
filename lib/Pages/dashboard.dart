@@ -12,7 +12,6 @@ import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/violations.dart';
 import 'alice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Dashboard extends StatefulWidget {
   String? firstname;
@@ -27,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    _checkDeviceNotificationToken();
+    //  _checkDeviceNotificationToken();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
@@ -69,19 +68,15 @@ class _DashboardState extends State<Dashboard> {
     //
   }
 
-  _checkDeviceNotificationToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print(token);
-<<<<<<< HEAD
-    //TODO:: send token to backend to save with user
-    await sendTokentToBackend(token);
-    FirebaseMessaging.instance.onTokenRefresh.listen((event) {
-      sendTokentToBackend(event);
-    });
-=======
-    // FirebaseMessaging.instance.onTokenRefresh.listen((event) {});
->>>>>>> 052cdb9f13a5dd6efb67f944950dbf0144b91af9
-  }
+  // _checkDeviceNotificationToken() async {
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //   print(token);
+  //   //TODO:: send token to backend to save with user
+  //   await sendTokentToBackend(token);
+  //   FirebaseMessaging.instance.onTokenRefresh.listen((event) {
+  //     sendTokentToBackend(event);
+  //   });
+  // }
 
   // _checkNotificationMsg() {
   //   SharedPreferences.getInstance().then((value) {

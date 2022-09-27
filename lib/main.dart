@@ -1,20 +1,22 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unnecessary_string_escapes
 
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:login_app/Pages/DeliveryNotification.dart';
-import 'package:login_app/Pages/Registration/registerationotp.dart';
-import 'package:login_app/Pages/Registration/registration2.dart';
-import 'package:login_app/Pages/alice.dart';
-import 'package:login_app/Pages/dashboard.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+// import 'package:flutter/services.dart';
+// import 'package:login_app/Pages/DeliveryNotification.dart';
+// import 'package:login_app/Pages/Registration/registerationotp.dart';
+// import 'package:login_app/Pages/Registration/registration2.dart';
+// import 'package:login_app/Pages/alice.dart';
+// import 'package:login_app/Pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/homepage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 BuildContext? gcontext;
 
@@ -95,7 +97,15 @@ class _MyAppState extends State<MyApp> {
     gcontext = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: homepage(),
+      home: AnimatedSplashScreen(
+        splash: Image.asset('assets/New logo.png'),
+        nextScreen: homepage(),
+        splashTransition: SplashTransition.fadeTransition,
+        backgroundColor: Colors.blue,
+        splashIconSize: 200,
+        duration: 2000,
+        animationDuration: Duration(milliseconds: 3000),
+      ),
     );
   }
 }
