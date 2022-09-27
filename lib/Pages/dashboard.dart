@@ -57,6 +57,7 @@ class _DashboardState extends State<Dashboard> {
 
   _checkDeviceNotificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
+    print(token);
     //TODO:: send token to backend to save with user
     await sendTokentToBackend(token);
     FirebaseMessaging.instance.onTokenRefresh.listen((event) {
