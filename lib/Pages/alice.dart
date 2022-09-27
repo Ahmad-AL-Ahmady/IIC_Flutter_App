@@ -55,10 +55,6 @@ class _ChatPageState extends State<ChatPage> {
     // clear all the options in the tilelist
     tilelist = [];
 
-    // if (isListTile) {
-    //   Navigator.pop(context);
-    // }
-
     var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/sendText'),
@@ -76,22 +72,22 @@ class _ChatPageState extends State<ChatPage> {
     );
 
     var data = jsonDecode(response.body) as Map<String, dynamic>;
-    data = data['output'][0];
+    var answerList = data['output'][0];
 
     if (response.statusCode == 200) {
       // handle simple responses from Alice which is a text
-      if (data['message_type'] == "text") {
-        final msg = data['component']['text'];
-        _handleRecievedMessages(msg);
-      } else if (data['message_type'] == "option") {
+      if (answerList['message_type'] == "text") {
+        for (int i = 0; i < data['output'].length; i++) {
+          final msg = data['output'][i]['component']['text'];
+          print("MSG: $msg");
+          _handleRecievedMessages(msg);
+          // _handleRecievedMessages(answerList['component']['text']);
+        }
+      } else if (answerList['message_type'] == "option") {
         // here we display several options to the user
-        data = data['component'];
-        Data = data;
+        data = answerList['component'];
 
-        // _handleRecievedMessages("text\nsdfsdf");
-
-        String outputToUser = "";
-        outputToUser = data['title'] + ":" + '\n' + '\n';
+        String outputToUser = data['title'] + ":" + '\n' + '\n';
         output = outputToUser;
         var options = data['options'];
         // optionList = options;
@@ -110,6 +106,14 @@ class _ChatPageState extends State<ChatPage> {
               title: Text(optionLabel),
               onTap: () {
                 sendText(optionValue, true);
+
+                _addMessage(types.TextMessage(
+                  author: _user,
+                  createdAt: DateTime.now().millisecondsSinceEpoch,
+                  id: const Uuid().v4(),
+                  text: optionLabel,
+                ));
+
                 Navigator.pop(gcontext!);
               }));
 
