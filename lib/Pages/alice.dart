@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:login_app/Pages/dashboard.dart';
+import 'package:login_app/main.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,13 +32,14 @@ class _ChatPageState extends State<ChatPage> {
   final _Alice = const types.User(
       id: '82091008-a484-4a89-ae75-a22bf8d6f3ab', firstName: 'Alice');
 
-  List<Widget>? optionList;
+  List<Widget> tilelist = [];
+  BuildContext? gcontext;
 
   @override
   void initState() {
     super.initState();
     _loadMessages();
-    sendText("اهلا");
+    sendText("اهلا", false);
   }
 
   getStringValuesSF() async {
@@ -49,7 +51,14 @@ class _ChatPageState extends State<ChatPage> {
 
   var Data, Options;
   String output = "";
-  Future<void> sendText(String _text) async {
+  Future<void> sendText(String _text, bool isListTile) async {
+    // clear all the options in the tilelist
+    tilelist = [];
+
+    // if (isListTile) {
+    //   Navigator.pop(context);
+    // }
+
     var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/sendText'),
@@ -85,7 +94,7 @@ class _ChatPageState extends State<ChatPage> {
         outputToUser = data['title'] + ":" + '\n' + '\n';
         output = outputToUser;
         var options = data['options'];
-        optionList = options;
+        // optionList = options;
 
         // createBottomSheet();
 
@@ -97,7 +106,13 @@ class _ChatPageState extends State<ChatPage> {
               outputToUser + "لإضافة $optionLabel ادخل $optionValue" + '\n';
           // _handleRecievedMessages("$optionLabel ادخل $optionValue");
 
-          optionList = options;
+          tilelist.add(ListTile(
+              title: Text(optionLabel),
+              onTap: () {
+                sendText(optionValue, true);
+                Navigator.pop(gcontext!);
+              }));
+
           // optionList![i] = ListTile(
           //   title: Text(optionLabel),
           //   onTap: () => sendText(optionValue),
@@ -124,49 +139,55 @@ class _ChatPageState extends State<ChatPage> {
       ),
       builder: (context) {
         return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: optionList!.map<Widget>((option) => {
-              return new mListTile(
-                title:  Text(outputToUser),
-              );
-            }).toList());
+          mainAxisSize: MainAxisSize.min,
+          // children: optionList!
+          //     .map((option) => ListTile(
+          //           title: Text(option['label']),
+          //         ))
+          //     .toList());
+          children: tilelist,
+        );
       },
     );
   }
 
   String selectedItem = '';
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Alice",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          backgroundColor: Color.fromARGB(255, 2, 47, 98),
-          automaticallyImplyLeading: false,
-          leadingWidth: 100,
-          elevation: 0,
-          leading: ElevatedButton.icon(
-            onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Dashboard())),
-            icon: const Icon(Icons.arrow_left_sharp),
-            label: const Text('Back'),
-            style: ElevatedButton.styleFrom(
-                elevation: 0, primary: Colors.transparent),
-          ),
+  Widget build(BuildContext context) {
+    gcontext = context;
+
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Alice",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        body: Chat(
-          messages: _messages,
-          onAttachmentPressed: showOptions,
-          onMessageTap: _handleMessageTap,
-          onPreviewDataFetched: _handlePreviewDataFetched,
-          onSendPressed: _handleSendPressed,
-          showUserAvatars: true,
-          showUserNames: true,
-          user: _user,
+        backgroundColor: Color.fromARGB(255, 2, 47, 98),
+        automaticallyImplyLeading: false,
+        leadingWidth: 100,
+        elevation: 0,
+        leading: ElevatedButton.icon(
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Dashboard())),
+          icon: const Icon(Icons.arrow_left_sharp),
+          label: const Text('Back'),
+          style: ElevatedButton.styleFrom(
+              elevation: 0, primary: Colors.transparent),
         ),
-      );
+      ),
+      body: Chat(
+        messages: _messages,
+        onAttachmentPressed: showOptions,
+        onMessageTap: _handleMessageTap,
+        onPreviewDataFetched: _handlePreviewDataFetched,
+        onSendPressed: _handleSendPressed,
+        showUserAvatars: true,
+        showUserNames: true,
+        user: _user,
+      ),
+    );
+  }
 
   void _addMessage(types.Message message) {
     setState(() {
@@ -268,7 +289,7 @@ class _ChatPageState extends State<ChatPage> {
     );
 
     _addMessage(textMessage);
-    sendText(message.text);
+    sendText(message.text, false);
   }
 
   void _handleRecievedMessages(String text) {
