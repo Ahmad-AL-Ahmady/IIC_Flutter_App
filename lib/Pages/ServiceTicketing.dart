@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -49,12 +51,11 @@ getStringValuesSF() async {
 }
 
 void ShowMessage(BuildContext context) {
+  Random random = new Random();
+  late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
-    title: Text(
-      "Done",
-      textAlign: TextAlign.center,
-    ),
-    content: Text("Service Requested"),
+    title: Text("Done"),
+    content: Text("Service Requested, Refrence Number ($randomNumber)"),
   );
 
   showDialog(

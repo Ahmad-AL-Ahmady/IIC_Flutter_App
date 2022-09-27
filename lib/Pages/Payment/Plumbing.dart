@@ -196,7 +196,7 @@ class _PlumbingState extends State<Plumbing> {
                             controler: ExpDate,
                             label: "Expiry Date",
                             type: TextInputType.datetime,
-                            hint: "Enter Your Expiry Date",
+                            hint: "Card Expiry Date",
                             validation: (String? value) {
                               if (value == null || value.isEmpty) {
                                 return "Please Enter The Expiry Date";
