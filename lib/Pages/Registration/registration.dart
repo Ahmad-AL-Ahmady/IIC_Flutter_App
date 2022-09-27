@@ -30,8 +30,7 @@ class Registration extends StatefulWidget {
 
 Future<String> Register(String Phone, String UnitNumber) async {
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/register/unitAndPhone'),
+      Uri.https('iic-delivery.mybluemix.net', '/api/v1/register/unitAndPhone'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -139,7 +138,7 @@ class _RegistrationState extends State<Registration> {
                         const Center(
                             child: Text(
                           textAlign: TextAlign.center,
-                          "Register Your New Account.",
+                          "Register Your New Account",
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -190,6 +189,7 @@ class _RegistrationState extends State<Registration> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                                 decoration: InputDecoration(
+                                    border: InputBorder.none,
                                     contentPadding:
                                         EdgeInsets.only(top: 14, bottom: 14),
                                     prefixIcon: Padding(

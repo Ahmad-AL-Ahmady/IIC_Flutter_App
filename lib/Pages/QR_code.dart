@@ -27,8 +27,7 @@ class _QrCodeState extends State<QrCode> {
 
   Future<void> Generate_qrcode() async {
     var response = await http.post(
-        Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-            '/qr/generate'),
+        Uri.https('iic-delivery.mybluemix.net', '/qr/generate'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': await getStringValuesSF()
@@ -60,7 +59,7 @@ class _QrCodeState extends State<QrCode> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Dashboard",
+          "QR Code",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -106,7 +105,33 @@ class _QrCodeState extends State<QrCode> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 200,
+                          height: 30,
+                        ),
+                        Center(
+                          child: Text(
+                            "1.Send a screenshot of the QR code to admit the visitor",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: Text(
+                            "2.The QR code can only be used once",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 100,
                         ),
                         Container(
                           child: Center(

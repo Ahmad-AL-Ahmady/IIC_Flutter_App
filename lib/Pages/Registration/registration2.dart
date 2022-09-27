@@ -22,8 +22,7 @@ class Registrationfinal extends StatefulWidget {
 Future<String> RegisterUserData(String username, String email, String password,
     String phone, String _token) async {
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/register/registerUser'),
+      Uri.https('iic-delivery.mybluemix.net', '/api/v1/register/registerUser'),
       headers: {'Content-Type': 'application/json', 'Authorization': _token},
       body: jsonEncode({
         "phone": phone,
@@ -122,15 +121,16 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                           height: 30,
                         ),
                         CustomTextField(
-                          label: "Username",
+                          label: "Name",
                           type: TextInputType.name,
-                          hint: "Enter Username",
+                          hint: "Enter Your Name",
                           prefixIcon: Icon(
                             Icons.face,
                           ),
                           controler: _name,
                           validation: (String? value) {
-                            var reg2 = RegExp(r'^[a-zA-Z0-9]+$');
+                            var reg2 =
+                                RegExp(r'^[a-zA-Z][a-zA-Z]*[ ]*[a-zA-Z]*');
                             if (value == null ||
                                 value.isEmpty ||
                                 !reg2.hasMatch(value)) {

@@ -35,8 +35,7 @@ void ShowMessage(BuildContext context) {
 
 Future<String> PayGardening(int amount) async {
   var response = await http.post(
-    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/======='),
+    Uri.https('iic-delivery.mybluemix.net', '/api/v1/payService'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -44,6 +43,7 @@ Future<String> PayGardening(int amount) async {
     body: jsonEncode(
       {
         "amount": amount,
+        "service": "Gardening",
       },
     ),
   );
@@ -62,8 +62,12 @@ getStringValuesSF() async {
 }
 
 class _GardeningState extends State<Gardening> {
-  TextEditingController amount = TextEditingController();
+  final amount = TextEditingController();
   TextEditingController credit = TextEditingController();
+  final CVV = TextEditingController();
+  final ExpDate = TextEditingController();
+  final nameOnCard = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> GardeningKey = GlobalKey();
@@ -71,6 +75,7 @@ class _GardeningState extends State<Gardening> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+          textAlign: TextAlign.center,
           "Gardening",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -160,7 +165,59 @@ class _GardeningState extends State<Gardening> {
                             },
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: CVV,
+                            label: "CVV",
+                            type: TextInputType.number,
+                            hint: "Enter Your CVV",
+                            prefixIcon: Icon(Icons.credit_card),
+                            validation: (String? value) {
+                              var reg = RegExp(r'^[0-9]{3}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
+                                return "Please Enter The CVV";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: ExpDate,
+                            label: "Expiry Date",
+                            type: TextInputType.datetime,
+                            hint: "Enter Your Expiry Date",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The Expiry Date";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: nameOnCard,
+                            label: "Name On Card",
+                            type: TextInputType.name,
+                            hint: "Enter Your Name",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The Name On Card";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 25),
@@ -169,7 +226,7 @@ class _GardeningState extends State<Gardening> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (GardeningKey.currentState!.validate()) {
-                                    int _amount = amount.hashCode;
+                                    int _amount = int.parse(amount.text);
                                     var result = await PayGardening(_amount);
                                     if (result == 'failure') {
                                       print('Reporting Failed');

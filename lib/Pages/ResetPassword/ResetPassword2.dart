@@ -100,7 +100,7 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                           ),
                           Center(
                               child: Text(
-                            "Fill in the form to reset Your Password",
+                            "Fill in the form to reset your password",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -113,7 +113,7 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                             controler: password,
                             label: "New Password",
                             type: TextInputType.visiblePassword,
-                            hint: "Enter your Password",
+                            hint: "Enter Your Password",
                             prefixIcon: Icon(Icons.vpn_key),
                             validation: (String? value) {
                               var reg4 = RegExp(

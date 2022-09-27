@@ -5,14 +5,18 @@ import 'dart:ffi';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app/Pages/DeliveryNotification.dart';
+import 'package:login_app/Pages/Registration/registerationotp.dart';
+import 'package:login_app/Pages/Registration/registration2.dart';
 import 'package:login_app/Pages/alice.dart';
 import 'package:login_app/Pages/dashboard.dart';
-//import 'package:login_app/Pages/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/homepage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
+
+BuildContext? gcontext;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +24,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await _initNotification();
+  FirebaseMessaging.onBackgroundMessage(_firebasemessagingbackgroundhandler);
   runApp(const MyApp());
 }
 
@@ -56,11 +61,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      print("App opend");
-      SharedPreferences.getInstance()
-          .then((value) => value.setBool("notification_pressed", true));
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (event) {
+        print("App opend");
+        SharedPreferences.getInstance()
+            .then((value) => value.setBool("notification_pressed", true));
+      },
+    );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Mesage recieved");
       // RemoteNotification? notification = message.notification;
@@ -85,9 +92,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    gcontext = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: homepage(),
     );
   }
 }
+//onmessage recieved => listen

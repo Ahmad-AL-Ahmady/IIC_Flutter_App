@@ -4,7 +4,6 @@ import 'package:login_app/UI/custom_text_field.dart';
 import 'ResetPassword2.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phone;
@@ -16,8 +15,8 @@ class OtpScreen extends StatefulWidget {
 
 Future<String> OtpReset(String Otp, String phone) async {
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/forgotPassword/validateOtp'),
+      Uri.https(
+          'iic-delivery.mybluemix.net', '/api/v1/forgotPassword/validateOtp'),
       headers: {
         'Content-Type': 'application/json',
       },

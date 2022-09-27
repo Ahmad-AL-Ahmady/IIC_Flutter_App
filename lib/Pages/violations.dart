@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,12 +32,11 @@ class _ViolationsState extends State<Violations> {
   // String? value;
   String value = "Building Violation";
   void ShowMessage(BuildContext context) {
+    Random random = new Random();
+    late int randomNumber = random.nextInt(999999);
     final alert = AlertDialog(
-      title: Text(
-        "Done",
-        textAlign: TextAlign.center,
-      ),
-      content: Text("Violation Reported"),
+      title: Text("Done"),
+      content: Text("Violation Reported, Refrence Number ($randomNumber)"),
     );
 
     showDialog(
@@ -234,7 +234,7 @@ class _ViolationsState extends State<Violations> {
                             height: 30,
                           ),
                           CustomTextField(
-                            label: "Unit code",
+                            label: "Unit Number",
                             type: TextInputType.streetAddress,
                             controler: unitCode,
                             hint: "Enter Unit Number",

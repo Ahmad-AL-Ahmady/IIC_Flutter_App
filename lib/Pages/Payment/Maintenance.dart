@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'dart:math';
-import 'package:login_app/UI/dropdownlist.dart';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,18 +32,15 @@ void ShowMessage(BuildContext context) {
   );
 }
 
-Future<String> PayMaintenance(int amount) async {
+Future<String> PayMaintenance() async {
   var response = await http.post(
-    Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-        '/api/v1/======='),
+    Uri.https('iic-delivery.mybluemix.net', '/api/v1/payMaintenance'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
     },
     body: jsonEncode(
-      {
-        "amount": amount,
-      },
+      {},
     ),
   );
 
@@ -65,6 +60,10 @@ getStringValuesSF() async {
 class _MaintenanceState extends State<Maintenance> {
   final amount = TextEditingController();
   TextEditingController credit = TextEditingController();
+  final CVV = TextEditingController();
+  final ExpDate = TextEditingController();
+  final nameOnCard = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> MaintenanceKey = GlobalKey();
@@ -72,6 +71,7 @@ class _MaintenanceState extends State<Maintenance> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+          textAlign: TextAlign.center,
           "Maintenance",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -153,7 +153,10 @@ class _MaintenanceState extends State<Maintenance> {
                             type: TextInputType.number,
                             hint: "Enter Your Credit Card Number",
                             validation: (String? value) {
-                              if (value == null || value.isEmpty) {
+                              var reg = RegExp(r'^[0-9]{16}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
                                 return "Please Enter The Credit Card Number";
                               } else {
                                 return null;
@@ -161,7 +164,59 @@ class _MaintenanceState extends State<Maintenance> {
                             },
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: CVV,
+                            label: "CVV",
+                            type: TextInputType.number,
+                            hint: "Enter Your CVV",
+                            prefixIcon: Icon(Icons.credit_card),
+                            validation: (String? value) {
+                              var reg = RegExp(r'^[0-9]{3}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
+                                return "Please Enter The CVV";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: ExpDate,
+                            label: "Expiry Date",
+                            type: TextInputType.datetime,
+                            hint: "Enter Your Expiry Date",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The Expiry Date";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: nameOnCard,
+                            label: "Name On Card",
+                            type: TextInputType.name,
+                            hint: "Enter Your Name",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter The Name On Card";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 25),
@@ -170,8 +225,7 @@ class _MaintenanceState extends State<Maintenance> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (MaintenanceKey.currentState!.validate()) {
-                                    int _amount = amount.hashCode;
-                                    var result = await PayMaintenance(_amount);
+                                    var result = await PayMaintenance();
                                     if (result == 'failure') {
                                       print('Reporting Failed');
                                     } else {
