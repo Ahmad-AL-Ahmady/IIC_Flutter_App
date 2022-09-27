@@ -31,6 +31,8 @@ class _ChatPageState extends State<ChatPage> {
   final _Alice = const types.User(
       id: '82091008-a484-4a89-ae75-a22bf8d6f3ab', firstName: 'Alice');
 
+  List<Widget>? optionList;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +47,8 @@ class _ChatPageState extends State<ChatPage> {
     return token;
   }
 
+  var Data, Options;
+  String output = "";
   Future<void> sendText(String _text) async {
     var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
@@ -73,13 +77,17 @@ class _ChatPageState extends State<ChatPage> {
       } else if (data['message_type'] == "option") {
         // here we display several options to the user
         data = data['component'];
+        Data = data;
 
         // _handleRecievedMessages("text\nsdfsdf");
 
         String outputToUser = "";
         outputToUser = data['title'] + ":" + '\n' + '\n';
-
+        output = outputToUser;
         var options = data['options'];
+        optionList = options;
+
+        // createBottomSheet();
 
         for (var i = 0; i < options.length; i++) {
           var optionLabel = options[i]['label'];
@@ -88,6 +96,12 @@ class _ChatPageState extends State<ChatPage> {
           outputToUser =
               outputToUser + "لإضافة $optionLabel ادخل $optionValue" + '\n';
           // _handleRecievedMessages("$optionLabel ادخل $optionValue");
+
+          optionList = options;
+          // optionList![i] = ListTile(
+          //   title: Text(optionLabel),
+          //   onTap: () => sendText(optionValue),
+          // );
         }
 
         outputToUser = outputToUser + '\n' + "ادخل رقم الاختيار الذى ترغب به";
@@ -98,6 +112,29 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  void showOptions() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      isDismissible: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: optionList!.map<Widget>((option) => {
+              return new ListTile(
+                title:  Text(outputToUser),
+              );
+            }).toList());
+      },
+    );
+  }
+
+  String selectedItem = '';
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -121,7 +158,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         body: Chat(
           messages: _messages,
-          onAttachmentPressed: _handleAtachmentPressed,
+          onAttachmentPressed: showOptions,
           onMessageTap: _handleMessageTap,
           onPreviewDataFetched: _handlePreviewDataFetched,
           onSendPressed: _handleSendPressed,
@@ -135,69 +172,6 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {
       _messages.insert(0, message);
     });
-  }
-
-  void _handleAtachmentPressed() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) => SafeArea(
-        child: SizedBox(
-          height: 144,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleImageSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Photo'),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleFileSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('File'),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Cancel'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _handleFileSelection() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
-
-    if (result != null && result.files.single.path != null) {
-      final message = types.FileMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: const Uuid().v4(),
-        mimeType: lookupMimeType(result.files.single.path!),
-        name: result.files.single.name,
-        size: result.files.single.size,
-        uri: result.files.single.path!,
-      );
-
-      _addMessage(message);
-    }
   }
 
   void _handleImageSelection() async {
