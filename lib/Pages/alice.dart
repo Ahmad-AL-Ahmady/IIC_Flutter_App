@@ -126,7 +126,7 @@ class _ChatPageState extends State<ChatPage> {
         return Column(
             mainAxisSize: MainAxisSize.min,
             children: optionList!.map<Widget>((option) => {
-              return new ListTile(
+              return new mListTile(
                 title:  Text(outputToUser),
               );
             }).toList());
