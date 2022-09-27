@@ -120,7 +120,7 @@ class _IncedentsState extends State<Incedents> {
                           ),
                           Center(
                               child: Text(
-                            "Report The Inciedent",
+                            "Report The Incident",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -128,13 +128,13 @@ class _IncedentsState extends State<Incedents> {
                             ),
                           )),
                           SizedBox(
-                            height: 20,
+                            height: 60,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Inciedent",
+                                "Incident",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

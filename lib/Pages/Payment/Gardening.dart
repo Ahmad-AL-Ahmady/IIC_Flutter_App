@@ -75,6 +75,7 @@ class _GardeningState extends State<Gardening> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+          textAlign: TextAlign.center,
           "Gardening",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),

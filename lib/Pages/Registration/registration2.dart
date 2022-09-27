@@ -121,15 +121,16 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                           height: 30,
                         ),
                         CustomTextField(
-                          label: "Username",
+                          label: "Name",
                           type: TextInputType.name,
-                          hint: "Enter Username",
+                          hint: "Enter Your Name",
                           prefixIcon: Icon(
                             Icons.face,
                           ),
                           controler: _name,
                           validation: (String? value) {
-                            var reg2 = RegExp(r'^[a-zA-Z0-9]+$');
+                            var reg2 =
+                                RegExp(r'^[a-zA-Z][a-zA-Z]*[ ]*[a-zA-Z]*');
                             if (value == null ||
                                 value.isEmpty ||
                                 !reg2.hasMatch(value)) {

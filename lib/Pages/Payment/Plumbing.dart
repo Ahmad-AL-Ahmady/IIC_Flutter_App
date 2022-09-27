@@ -78,6 +78,7 @@ class _PlumbingState extends State<Plumbing> {
       appBar: AppBar(
         title: Text(
           "Plumbing",
+          textAlign: TextAlign.center,
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),

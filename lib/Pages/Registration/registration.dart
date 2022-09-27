@@ -138,7 +138,7 @@ class _RegistrationState extends State<Registration> {
                         const Center(
                             child: Text(
                           textAlign: TextAlign.center,
-                          "Register Your New Account.",
+                          "Register Your New Account",
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,

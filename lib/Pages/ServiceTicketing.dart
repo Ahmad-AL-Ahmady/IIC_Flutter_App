@@ -123,7 +123,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                           ),
                           Center(
                               child: Text(
-                            "Choose the Service You Desire",
+                            "Choose The Service You Desire",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,

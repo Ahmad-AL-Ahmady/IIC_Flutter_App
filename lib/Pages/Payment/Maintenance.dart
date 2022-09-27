@@ -71,6 +71,7 @@ class _MaintenanceState extends State<Maintenance> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+          textAlign: TextAlign.center,
           "Maintenance",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),

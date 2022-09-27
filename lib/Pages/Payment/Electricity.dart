@@ -76,6 +76,7 @@ class _ElectricityState extends State<Electricity> {
       appBar: AppBar(
         title: Text(
           "Electricity",
+          textAlign: TextAlign.center,
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),

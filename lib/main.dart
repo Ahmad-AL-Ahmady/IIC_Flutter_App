@@ -6,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app/Pages/DeliveryNotification.dart';
+import 'package:login_app/Pages/Registration/registerationotp.dart';
+import 'package:login_app/Pages/Registration/registration2.dart';
 import 'package:login_app/Pages/alice.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
