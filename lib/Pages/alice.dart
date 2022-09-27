@@ -123,7 +123,9 @@ class _ChatPageState extends State<ChatPage> {
           // );
         }
 
-        outputToUser = outputToUser + '\n' + "ادخل رقم الاختيار الذى ترغب به";
+        outputToUser = outputToUser +
+            '\n' +
+            "ادخل رقم الاختيار الذى ترغب به او اضغط على علامة زائد اسفل يسار الشاشة لاختيار الاختبار الذي ترغب به";
         _handleRecievedMessages(outputToUser);
       }
     } else {
