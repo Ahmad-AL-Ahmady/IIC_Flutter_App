@@ -1,11 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-//import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:login_app/Pages/Registration/registration.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 
 class homepage extends StatefulWidget {
@@ -59,8 +56,9 @@ class _homepageState extends State<homepage> {
                         ),
                         Center(
                             child: Text(
-                          "Welcome To IIC",
+                          "IIC مرحبا بك في",
                           style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                             fontSize: 30,
                           ),
@@ -74,11 +72,12 @@ class _homepageState extends State<homepage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         )),
                         SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 25),
@@ -94,12 +93,12 @@ class _homepageState extends State<homepage> {
                               splashColor: Colors.white,
                               elevation: 20,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(50),
                               ),
                               color: Color.fromARGB(255, 34, 141, 203),
                               padding: EdgeInsets.all(30),
                               child: Text(
-                                "Login",
+                                "تسجيل الدخول",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,
@@ -128,12 +127,12 @@ class _homepageState extends State<homepage> {
                               splashColor: Colors.white,
                               elevation: 20,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(50),
                               ),
                               color: Color.fromARGB(255, 34, 141, 203),
                               padding: EdgeInsets.all(30),
                               child: Text(
-                                "Register",
+                                "التسجيل لأول مرة",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,

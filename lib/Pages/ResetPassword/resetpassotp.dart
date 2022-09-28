@@ -16,7 +16,7 @@ class OtpScreen extends StatefulWidget {
 Future<String> OtpReset(String Otp, String phone) async {
   var response = await http.post(
       Uri.https(
-          'iic-delivery.mybluemix.net', '/api/v1/forgotPassword/validateOtp'),
+          'iic-project.herokuapp.com', '/api/v1/forgotPassword/validateOtp'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -37,8 +37,8 @@ Future<String> OtpReset(String Otp, String phone) async {
 
 void ShowMessage(BuildContext context) {
   final alert = AlertDialog(
-    title: Text("Error"),
-    content: Text("Invalid OTP"),
+    title: Text("حدث خطأ"),
+    content: Text("خاطئ OTP"),
   );
 
   showDialog(
@@ -51,6 +51,7 @@ void ShowMessage(BuildContext context) {
 
 class _OtpScreenState extends State<OtpScreen> {
   var phone;
+  bool _isloading = false;
 
   _OtpScreenState(phoneInput) {
     this.phone = phoneInput;
@@ -64,7 +65,8 @@ class _OtpScreenState extends State<OtpScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Reset Password",
+          textAlign: TextAlign.center,
+          "اعادة تعيين كلمة السر",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -74,125 +76,143 @@ class _OtpScreenState extends State<OtpScreen> {
         leading: ElevatedButton.icon(
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Back'),
+          label: const Text('الرجوع'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),
       ),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Form(
-          key: _otpkey,
-          child: GestureDetector(
-            child: Stack(
-              children: [
-                Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color.fromARGB(255, 0, 144, 201),
-                          Color.fromARGB(255, 103, 204, 255),
-                          Color.fromARGB(252, 201, 229, 255),
-                        ]),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20, left: 20),
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Text(
-                              "Enter the code you Received",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Form(
+            key: _otpkey,
+            child: GestureDetector(
+              child: Stack(
+                children: [
+                  Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromARGB(255, 0, 144, 201),
+                            Color.fromARGB(255, 103, 204, 255),
+                            Color.fromARGB(252, 201, 229, 255),
+                          ]),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20, left: 20),
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: Text(
+                                "اكتب الرمز الذي استلمته",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 100,
-                          ),
-                          CustomTextField(
-                            controler: otp,
-                            label: "OTP",
-                            type: TextInputType.number,
-                            hint: "Enter the code here",
-                            prefixIcon: Icon(Icons.security),
-                            validation: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "please enter a valid unit number";
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          SizedBox(
-                            height: 100,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25),
-                            child: SizedBox(
-                              width: 250,
-                              child: RaisedButton(
-                                onPressed: () async {
-                                  if (_otpkey.currentState!.validate()) {
-                                    String otp1 = otp.text;
-                                    var statues = await OtpReset(otp1, phone);
-                                    if (statues == 'failure') {
-                                      print('Registration Failed');
-                                      ShowMessage(context);
-                                    } else {
-                                      print(statues);
-                                      print(statues);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  resetpasswordfinal(
-                                                      phone: phone,
-                                                      token: statues)));
+                            SizedBox(
+                              height: 100,
+                            ),
+                            CustomTextField(
+                              controler: otp,
+                              label: "OTP",
+                              type: TextInputType.number,
+                              hint: "ادخل الرمز هنا",
+                              prefixIcon: Icon(Icons.security),
+                              validation: (String? value) {
+                                var reg = RegExp(r'^[0-9]{6}');
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    !reg.hasMatch(value)) {
+                                  return "من فضلك ادخل الكود بشكل صحيح";
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 25),
+                              child: Container(
+                                width: 250,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Color.fromARGB(255, 34, 141, 203),
+                                    padding: EdgeInsets.all(30),
+                                  ),
+                                  child: _isloading
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
+                                            SizedBox(
+                                              width: 24,
+                                            ),
+                                            Text("من فضلك انتظر")
+                                          ],
+                                        )
+                                      : Text("الاستمرار"),
+                                  onPressed: () async {
+                                    if (_otpkey.currentState!.validate()) {
+                                      String otp1 = otp.text;
+                                      setState(() => _isloading = true);
+                                      var statues = await OtpReset(otp1, phone);
+                                      if (statues == 'failure') {
+                                        print('Registration Failed');
+                                        setState(() => _isloading = false);
+                                        ShowMessage(context);
+                                      } else {
+                                        print(statues);
+                                        print(statues);
+                                        setState(() => _isloading = false);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    resetpasswordfinal(
+                                                        phone: phone,
+                                                        token: statues)));
+                                      }
                                     }
-                                  }
-                                  ;
-                                },
-                                splashColor: Colors.white,
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                color: Color.fromARGB(255, 34, 141, 203),
-                                padding: const EdgeInsets.all(30),
-                                child: const Text(
-                                  "Confirm",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                    ;
+                                  },
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          )
-                        ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
