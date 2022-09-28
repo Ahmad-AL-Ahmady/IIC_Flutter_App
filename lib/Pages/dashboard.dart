@@ -97,7 +97,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Dashboard",
+          "الصفحة الرئيسية",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -112,246 +112,249 @@ class _DashboardState extends State<Dashboard> {
             prefs.setString('token', "");
           },
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Sign Out'),
+          label: const Text('تسجيل خروج'),
           style: ElevatedButton.styleFrom(
             elevation: 0,
             primary: Color.fromARGB(0, 34, 141, 203),
           ),
         ),
       ),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 0, 144, 201),
-                      Color.fromARGB(255, 103, 204, 255),
-                      Color.fromARGB(252, 201, 229, 255),
-                    ],
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Center(
-                            child: Text(
-                          "Welcome To IIC",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                          ),
-                        )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ChatPage()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color.fromARGB(255, 34, 141, 203),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Talk To Alice",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ServiceTicketing()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color.fromARGB(255, 34, 141, 203),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Service Ticketing",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Violations()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color.fromARGB(255, 34, 141, 203),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Report Violations",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Incedents()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color.fromARGB(255, 34, 141, 203),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Report Incidents",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => QrCode()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color.fromARGB(255, 34, 141, 203),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Generate QR Code",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Payment()));
-                              },
-                              splashColor: Colors.white,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              color: Color.fromARGB(255, 34, 141, 203),
-                              padding: EdgeInsets.all(30),
-                              child: Text(
-                                "Payment",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        )
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            child: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
                       ],
                     ),
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, left: 20),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Center(
+                              child: Text(
+                            "مرحبا بك في IIC",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatPage()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "تحدث مع اليس",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ServiceTicketing()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "حجز خدمة",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Violations()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "الابلاغ عن المخالفة",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Incedents()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "الابلاغ عن حادث",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => QrCode()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "إنشاء رمز QR",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Payment()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "قائمة الدفع",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

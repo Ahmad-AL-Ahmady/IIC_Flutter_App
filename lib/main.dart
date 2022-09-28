@@ -4,13 +4,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-// import 'package:flutter/services.dart';
-// import 'package:login_app/Pages/DeliveryNotification.dart';
-// import 'package:login_app/Pages/Registration/registerationotp.dart';
-// import 'package:login_app/Pages/Registration/registration2.dart';
-// import 'package:login_app/Pages/alice.dart';
-// import 'package:login_app/Pages/dashboard.dart';
+import 'package:login_app/Pages/alice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/homepage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -97,14 +91,18 @@ class _MyAppState extends State<MyApp> {
     gcontext = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AnimatedSplashScreen(
-        splash: Image.asset('assets/New logo.png'),
-        nextScreen: homepage(),
-        splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: Colors.blue,
-        splashIconSize: 200,
-        duration: 2000,
-        animationDuration: Duration(milliseconds: 3000),
+      home: Directionality(
+        // add this
+        textDirection: TextDirection.rtl, // set this property
+        child: AnimatedSplashScreen(
+          splash: Image.asset('assets/New logo.png'),
+          nextScreen: homepage(),
+          splashTransition: SplashTransition.fadeTransition,
+          backgroundColor: Colors.blue,
+          splashIconSize: 200,
+          duration: 2000,
+          animationDuration: Duration(milliseconds: 1000),
+        ),
       ),
     );
   }

@@ -9,7 +9,6 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-//import 'package:intl/date_symbol_data_local.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'package:login_app/main.dart';
 import 'package:mime/mime.dart';
@@ -56,8 +55,7 @@ class _ChatPageState extends State<ChatPage> {
     tilelist = [];
 
     var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/sendText'),
+      Uri.https('iic-project.herokuapp.com', '/api/v1/sendText'),
       headers: {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),
@@ -144,14 +142,17 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
       builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          // children: optionList!
-          //     .map((option) => ListTile(
-          //           title: Text(option['label']),
-          //         ))
-          //     .toList());
-          children: tilelist,
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            // children: optionList!
+            //     .map((option) => ListTile(
+            //           title: Text(option['label']),
+            //         ))
+            //     .toList());
+            children: tilelist,
+          ),
         );
       },
     );
@@ -166,7 +167,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Alice",
+          "أليس",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 2, 47, 98),
@@ -177,20 +178,23 @@ class _ChatPageState extends State<ChatPage> {
           onPressed: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Dashboard())),
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Back'),
+          label: const Text('الرجوع'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),
       ),
-      body: Chat(
-        messages: _messages,
-        onAttachmentPressed: showOptions,
-        onMessageTap: _handleMessageTap,
-        onPreviewDataFetched: _handlePreviewDataFetched,
-        onSendPressed: _handleSendPressed,
-        showUserAvatars: true,
-        showUserNames: true,
-        user: _user,
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Chat(
+          messages: _messages,
+          onAttachmentPressed: showOptions,
+          onMessageTap: _handleMessageTap,
+          onPreviewDataFetched: _handlePreviewDataFetched,
+          onSendPressed: _handleSendPressed,
+          showUserAvatars: true,
+          showUserNames: true,
+          user: _user,
+        ),
       ),
     );
   }

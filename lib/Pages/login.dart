@@ -48,8 +48,8 @@ Future<String> LOGIN(String email, String password) async {
 
 void ShowMessage(BuildContext context) {
   final alert = AlertDialog(
-    title: Text("Error"),
-    content: Text("Invalid Email or Password"),
+    title: Text("حدث خطأ"),
+    content: Text("البريد الإلكتروني أو كلمة السر خاطئة"),
   );
 
   showDialog(
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Log In Page",
+          "تسجيل الدخول",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -97,166 +97,170 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => homepage())),
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Back'),
+          label: const Text('الرجوع'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),
       ),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Form(
-          key: _loginkey,
-          child: Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromARGB(255, 0, 144, 201),
-                        Color.fromARGB(255, 103, 204, 255),
-                        Color.fromARGB(252, 201, 229, 255),
-                      ]),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                            child: Text(
-                          "Welcome To IIC",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Form(
+            key: _loginkey,
+            child: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromARGB(255, 0, 144, 201),
+                          Color.fromARGB(255, 103, 204, 255),
+                          Color.fromARGB(252, 201, 229, 255),
+                        ]),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, left: 20),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
                           ),
-                        )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        CustomTextField(
-                          controler: _user,
-                          label: "Email",
-                          type: TextInputType.streetAddress,
-                          hint: "Enter Email",
-                          prefixIcon: Icon(
-                            Icons.email,
+                          Center(
+                              child: Text(
+                            "مرحبا بك في IIC",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          )),
+                          SizedBox(
+                            height: 20,
                           ),
-                          validation: (String? value) {
-                            var reg3 = RegExp(
-                                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-                            if (value == null ||
-                                value.isEmpty ||
-                                !reg3.hasMatch(value)) {
-                              return 'Please enter a valid email';
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        buildPassword(),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                child: Text("Forgot Password ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Resetpassword()));
+                          CustomTextField(
+                            controler: _user,
+                            label: "البريد الالكتروني",
+                            type: TextInputType.streetAddress,
+                            hint: "ادخل بريدك الالكتروني",
+                            prefixIcon: Icon(
+                              Icons.email,
+                            ),
+                            validation: (String? value) {
+                              var reg3 = RegExp(
+                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg3.hasMatch(value)) {
+                                return 'من فضلك ادخل بريد الكتروني صحيح بدون مسافات';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          buildPassword(),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  child: Text("! نسيت كلمة السر",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Resetpassword()));
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 20,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  primary: Color.fromARGB(255, 34, 141, 203),
+                                  padding: EdgeInsets.all(30),
+                                ),
+                                child: _isloading
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 24,
+                                          ),
+                                          Text("من فضلك انتظر")
+                                        ],
+                                      )
+                                    : Text("الدخول"),
+                                onPressed: () async {
+                                  if (_loginkey.currentState!.validate()) {
+                                    String username1 = _user.text;
+                                    String password1 = _pass.text;
+                                    setState(() => _isloading = true);
+                                    var result =
+                                        await LOGIN(username1, password1);
+                                    if (result == 'failure') {
+                                      print('login failed');
+                                      setState(() => _isloading = false);
+                                      ShowMessage(context);
+                                    } else {
+                                      print(result);
+                                      setState(() => _isloading = false);
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Dashboard()),
+                                          (route) => route.isFirst);
+                                    }
+                                  }
+                                  ;
                                 },
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: Container(
-                            width: 250,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                primary: Color.fromARGB(255, 34, 141, 203),
-                                padding: EdgeInsets.all(30),
-                              ),
-                              child: _isloading
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 24,
-                                        ),
-                                        Text("Please Wait")
-                                      ],
-                                    )
-                                  : Text("Login"),
-                              onPressed: () async {
-                                if (_loginkey.currentState!.validate()) {
-                                  String username1 = _user.text;
-                                  String password1 = _pass.text;
-                                  setState(() => _isloading = true);
-                                  var result =
-                                      await LOGIN(username1, password1);
-                                  if (result == 'failure') {
-                                    print('login failed');
-                                    setState(() => _isloading = false);
-                                    ShowMessage(context);
-                                  } else {
-                                    print(result);
-                                    setState(() => _isloading = false);
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) => Dashboard()),
-                                        (route) => route.isFirst);
-                                  }
-                                }
-                                ;
-                              },
-                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
+                          SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -268,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Password",
+          "كلمة السر",
           style: TextStyle(
               color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
@@ -291,7 +295,7 @@ class _LoginScreenState extends State<LoginScreen> {
               var reg4 = RegExp(
                   r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
               if (value == null || value.isEmpty || !reg4.hasMatch(value)) {
-                return 'Please enter a valid password';
+                return 'من فضلك ادخل كلمة سر صحيحة';
               } else {
                 return null;
               }
@@ -314,22 +318,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   Icons.vpn_key,
                   color: Color(0xff4c5166),
                 ),
-                hintText: "Enter Password",
+                hintText: "ادخل كلمة السر",
                 hintStyle: TextStyle(color: Colors.black38)),
           ),
         )
       ],
-    );
-  }
-
-  Widget buildForgetPassword() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        child: Text("Forget Password !",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        onPressed: () {},
-      ),
     );
   }
 }
