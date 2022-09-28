@@ -79,7 +79,6 @@ class _ChatPageState extends State<ChatPage> {
       if (answerList['message_type'] == "text") {
         for (int i = 0; i < data['output'].length; i++) {
           final msg = data['output'][i]['component']['text'];
-          print("MSG: $msg");
           _handleRecievedMessages(msg);
           // _handleRecievedMessages(answerList['component']['text']);
         }
