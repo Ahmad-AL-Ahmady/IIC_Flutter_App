@@ -50,6 +50,26 @@ class _ChatPageState extends State<ChatPage> {
 
   var Data, Options;
   String output = "";
+
+  Future<String> EndSession() async {
+    var response = await http.post(
+      Uri.https('iic-project.herokuapp.com', '/api/v1/endSession'),
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': await getStringValuesSF(),
+      },
+      body: jsonEncode(
+        {},
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return 'failure';
+    }
+  }
+
   Future<void> sendText(String _text, bool isListTile) async {
     // clear all the options in the tilelist
     tilelist = [];
@@ -175,8 +195,18 @@ class _ChatPageState extends State<ChatPage> {
         leadingWidth: 100,
         elevation: 0,
         leading: ElevatedButton.icon(
-          onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Dashboard())),
+          onPressed: () async {
+            var statues = await EndSession();
+            if (statues == 'failure') {
+              print('failed');
+            } else {
+              print(statues);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Dashboard()));
+            }
+
+            ;
+          },
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('الرجوع'),
           style: ElevatedButton.styleFrom(
