@@ -2,6 +2,7 @@
 
 //import 'dart:ffi';
 //import 'dart:js';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:login_app/Pages/ResetPassword/resetpassword.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'package:login_app/Pages/homepage.dart';
@@ -18,15 +19,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 Future<String> LOGIN(String email, String password) async {
+  String? fcmToken = await FirebaseMessaging.instance.getToken();
+
   var response = await http.post(
       Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
           '/api/v1/login'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({"email": email, "password": password}));
-  print(email);
-  print(password);
+      body: jsonEncode(
+          {"email": email, "password": password, "fcmToken": fcmToken}));
+
+  print("FCMTOKEN: $fcmToken");
+  print("EMAIL: $email");
+  print("Password: $password");
   var token = response.body;
 
   print("======================");
@@ -168,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(
                               alignment: Alignment.centerRight,
                               child: TextButton(
-                                child: Text("Forget Password !",
+                                child: Text("Forgot Password ",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white)),
