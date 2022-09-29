@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
         // add this
         textDirection: TextDirection.rtl, // set this property
         child: AnimatedSplashScreen(
-          splash: Image.asset('assets/New logo.png'),
+          splash: Image.asset('assets/New logo2.png'),
           nextScreen: homepage(),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: Colors.blue,
