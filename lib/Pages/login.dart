@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
-                                  child: Text("! نسيت كلمة السر",
+                                  child: Text("نسيت كلمة السر ؟",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white)),
