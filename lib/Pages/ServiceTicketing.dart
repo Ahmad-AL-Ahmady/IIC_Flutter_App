@@ -22,8 +22,7 @@ class ServiceTicketing extends StatefulWidget {
 
 Future<String> Send(String date, String type) async {
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/requestService'),
+      Uri.https('iic-project.herokuapp.com', '/api/v1/requestService'),
       headers: {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),

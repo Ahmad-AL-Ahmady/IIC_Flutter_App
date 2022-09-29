@@ -20,8 +20,7 @@ Future<String> LOGIN(String email, String password) async {
   String? fcmToken = await FirebaseMessaging.instance.getToken();
 
   var response = await http.post(
-      Uri.https('iic-simple-toolchain-20220912122755303.mybluemix.net',
-          '/api/v1/login'),
+      Uri.https('iic-project.herokuapp.com', '/api/v1/login'),
       headers: {
         'Content-Type': 'application/json',
       },
