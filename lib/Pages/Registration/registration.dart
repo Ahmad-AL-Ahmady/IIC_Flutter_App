@@ -193,19 +193,7 @@ class _RegistrationState extends State<Registration> {
                                       border: InputBorder.none,
                                       contentPadding:
                                           EdgeInsets.only(top: 14, bottom: 14),
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 14,
-                                        ),
-                                        child: Text(
-                                          "(+2)",
-                                          style: TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 2, 47, 98),
-                                          ),
-                                        ),
-                                      ),
+                                      prefixIcon: Icon(Icons.phone),
                                       hintText: "ادخل رقم الهاتف  ",
                                       hintStyle:
                                           TextStyle(color: Colors.black38)),

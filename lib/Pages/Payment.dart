@@ -19,7 +19,7 @@ class _PaymentState extends State<Payment> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "قائمة الدفع",
+          " ",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -96,7 +96,7 @@ class _PaymentState extends State<Payment> {
                                   color: Color.fromARGB(255, 34, 141, 203),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
-                                    "الاصلاحات",
+                                    "الصيانة",
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
