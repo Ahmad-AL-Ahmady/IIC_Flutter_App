@@ -116,8 +116,7 @@ class _ChatPageState extends State<ChatPage> {
           var optionLabel = options[i]['label'];
           var optionValue = options[i]['value']['input']['text'];
 
-          outputToUser =
-              outputToUser + "لإضافة $optionLabel ادخل $optionValue" + '\n';
+          outputToUser = outputToUser + "$optionValue - $optionLabel" + '\n';
           // _handleRecievedMessages("$optionLabel ادخل $optionValue");
 
           tilelist.add(ListTile(
@@ -143,7 +142,7 @@ class _ChatPageState extends State<ChatPage> {
 
         outputToUser = outputToUser +
             '\n' +
-            "ادخل رقم الاختيار الذى ترغب به او اضغط على علامة زائد اسفل يسار الشاشة لاختيار الاختبار الذي ترغب به";
+            "ادخل رقم الاختيار الذى ترغب به او اضغط على علامة زائد اسفل يسار الشاشة لاختيار الاختيار الذي ترغب به";
         _handleRecievedMessages(outputToUser);
       }
     } else {
