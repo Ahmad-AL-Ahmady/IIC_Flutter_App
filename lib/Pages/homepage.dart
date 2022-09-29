@@ -49,7 +49,7 @@ class _homepageState extends State<homepage> {
                         children: [
                           SizedBox(height: 50),
                           Image.asset(
-                            "assets/New logo.png",
+                            "assets/New logo2.png",
                             width: 200,
                             height: 200,
                           ),
