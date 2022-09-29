@@ -77,7 +77,7 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "'",
+          "لديك طلب توصيل",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),

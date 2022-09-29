@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-//import 'dart:ffi';
-//import 'dart:js';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:login_app/Pages/ResetPassword/resetpassword.dart';
 import 'package:login_app/Pages/dashboard.dart';
@@ -30,13 +28,13 @@ Future<String> LOGIN(String email, String password) async {
       body: jsonEncode(
           {"email": email, "password": password, "fcmToken": fcmToken}));
 
-  print("FCMTOKEN: $fcmToken");
   print("EMAIL: $email");
   print("Password: $password");
   var token = response.body;
 
   print("======================");
   print(token); // THIS IS THE TOKEN
+  print("FCMTOKEN: $fcmToken");
 
   if (response.statusCode == 200) {
     await addStringToSF(token);

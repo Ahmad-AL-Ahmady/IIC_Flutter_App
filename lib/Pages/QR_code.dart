@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:login_app/Pages/dashboard.dart';
-// import 'package:login_app/Pages/globels.dart';
-// import 'package:login_app/Pages//ResetPassword/resetpassotp.dart';
-// import 'package:login_app/UI/custom_text_field.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -28,7 +24,7 @@ class _QrCodeState extends State<QrCode> {
 
   Future<void> Generate_qrcode() async {
     var response = await http.post(
-        Uri.https('iic-delivery.mybluemix.net', '/qr/generate'),
+        Uri.https('iic-project.herokuapp.com', '/qr/generate'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': await getStringValuesSF()
@@ -60,7 +56,7 @@ class _QrCodeState extends State<QrCode> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "QR Code",
+          "رمز QR",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -75,76 +71,79 @@ class _QrCodeState extends State<QrCode> {
             prefs.setString('token', "");
           },
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Back'),
+          label: const Text('الرجوع'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),
       ),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 0, 144, 201),
-                      Color.fromARGB(255, 103, 204, 255),
-                      Color.fromARGB(252, 201, 229, 255),
-                    ],
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Center(
-                          child: Text(
-                            "1.Send a screenshot of the QR code to admit the visitor",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: Text(
-                            "2.The QR code can only be used once",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 100,
-                        ),
-                        Container(
-                          child: Center(
-                            child: image,
-                          ),
-                        ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            child: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
                       ],
                     ),
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, left: 20),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Center(
+                            child: Text(
+                              "1. إرسال لقطة شاشة لرمز QR للسماح للزائر بالدخول",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: Text(
+                              "2. لا يمكن استخدام رمز QR إلا مرة واحدة",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 100,
+                          ),
+                          Container(
+                            child: Center(
+                              child: image,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

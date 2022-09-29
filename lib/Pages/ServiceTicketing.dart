@@ -53,8 +53,8 @@ void ShowMessage(BuildContext context) {
   Random random = new Random();
   late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
-    title: Text("Done"),
-    content: Text("Service Requested, Refrence Number ($randomNumber)"),
+    title: Text("تم الطلب"),
+    content: Text("تم طلب الخدمة و رقم الطلب ($randomNumber)"),
   );
 
   showDialog(
@@ -66,8 +66,8 @@ void ShowMessage(BuildContext context) {
 }
 
 class _ServiceTicketingState extends State<ServiceTicketing> {
-  final List<String> items = ["Electricity", "Plumbing", "Gardening"];
-  String value = "Electricity";
+  final List<String> items = ["الكهرباء", "السباكة", "البستنة"];
+  String value = "الكهرباء";
   final date = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Service Ticketing",
+          "حجز خدمة",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -86,7 +86,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
           onPressed: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Dashboard())),
           icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('Back'),
+          label: const Text('الرجوع'),
           style: ElevatedButton.styleFrom(
               elevation: 0, primary: Colors.transparent),
         ),
@@ -123,7 +123,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                           ),
                           Center(
                               child: Text(
-                            "Choose The Service You Desire",
+                            "اختر الخدمة التي تريدها",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
@@ -152,7 +152,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                                 value: value,
                                 iconSize: 36,
                                 hint: Text(
-                                  "Choose Category",
+                                  "اخترالخدمة",
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 166, 163, 163),
                                       fontWeight: FontWeight.bold),
@@ -178,7 +178,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
                                 print("null choice");
-                                return "please enter a valid date";
+                                return "ادخل تاريخ صحيح";
                               } else {
                                 return null;
                               }
@@ -186,7 +186,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                             controller: date,
                             decoration: InputDecoration(
                               icon: Icon(Icons.calendar_month_rounded),
-                              labelText: "Select a Date",
+                              labelText: "اختر تاريخ",
                             ),
                             onTap: (() async {
                               DateTime? pickeddate = await showDatePicker(
@@ -243,7 +243,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "Request",
+                                  "طلب",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,

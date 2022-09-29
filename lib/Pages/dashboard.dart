@@ -106,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0,
         leading: ElevatedButton.icon(
           onPressed: () async {
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => LoginScreen()));
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('token', "");
