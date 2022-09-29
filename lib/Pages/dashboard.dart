@@ -243,7 +243,7 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "الابلاغ عن المخالفة",
+                                  "الابلاغ عن مخالفة",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,

@@ -53,8 +53,8 @@ Future<String> Register(String Phone, String UnitNumber) async {
 
 void ShowMessage(BuildContext context) {
   final alert = AlertDialog(
-    title: Text("Error"),
-    content: Text("Invalid Phone or Unit Number"),
+    title: Text("خطأ"),
+    content: Text("رقم هاتف او وحدة خاطئ من فضبلك اعد المحاول"),
   );
 
   showDialog(
