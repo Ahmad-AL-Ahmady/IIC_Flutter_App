@@ -110,8 +110,18 @@ class _ownersCarsState extends State<ownersCars> {
                       child: Column(
                           children: tilelist.length == 0
                               ? [
-                                  const Center(
-                                    child: Text("ليس لديك سيارات مسجلة"),
+                                  SizedBox(
+                                    height: 300,
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "ليس لديك سيارات مسجلة",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   )
                                 ]
                               : tilelist),

@@ -114,9 +114,18 @@ class _VisitorListState extends State<VisitorList> {
                       child: Column(
                           children: tilelist.length == 0
                               ? [
-                                  const Center(
-                                    child:
-                                        Text("ليس لديك زوار فى الوقت الحالى"),
+                                  SizedBox(
+                                    height: 300,
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "ليس لديك زوار فى الوقت الحالى",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   )
                                 ]
                               : tilelist),
