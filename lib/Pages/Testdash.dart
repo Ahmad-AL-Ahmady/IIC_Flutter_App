@@ -1,96 +1,28 @@
-// ignore_for_file: deprecated_member_use
+import 'dart:developer';
 
-import 'dart:ffi';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login_app/Pages/DeliveryNotification.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/foundation/key.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/QR_code.dart';
 import 'package:login_app/Pages/ServiceTicketing.dart';
 import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/violations.dart';
-import 'package:login_app/main.dart';
 import 'alice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Dashboard extends StatefulWidget {
-  String? firstname;
+class TestDash extends StatefulWidget {
+  const TestDash({Key? key}) : super(key: key);
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<TestDash> createState() => _TestDashState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  BuildContext? gContext;
-
-  Future<void> HandleTerminatedMessage() async {
-    SharedPreferences.getInstance().then((value) async {
-      bool isPressed = value.getBool("notification_pressed") ?? false;
-      if (isPressed) {
-        RemoteMessage? initialMessage =
-            await FirebaseMessaging.instance.getInitialMessage();
-
-        if (initialMessage != null) {
-          _handleMessage(initialMessage);
-        }
-      }
-    });
-  }
-
-  Future<void> HandleBackGroundMessage() async {
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-  }
-
-  Future<void> HandleForegroundMessage() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message != null) {
-        Future.delayed(Duration(milliseconds: 100), () => {});
-        Navigator.of(gContext!).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => DeliveryResponse(
-                orderId: message.data["orderId"].toString(),
-              ),
-            ),
-            (route) => route.isFirst);
-      }
-    });
-  }
-
-  void _handleMessage(RemoteMessage message) {
-    print('YOu just enterd the function');
-
-    Future.delayed(Duration(milliseconds: 100), () => {});
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => DeliveryResponse(
-            orderId: message.data["orderId"].toString(),
-          ),
-        ),
-        (route) => route.isFirst);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    HandleTerminatedMessage();
-    HandleForegroundMessage();
-    HandleBackGroundMessage();
-    _checkDeviceNotificationToken();
-  }
-
-  _checkDeviceNotificationToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print(token);
-  }
-
+class _TestDashState extends State<TestDash> {
   @override
   Widget build(BuildContext context) {
-    // _checkNotificationMsg();
-    gContext = context;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(

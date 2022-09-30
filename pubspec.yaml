@@ -84,6 +84,16 @@ flutter:
     - assets/Flutter.png
     - assets/New logo.png
     - assets/New logo2.png
+    - assets/payment.png
+    - assets/QR.png
+    - assets/REPORT.png
+    - assets/SERVICES.png
+    - assets/Alice.png
+    - assets/clipboard.png
+    - assets/violation.png
+
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
