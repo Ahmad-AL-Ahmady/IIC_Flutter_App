@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        splash: Image.asset('assets/New logo.png'),
+        splash: Image.asset('assets/New logo2.png'),
         nextScreen: homepage(),
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: Colors.blue,
