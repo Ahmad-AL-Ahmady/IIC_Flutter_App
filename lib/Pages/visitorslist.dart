@@ -14,6 +14,54 @@ class VisitorList extends StatefulWidget {
 
 class _VisitorListState extends State<VisitorList> {
   List<Widget> tilelist = [];
+  // var visitorsData;
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    return token;
+  }
+
+  Future<String> getVisitorsList() async {
+    var response = await http.get(
+        Uri.https('iic-project.herokuapp.com', '/api/v1/visitorsList'),
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': await getStringValuesSF()
+        });
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body) as List<dynamic>;
+
+      setState(() {
+        for (int i = 0; i < data.length; i++) {
+          tilelist.add(Card(
+              elevation: 10,
+              child: ListTile(
+                leading: Text(data[i]["plateNumber"]),
+                trailing: Text(data[i]["signOut"].substring(0, 10)),
+              )));
+        }
+      });
+
+      print("=======VisitorsList=====");
+      print("DATA: $data");
+      print("Visitors List: $tilelist");
+
+      return response.body;
+    } else {
+      return 'failure';
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getVisitorsList().then((value) => null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +76,7 @@ class _VisitorListState extends State<VisitorList> {
         elevation: 0,
         leading: ElevatedButton.icon(
           onPressed: () async {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Dashboard()));
+            Navigator.pop(context);
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('token', "");
           },
@@ -64,18 +111,7 @@ class _VisitorListState extends State<VisitorList> {
                     padding: const EdgeInsets.only(right: 20, left: 20),
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Colors.white,
-                            child: Material(
-                              child: ListTile(
-                                title: const Text(''),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                      child: Column(children: tilelist),
                     ),
                   ),
                 ),
