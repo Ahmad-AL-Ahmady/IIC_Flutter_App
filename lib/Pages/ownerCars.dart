@@ -107,7 +107,14 @@ class _ownersCarsState extends State<ownersCars> {
                     padding: const EdgeInsets.only(right: 20, left: 20),
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: Column(children: tilelist),
+                      child: Column(
+                          children: tilelist.length == 0
+                              ? [
+                                  const Center(
+                                    child: Text("ليس لديك سيارات مسجلة"),
+                                  )
+                                ]
+                              : tilelist),
                     ),
                   ),
                 ),
