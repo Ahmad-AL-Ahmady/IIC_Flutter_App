@@ -11,7 +11,9 @@ import 'package:login_app/Pages/QR_code.dart';
 import 'package:login_app/Pages/ServiceTicketing.dart';
 import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
+import 'package:login_app/Pages/ownerCars.dart';
 import 'package:login_app/Pages/violations.dart';
+import 'package:login_app/Pages/visitorslist.dart';
 import 'package:login_app/main.dart';
 import 'alice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -317,7 +319,7 @@ class _DashboardState extends State<Dashboard> {
                                       child: Column(
                                         children: <Widget>[
                                           Image.asset(
-                                            "assets/clipboard.png",
+                                            "assets/violation.png",
                                             width: 80.0,
                                           ),
                                           SizedBox(
@@ -420,6 +422,100 @@ class _DashboardState extends State<Dashboard> {
                                           ),
                                           Text(
                                             "حجز خدمة",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0),
+                                          ),
+                                          SizedBox(
+                                            height: 5.0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              width: 150.0,
+                              height: 150.0,
+                              child: GestureDetector(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ownersCars())),
+                                child: Card(
+                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  elevation: 2.0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Image.asset(
+                                            "assets/carslist.png",
+                                            width: 80.0,
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          Text(
+                                            "سياراتك الخاصة",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            SizedBox(
+                              width: 150.0,
+                              height: 150.0,
+                              child: GestureDetector(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => VisitorList())),
+                                child: Card(
+                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  elevation: 2.0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Image.asset(
+                                            "assets/Visitorslist.png",
+                                            width: 80.0,
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          Text(
+                                            "قائمة الزوار",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 255, 255, 255),
