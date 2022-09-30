@@ -124,7 +124,7 @@ class _ResetpasswordState extends State<Resetpassword> {
                             ),
                             Center(
                                 child: Text(
-                              "املأ النماذج النصية لإعادة تعيين كلمة المرور الخاصة بك",
+                              "املأ النماذج النصية لإعادة تعيين كلمة السر الخاصة بك",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,

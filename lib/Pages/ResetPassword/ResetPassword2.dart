@@ -170,6 +170,18 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                             SizedBox(
                               height: 30,
                             ),
+                            Center(
+                              child: Text(
+                                " كلمة السر يجب ان تحتوي على ارقام و حرف كبير و حرف صغير على الاقل و رمز",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
@@ -224,15 +236,6 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                             ),
                             SizedBox(
                               height: 30,
-                            ),
-                            Center(
-                              child: Text(
-                                " كلمة السر يجب ان تحتوي على ارقام و حرف كبير و حرف صغير على الاقل و رمز",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
                             ),
                             SizedBox(
                               height: 10,
