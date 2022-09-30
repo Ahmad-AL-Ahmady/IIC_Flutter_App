@@ -95,28 +95,34 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          textAlign: TextAlign.center,
-          "الصفحة الرئيسية",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: Color.fromARGB(255, 0, 144, 201),
-        automaticallyImplyLeading: false,
-        leadingWidth: 200,
-        elevation: 0,
-        leading: ElevatedButton.icon(
-          onPressed: () async {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setString('token', "");
-          },
-          icon: const Icon(Icons.arrow_left_sharp),
-          label: const Text('تسجيل خروج'),
-          style: ElevatedButton.styleFrom(
-              elevation: 0, primary: Colors.transparent),
-        ),
-      ),
+          title: Text(
+            "الصفحة الرئيسية",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color.fromARGB(255, 0, 144, 201),
+          automaticallyImplyLeading: false,
+          leadingWidth: 100,
+          elevation: 0,
+          leading: SizedBox(
+            width: 1,
+          ),
+          actions: [
+            ElevatedButton.icon(
+              onPressed: () async {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setString('token', "");
+              },
+              label: const Text('خروج'),
+              icon: const Icon(Icons.logout),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, primary: Colors.transparent),
+            ),
+          ]),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -171,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => ChatPage())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -188,9 +194,10 @@ class _DashboardState extends State<Dashboard> {
                                             height: 10.0,
                                           ),
                                           Text(
-                                            "التحدث مع Alice",
+                                            "تحدٌث مع Alice",
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -216,7 +223,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => QrCode())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -235,7 +242,8 @@ class _DashboardState extends State<Dashboard> {
                                           Text(
                                             "رمز QR",
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -266,7 +274,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => Incedents())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -286,7 +294,7 @@ class _DashboardState extends State<Dashboard> {
                                             "الإبلاغ عن حادث",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -309,7 +317,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => Violations())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -329,7 +337,7 @@ class _DashboardState extends State<Dashboard> {
                                             "الإبلاغ عن مخالفة",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -360,7 +368,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => Payment())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -380,7 +388,7 @@ class _DashboardState extends State<Dashboard> {
                                             "قائمة الدفع",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -404,7 +412,7 @@ class _DashboardState extends State<Dashboard> {
                                         builder: (context) =>
                                             ServiceTicketing())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -424,7 +432,7 @@ class _DashboardState extends State<Dashboard> {
                                             "حجز خدمة",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -455,7 +463,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => ownersCars())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -475,7 +483,7 @@ class _DashboardState extends State<Dashboard> {
                                             "سياراتك الخاصة",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
@@ -498,7 +506,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => VisitorList())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
@@ -518,7 +526,7 @@ class _DashboardState extends State<Dashboard> {
                                             "قائمة الزوار",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
-                                                    255, 255, 255, 255),
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.0),
                                           ),
