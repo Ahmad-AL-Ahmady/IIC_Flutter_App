@@ -232,7 +232,7 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "إنشاءرمز QR",
+                                  "إنشاء رمز QR",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
