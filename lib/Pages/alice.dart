@@ -142,7 +142,7 @@ class _ChatPageState extends State<ChatPage> {
 
         outputToUser = outputToUser +
             '\n' +
-            "ادخل رقم الاختيار الذى ترغب به او اضغط على علامة زائد اسفل يسار الشاشة لاختيار الاختيار الذي ترغب به";
+            "ادخل رقم الإختيار الذى ترغب به او اضغط على علامة زائد اسفل يسار الشاشة لإختيار إلاختيار الذي ترغب به";
         _handleRecievedMessages(outputToUser);
       }
     } else {
