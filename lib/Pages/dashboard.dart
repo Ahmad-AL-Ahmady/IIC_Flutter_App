@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:ffi';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +12,7 @@ import 'package:login_app/Pages/ServiceTicketing.dart';
 import 'package:login_app/Pages/incedents.dart';
 import 'package:login_app/Pages/login.dart';
 import 'package:login_app/Pages/violations.dart';
+import 'package:login_app/main.dart';
 import 'alice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,8 +40,23 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
-  Future<void> setupInteractedMessage() async {
+  Future<void> HandleBackGroundMessage() async {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+
+  Future<void> HandleForegroundMessage() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message != null) {
+        Future.delayed(Duration(milliseconds: 100), () => {});
+        Navigator.of(gContext!).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => DeliveryResponse(
+                orderId: message.data["orderId"].toString(),
+              ),
+            ),
+            (route) => route.isFirst);
+      }
+    });
   }
 
   void _handleMessage(RemoteMessage message) {
@@ -58,24 +76,9 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     super.initState();
     HandleTerminatedMessage();
+    HandleForegroundMessage();
+    HandleBackGroundMessage();
     _checkDeviceNotificationToken();
-    setupInteractedMessage();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-
-        Future.delayed(Duration(milliseconds: 100), () => {});
-        Navigator.of(gContext!).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => DeliveryResponse(
-                orderId: message.data["orderId"].toString(),
-              ),
-            ),
-            (route) => route.isFirst);
-      }
-    });
   }
 
   _checkDeviceNotificationToken() async {
