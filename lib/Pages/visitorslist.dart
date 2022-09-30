@@ -67,7 +67,7 @@ class _VisitorListState extends State<VisitorList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "",
+          "قائمة الزوار",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
