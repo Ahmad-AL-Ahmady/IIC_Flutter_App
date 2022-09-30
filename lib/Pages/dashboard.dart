@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
   String? firstname;
-
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -23,18 +21,47 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   BuildContext? gContext;
 
+  Future<void> HandleTerminatedMessage() async {
+    SharedPreferences.getInstance().then((value) async {
+      bool isPressed = value.getBool("notification_pressed") ?? false;
+      if (isPressed) {
+        RemoteMessage? initialMessage =
+            await FirebaseMessaging.instance.getInitialMessage();
+
+        if (initialMessage != null) {
+          _handleMessage(initialMessage);
+        }
+      }
+    });
+  }
+
+  Future<void> setupInteractedMessage() async {
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    print('YOu just enterd the function');
+    Future.delayed(Duration(milliseconds: 100), () => {});
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => DeliveryResponse(
+            orderId: message.data["orderId"].toString(),
+          ),
+        ),
+        (route) => route.isFirst);
+  }
+
   @override
   void initState() {
     super.initState();
-    //  _checkDeviceNotificationToken();
-
+    HandleTerminatedMessage();
+    _checkDeviceNotificationToken();
+    setupInteractedMessage();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
       // print('Message data: ${message.data["orderId"]}');
-
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
-
         Future.delayed(Duration(milliseconds: 100), () => {});
         Navigator.of(gContext!).pushAndRemoveUntil(
             MaterialPageRoute(
@@ -45,59 +72,53 @@ class _DashboardState extends State<Dashboard> {
             (route) => route.isFirst);
       }
     });
-
     // listening to messages in the foreground
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      // print('Message data: ${message.data["orderId"]}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-
-        Future.delayed(Duration(milliseconds: 100), () => {});
-        Navigator.of(gContext!).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => DeliveryResponse(
-                orderId: message.data["orderId"].toString(),
-              ),
-            ),
-            (route) => route.isFirst);
-      }
-    });
-
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   print('Got a message whilst in the foreground!');
+    //   // print('Message data: ${message.data["orderId"]}');
+    //   if (message.notification != null) {
+    //     print('Message also contained a notification: ${message.notification}');
+    //     Future.delayed(Duration(milliseconds: 100), () => {});
+    //     Navigator.of(gContext!).pushAndRemoveUntil(
+    //         MaterialPageRoute(
+    //           builder: (context) => DeliveryResponse(
+    //             orderId: message.data["orderId"].toString(),
+    //           ),
+    //         ),
+    //         (route) => route.isFirst);
+    //   }
+    // });
     //
   }
 
-  // _checkDeviceNotificationToken() async {
-  //   String? token = await FirebaseMessaging.instance.getToken();
-  //   print(token);
-  //   //TODO:: send token to backend to save with user
-  //   await sendTokentToBackend(token);
-  //   FirebaseMessaging.instance.onTokenRefresh.listen((event) {
-  //     sendTokentToBackend(event);
-  //   });
-  // }
+  _checkDeviceNotificationToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    print(token);
+    //   //TODO:: send token to backend to save with user
+    //   await sendTokentToBackend(token);
+    //   FirebaseMessaging.instance.onTokenRefresh.listen((event) {
+    //     sendTokentToBackend(event);
+    //   });
+  }
 
   // _checkNotificationMsg() {
   //   SharedPreferences.getInstance().then((value) {
   //     bool isPressed = value.getBool("notification_pressed") ?? false;
   //     if (isPressed) {
   //       value.remove("notification_pressed");
-  //       Navigator.push(
-  //           context, MaterialPageRoute(builder: (context) => ChatPage()));
+  //       Navigator.push(context,
+  //           MaterialPageRoute(builder: (context) => DeliveryResponse()));
   //     }
   //   });
   // }
-
   @override
   Widget build(BuildContext context) {
     // _checkNotificationMsg();
     gContext = context;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "الصفحة الرئيسية",
+          "الصفحة لرئيسية",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -106,7 +127,7 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0,
         leading: ElevatedButton.icon(
           onPressed: () async {
-            Navigator.pushReplacement(context,
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LoginScreen()));
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('token', "");
@@ -180,7 +201,38 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "تحدث مع اليس",
+                                  "تحدث مع Alice",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => QrCode()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "إنشاءرمز QR",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
@@ -233,6 +285,37 @@ class _DashboardState extends State<Dashboard> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
+                                          builder: (context) => Payment()));
+                                },
+                                splashColor: Colors.white,
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                color: Color.fromARGB(255, 34, 141, 203),
+                                padding: EdgeInsets.all(30),
+                                child: Text(
+                                  "قائمة الدفع",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Container(
+                              width: 250,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
                                           builder: (context) => Violations()));
                                 },
                                 splashColor: Colors.white,
@@ -243,7 +326,7 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "الابلاغ عن مخالفة",
+                                  "الإبلاغ عن مخالفة",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
@@ -274,7 +357,7 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 34, 141, 203),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
-                                  "الابلاغ عن حادث",
+                                  "الإبلاغ عن حادث",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
@@ -286,68 +369,6 @@ class _DashboardState extends State<Dashboard> {
                           SizedBox(
                             height: 5,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25),
-                            child: Container(
-                              width: 250,
-                              child: RaisedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => QrCode()));
-                                },
-                                splashColor: Colors.white,
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                color: Color.fromARGB(255, 34, 141, 203),
-                                padding: EdgeInsets.all(30),
-                                child: Text(
-                                  "إنشاء رمز QR",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25),
-                            child: Container(
-                              width: 250,
-                              child: RaisedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Payment()));
-                                },
-                                splashColor: Colors.white,
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                color: Color.fromARGB(255, 34, 141, 203),
-                                padding: EdgeInsets.all(30),
-                                child: Text(
-                                  "قائمة الدفع",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          )
                         ],
                       ),
                     ),
