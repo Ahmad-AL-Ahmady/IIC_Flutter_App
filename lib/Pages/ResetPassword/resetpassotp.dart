@@ -169,10 +169,22 @@ class _OtpScreenState extends State<OtpScreen> {
                                             SizedBox(
                                               width: 24,
                                             ),
-                                            Text("من فضلك انتظر")
+                                            Text(
+                                              "من فضلك انتظر",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
                                           ],
                                         )
-                                      : Text("الاستمرار"),
+                                      : Text(
+                                          "الاستمرار",
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                   onPressed: () async {
                                     if (_otpkey.currentState!.validate()) {
                                       String otp1 = otp.text;

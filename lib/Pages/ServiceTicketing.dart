@@ -244,7 +244,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                                 child: Text(
                                   "طلب",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 17,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),

@@ -259,9 +259,9 @@ class _PlumbingState extends State<Plumbing> {
                                     padding: const EdgeInsets.all(30),
                                   ),
                                   child: const Text(
-                                    "ادفع",
+                                    "إدفع",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),

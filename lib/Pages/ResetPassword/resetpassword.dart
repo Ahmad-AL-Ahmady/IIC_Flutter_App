@@ -194,10 +194,22 @@ class _ResetpasswordState extends State<Resetpassword> {
                                             SizedBox(
                                               width: 24,
                                             ),
-                                            Text("من فضلك انتظر")
+                                            Text(
+                                              "من فضلك انتظر",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
                                           ],
                                         )
-                                      : Text("تعيين كلمة المرور"),
+                                      : Text(
+                                          "تعيين كلمة المرور",
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                   onPressed: () async {
                                     if (resetpass.currentState!.validate()) {
                                       String phone1 = phonenum.text;

@@ -102,7 +102,7 @@ class _homepageState extends State<homepage> {
                                 child: Text(
                                   "تسجيل الدخول",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 17,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -137,7 +137,7 @@ class _homepageState extends State<homepage> {
                                 child: Text(
                                   "التسجيل لأول مرة",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 17,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),

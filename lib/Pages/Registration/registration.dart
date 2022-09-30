@@ -247,10 +247,22 @@ class _RegistrationState extends State<Registration> {
                                           SizedBox(
                                             width: 24,
                                           ),
-                                          Text("من فضلك انتظر")
+                                          Text(
+                                            "من فضلك انتظر",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
                                         ],
                                       )
-                                    : Text("استمرار"),
+                                    : Text(
+                                        "استمرار",
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                 onPressed: () async {
                                   if (_formkey.currentState!.validate()) {
                                     String phone1 = phone.text;

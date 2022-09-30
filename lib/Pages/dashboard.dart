@@ -283,7 +283,7 @@ class _DashboardState extends State<Dashboard> {
                                             height: 10.0,
                                           ),
                                           Text(
-                                            "الابلاغ عن حادث",
+                                            "الإبلاغ عن حادث",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 255, 255, 255),
@@ -326,7 +326,7 @@ class _DashboardState extends State<Dashboard> {
                                             height: 10.0,
                                           ),
                                           Text(
-                                            "الابلاغ عن مخالفة",
+                                            "الإبلاغ عن مخالفة",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 255, 255, 255),

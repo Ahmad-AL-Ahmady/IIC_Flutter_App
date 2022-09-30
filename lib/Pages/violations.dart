@@ -78,7 +78,7 @@ class _ViolationsState extends State<Violations> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "الابلاغ عن مخالفة",
+          " ",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -281,9 +281,9 @@ class _ViolationsState extends State<Violations> {
                                   color: Color.fromARGB(255, 34, 141, 203),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
-                                    "ابلاغ",
+                                    "إبلاغ",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),

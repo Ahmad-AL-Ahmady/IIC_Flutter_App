@@ -69,7 +69,7 @@ class _IncedentsState extends State<Incedents> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "ابلغ عن حادث",
+          "",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
@@ -218,9 +218,9 @@ class _IncedentsState extends State<Incedents> {
                                   color: Color.fromARGB(255, 34, 141, 203),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
-                                    "الابلاغ",
+                                    "الإبلاغ",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),

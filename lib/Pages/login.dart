@@ -215,10 +215,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                           SizedBox(
                                             width: 24,
                                           ),
-                                          Text("من فضلك انتظر")
+                                          Text(
+                                            "من فضلك انتظر",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
                                         ],
                                       )
-                                    : Text("الدخول"),
+                                    : Text(
+                                        "الدخول",
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                 onPressed: () async {
                                   if (_loginkey.currentState!.validate()) {
                                     String username1 = _user.text;

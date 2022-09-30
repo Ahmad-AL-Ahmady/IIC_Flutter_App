@@ -168,7 +168,7 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                       child: const Text(
                                         "لا",
                                         style: TextStyle(
-                                            fontSize: 15,
+                                            fontSize: 17,
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -212,7 +212,7 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                       child: const Text(
                                         "نعم",
                                         style: TextStyle(
-                                            fontSize: 15,
+                                            fontSize: 17,
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),

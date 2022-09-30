@@ -257,9 +257,9 @@ class _GardeningState extends State<Gardening> {
                                     padding: const EdgeInsets.all(30),
                                   ),
                                   child: const Text(
-                                    "ادفع",
+                                    "إدفع",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),

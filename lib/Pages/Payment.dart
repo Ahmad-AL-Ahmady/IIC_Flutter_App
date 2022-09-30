@@ -98,7 +98,7 @@ class _PaymentState extends State<Payment> {
                                   child: Text(
                                     "الصيانة",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -143,7 +143,7 @@ class _PaymentState extends State<Payment> {
                                   child: Text(
                                     "الكهرباء",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -171,7 +171,7 @@ class _PaymentState extends State<Payment> {
                                   child: Text(
                                     "السباكة",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -199,7 +199,7 @@ class _PaymentState extends State<Payment> {
                                   child: Text(
                                     "البستنة",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 17,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
