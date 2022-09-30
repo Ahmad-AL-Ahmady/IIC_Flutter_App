@@ -111,7 +111,15 @@ class _VisitorListState extends State<VisitorList> {
                     padding: const EdgeInsets.only(right: 20, left: 20),
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: Column(children: tilelist),
+                      child: Column(
+                          children: tilelist.length == 0
+                              ? [
+                                  const Center(
+                                    child:
+                                        Text("ليس لديك زوار فى الوقت الحالى"),
+                                  )
+                                ]
+                              : tilelist),
                     ),
                   ),
                 ),
