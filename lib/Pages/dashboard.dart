@@ -62,7 +62,6 @@ class _DashboardState extends State<Dashboard> {
     setupInteractedMessage();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
-      // print('Message data: ${message.data["orderId"]}');
 
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
@@ -77,49 +76,12 @@ class _DashboardState extends State<Dashboard> {
             (route) => route.isFirst);
       }
     });
-
-    // listening to messages in the foreground
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   print('Got a message whilst in the foreground!');
-    //   // print('Message data: ${message.data["orderId"]}');
-
-    //   if (message.notification != null) {
-    //     print('Message also contained a notification: ${message.notification}');
-
-    //     Future.delayed(Duration(milliseconds: 100), () => {});
-    //     Navigator.of(gContext!).pushAndRemoveUntil(
-    //         MaterialPageRoute(
-    //           builder: (context) => DeliveryResponse(
-    //             orderId: message.data["orderId"].toString(),
-    //           ),
-    //         ),
-    //         (route) => route.isFirst);
-    //   }
-    // });
-
-    //
   }
 
   _checkDeviceNotificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     print(token);
-    //   //TODO:: send token to backend to save with user
-    //   await sendTokentToBackend(token);
-    //   FirebaseMessaging.instance.onTokenRefresh.listen((event) {
-    //     sendTokentToBackend(event);
-    //   });
   }
-
-  // _checkNotificationMsg() {
-  //   SharedPreferences.getInstance().then((value) {
-  //     bool isPressed = value.getBool("notification_pressed") ?? false;
-  //     if (isPressed) {
-  //       value.remove("notification_pressed");
-  //       Navigator.push(context,
-  //           MaterialPageRoute(builder: (context) => DeliveryResponse()));
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
