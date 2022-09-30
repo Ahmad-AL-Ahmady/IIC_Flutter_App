@@ -23,7 +23,6 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 BuildContext? gcontext;
 
 void main() async {
-  print("lol");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -57,14 +56,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   BuildContext? gContext;
-  AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      importance: Importance.max,
-      playSound: true);
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
