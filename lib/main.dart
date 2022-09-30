@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use, unnecessary_string_escapes
+
 //import 'dart:ffi';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -18,7 +20,9 @@ import 'firebase_options.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 BuildContext? gcontext;
+
 void main() async {
+  print("lol");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -45,6 +49,7 @@ Future<void> _firebasemessagingbackgroundhandler(RemoteMessage message) async {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -56,8 +61,10 @@ class _MyAppState extends State<MyApp> {
       'High Importance Notifications', // title
       importance: Importance.max,
       playSound: true);
+
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
   @override
   void initState() {
     super.initState();
@@ -81,3 +88,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+//onmessage recieved => listen

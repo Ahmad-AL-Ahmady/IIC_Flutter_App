@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
   String? firstname;
+
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -41,6 +43,7 @@ class _DashboardState extends State<Dashboard> {
 
   void _handleMessage(RemoteMessage message) {
     print('YOu just enterd the function');
+
     Future.delayed(Duration(milliseconds: 100), () => {});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
@@ -60,8 +63,10 @@ class _DashboardState extends State<Dashboard> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
       // print('Message data: ${message.data["orderId"]}');
+
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
+
         Future.delayed(Duration(milliseconds: 100), () => {});
         Navigator.of(gContext!).pushAndRemoveUntil(
             MaterialPageRoute(
@@ -72,12 +77,15 @@ class _DashboardState extends State<Dashboard> {
             (route) => route.isFirst);
       }
     });
+
     // listening to messages in the foreground
     // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     //   print('Got a message whilst in the foreground!');
     //   // print('Message data: ${message.data["orderId"]}');
+
     //   if (message.notification != null) {
     //     print('Message also contained a notification: ${message.notification}');
+
     //     Future.delayed(Duration(milliseconds: 100), () => {});
     //     Navigator.of(gContext!).pushAndRemoveUntil(
     //         MaterialPageRoute(
@@ -88,6 +96,7 @@ class _DashboardState extends State<Dashboard> {
     //         (route) => route.isFirst);
     //   }
     // });
+
     //
   }
 
@@ -111,10 +120,12 @@ class _DashboardState extends State<Dashboard> {
   //     }
   //   });
   // }
+
   @override
   Widget build(BuildContext context) {
     // _checkNotificationMsg();
     gContext = context;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
