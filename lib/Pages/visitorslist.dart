@@ -19,7 +19,7 @@ class _VisitorListState extends State<VisitorList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "رمز QR",
+          "",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(255, 0, 144, 201),
