@@ -73,7 +73,7 @@ class _homepageState extends State<homepage> {
                             "مدينة عصرية تكنولوجية على ارض مصرية",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color.fromARGB(255, 35, 39, 66),
+                              color: Color.fromARGB(255, 255, 255, 255),
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),

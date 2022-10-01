@@ -245,7 +245,7 @@ class _RegistrationfinalState extends State<Registrationfinal> {
                                 style: ElevatedButton.styleFrom(
                                   elevation: 20,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                                    borderRadius: BorderRadius.circular(50),
                                   ),
                                   primary: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
