@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: Colors.blue,
         splashIconSize: 200,
         duration: 2000,
-        animationDuration: Duration(milliseconds: 3000),
+        animationDuration: Duration(milliseconds: 1000),
       ),
     );
   }
