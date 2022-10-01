@@ -110,6 +110,7 @@ class _DashboardState extends State<Dashboard> {
                 MaterialPageRoute(builder: (context) => LoginScreen()));
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('token', "");
+            prefs.setString('fcmToken', "");
           },
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('تسجيل خروج'),

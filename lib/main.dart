@@ -2,25 +2,19 @@
 
 //import 'dart:ffi';
 
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:login_app/Pages/Testdash.dart';
-// import 'package:flutter/services.dart';
-// import 'package:login_app/Pages/DeliveryNotification.dart';
-// import 'package:login_app/Pages/Registration/registerationotp.dart';
-// import 'package:login_app/Pages/Registration/registration2.dart';
-// import 'package:login_app/Pages/alice.dart';
-// import 'package:login_app/Pages/dashboard.dart';
+import 'package:http/http.dart' as http;
+import 'package:login_app/Pages/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Pages/DeliveryNotification.dart';
 import 'Pages/homepage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
-BuildContext? gcontext;
+bool isLoggedIn = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +22,22 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await _initNotification();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String? token = prefs.getString("token");
+  String? fcmToken = prefs.getString("fcmToken");
+
+  if (token != null && token != "") {
+    isLoggedIn = true;
+
+    if (fcmToken != await FirebaseMessaging.instance.getToken() &&
+        fcmToken != null &&
+        token != "") {
+      await sendFirebaseToken(token, fcmToken);
+    }
+  }
+
   FirebaseMessaging.onBackgroundMessage(_firebasemessagingbackgroundhandler);
   runApp(const MyApp());
 }
@@ -39,6 +49,28 @@ _initNotification() async {
     badge: true,
     sound: true,
   );
+}
+
+sendFirebaseToken(String loginToken, String fcmToken) {
+  Future<String> EndSession() async {
+    var response = await http.post(
+      Uri.https('iic-v3.herokuapp.com', '/api/v1/fcmToken'),
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': loginToken,
+      },
+      body: jsonEncode(
+        {'fcmToken': fcmToken},
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      isLoggedIn = false;
+      return 'failure';
+    }
+  }
 }
 
 Future<void> _firebasemessagingbackgroundhandler(RemoteMessage message) async {
@@ -65,12 +97,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    gcontext = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
         splash: Image.asset('assets/New logo2.png'),
-        nextScreen: homepage(),
+        nextScreen: isLoggedIn ? Dashboard() : const homepage(),
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: Colors.blue,
         splashIconSize: 200,

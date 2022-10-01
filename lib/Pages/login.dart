@@ -19,6 +19,11 @@ class LoginScreen extends StatefulWidget {
 Future<String> LOGIN(String email, String password) async {
   String? fcmToken = await FirebaseMessaging.instance.getToken();
 
+  if (fcmToken != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("fcmToken", fcmToken);
+  }
+
   var response = await http.post(
       Uri.https('iic-project.herokuapp.com', '/api/v1/login'),
       headers: {
