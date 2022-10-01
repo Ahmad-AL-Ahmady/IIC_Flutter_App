@@ -95,6 +95,7 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
           title: Text(
             "الصفحة الرئيسية",
             style: TextStyle(
@@ -123,6 +124,31 @@ class _DashboardState extends State<Dashboard> {
                   elevation: 0, primary: Colors.transparent),
             ),
           ]),
+=======
+        title: Text(
+          textAlign: TextAlign.center,
+          "الصفحة الرئيسية",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: Color.fromARGB(255, 0, 144, 201),
+        automaticallyImplyLeading: false,
+        leadingWidth: 200,
+        elevation: 0,
+        leading: ElevatedButton.icon(
+          onPressed: () async {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('token', "");
+            prefs.setString('fcmToken', "");
+          },
+          icon: const Icon(Icons.arrow_left_sharp),
+          label: const Text('تسجيل خروج'),
+          style: ElevatedButton.styleFrom(
+              elevation: 0, primary: Colors.transparent),
+        ),
+      ),
+>>>>>>> feature-login_once
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: AnnotatedRegion<SystemUiOverlayStyle>(
