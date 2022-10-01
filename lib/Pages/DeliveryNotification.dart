@@ -146,11 +146,8 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                           print(orderId);
                                         } else {
                                           print(result);
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (gcontext) =>
-                                                      Dashboard()));
+                                          Navigator.pop(context);
+
                                           ShowMessageNo(context);
                                         }
                                         ;
@@ -191,11 +188,7 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                           print(orderId);
                                         } else {
                                           print(result);
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (gcontext) =>
-                                                      Dashboard()));
+                                          Navigator.pop(context);
                                           ShowMessageYes(context);
                                           ;
                                         }

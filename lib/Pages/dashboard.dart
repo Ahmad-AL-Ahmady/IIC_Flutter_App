@@ -19,8 +19,6 @@ import 'alice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
-  String? firstname;
-
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -47,9 +45,12 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<void> HandleForegroundMessage() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message != null) {
-        Future.delayed(Duration(milliseconds: 100), () => {});
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      if (message.data != null &&
+          prefs.getBool(message.data["orderId"]) != true) {
+        await Future.delayed(Duration(milliseconds: 100), () => {});
         Navigator.of(gContext!).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => DeliveryResponse(
@@ -57,21 +58,30 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             (route) => route.isFirst);
+
+        prefs.setBool(message.data['orderId'], true);
       }
     });
   }
 
-  void _handleMessage(RemoteMessage message) {
+  void _handleMessage(RemoteMessage message) async {
     print('YOu just enterd the function');
 
-    Future.delayed(Duration(milliseconds: 100), () => {});
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => DeliveryResponse(
-            orderId: message.data["orderId"].toString(),
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (message.data != null &&
+        prefs.getBool(message.data["orderId"]) != true) {
+      await Future.delayed(Duration(milliseconds: 100), () => {});
+      Navigator.of(gContext!).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => DeliveryResponse(
+              orderId: message.data["orderId"].toString(),
+            ),
           ),
-        ),
-        (route) => route.isFirst);
+          (route) => route.isFirst);
+
+      prefs.setBool(message.data['orderId'], true);
+    }
   }
 
   @override
