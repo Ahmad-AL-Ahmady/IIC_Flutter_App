@@ -73,7 +73,7 @@ class _homepageState extends State<homepage> {
                             "مدينة عصرية تكنولوجية على ارض مصرية",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 35, 39, 66),
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
@@ -97,13 +97,13 @@ class _homepageState extends State<homepage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                color: Color.fromARGB(255, 34, 141, 203),
+                                color: Color.fromARGB(255, 249, 249, 249),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
                                   "تسجيل الدخول",
                                   style: TextStyle(
                                       fontSize: 17,
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 35, 39, 66),
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -132,13 +132,13 @@ class _homepageState extends State<homepage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                color: Color.fromARGB(255, 34, 141, 203),
+                                color: Color.fromARGB(255, 248, 253, 255),
                                 padding: EdgeInsets.all(30),
                                 child: Text(
                                   "التسجيل لأول مرة",
                                   style: TextStyle(
                                       fontSize: 17,
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 35, 39, 66),
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

@@ -192,7 +192,7 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    primary: Color.fromARGB(255, 34, 141, 203),
+                                    primary: Color.fromARGB(255, 255, 255, 255),
                                     padding: EdgeInsets.all(30),
                                   ),
                                   child: _isloading
@@ -201,7 +201,8 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                                               MainAxisAlignment.center,
                                           children: [
                                             CircularProgressIndicator(
-                                              color: Colors.white,
+                                              color: Color.fromARGB(
+                                                  255, 35, 39, 66),
                                             ),
                                             SizedBox(
                                               width: 24,
@@ -210,7 +211,8 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                                               "من فضلك انتظر",
                                               style: TextStyle(
                                                   fontSize: 17,
-                                                  color: Colors.white,
+                                                  color: Color.fromARGB(
+                                                      255, 35, 39, 66),
                                                   fontWeight: FontWeight.bold),
                                             )
                                           ],
@@ -219,7 +221,8 @@ class _resetpasswordfinalState extends State<resetpasswordfinal> {
                                           "تعيين كلمة المرور",
                                           style: TextStyle(
                                               fontSize: 17,
-                                              color: Colors.white,
+                                              color: Color.fromARGB(
+                                                  255, 35, 39, 66),
                                               fontWeight: FontWeight.bold),
                                         ),
                                   onPressed: () async {

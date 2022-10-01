@@ -255,14 +255,14 @@ class _PlumbingState extends State<Plumbing> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    primary: Color.fromARGB(255, 34, 141, 203),
+                                    primary: Color.fromARGB(255, 255, 255, 255),
                                     padding: const EdgeInsets.all(30),
                                   ),
                                   child: const Text(
                                     "إدفع",
                                     style: TextStyle(
                                         fontSize: 17,
-                                        color: Colors.white,
+                                        color: Color.fromARGB(255, 35, 39, 66),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),

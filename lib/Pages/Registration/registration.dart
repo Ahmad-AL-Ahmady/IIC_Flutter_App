@@ -233,7 +233,7 @@ class _RegistrationState extends State<Registration> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25),
                                   ),
-                                  primary: Color.fromARGB(255, 34, 141, 203),
+                                  primary: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
                                 ),
                                 child: _isloading
@@ -242,7 +242,8 @@ class _RegistrationState extends State<Registration> {
                                             MainAxisAlignment.center,
                                         children: [
                                           CircularProgressIndicator(
-                                            color: Colors.white,
+                                            color:
+                                                Color.fromARGB(255, 35, 39, 66),
                                           ),
                                           SizedBox(
                                             width: 24,
@@ -251,7 +252,8 @@ class _RegistrationState extends State<Registration> {
                                             "من فضلك انتظر",
                                             style: TextStyle(
                                                 fontSize: 17,
-                                                color: Colors.white,
+                                                color: Color.fromARGB(
+                                                    255, 35, 39, 66),
                                                 fontWeight: FontWeight.bold),
                                           )
                                         ],
@@ -260,7 +262,8 @@ class _RegistrationState extends State<Registration> {
                                         "استمرار",
                                         style: TextStyle(
                                             fontSize: 17,
-                                            color: Colors.white,
+                                            color:
+                                                Color.fromARGB(255, 35, 39, 66),
                                             fontWeight: FontWeight.bold),
                                       ),
                                 onPressed: () async {

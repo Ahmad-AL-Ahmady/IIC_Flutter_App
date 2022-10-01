@@ -162,14 +162,15 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                               BorderRadius.circular(50),
                                         ),
                                         primary:
-                                            Color.fromARGB(255, 34, 141, 203),
+                                            Color.fromARGB(255, 255, 255, 255),
                                         padding: const EdgeInsets.all(30),
                                       ),
                                       child: const Text(
                                         "لا",
                                         style: TextStyle(
                                             fontSize: 17,
-                                            color: Colors.white,
+                                            color:
+                                                Color.fromARGB(255, 35, 39, 66),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -206,14 +207,15 @@ class _DeliveryResponseState extends State<DeliveryResponse> {
                                               BorderRadius.circular(50),
                                         ),
                                         primary:
-                                            Color.fromARGB(255, 34, 141, 203),
+                                            Color.fromARGB(255, 255, 255, 255),
                                         padding: const EdgeInsets.all(30),
                                       ),
                                       child: const Text(
                                         "نعم",
                                         style: TextStyle(
                                             fontSize: 17,
-                                            color: Colors.white,
+                                            color:
+                                                Color.fromARGB(255, 35, 39, 66),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),

@@ -93,13 +93,13 @@ class _PaymentState extends State<Payment> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
                                     "الصيانة",
                                     style: TextStyle(
                                         fontSize: 17,
-                                        color: Colors.white,
+                                        color: Color.fromARGB(255, 35, 39, 66),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -138,13 +138,13 @@ class _PaymentState extends State<Payment> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
                                     "الكهرباء",
                                     style: TextStyle(
                                         fontSize: 17,
-                                        color: Colors.white,
+                                        color: Color.fromARGB(255, 35, 39, 66),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -166,13 +166,13 @@ class _PaymentState extends State<Payment> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
                                     "السباكة",
                                     style: TextStyle(
                                         fontSize: 17,
-                                        color: Colors.white,
+                                        color: Color.fromARGB(255, 35, 39, 66),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -194,13 +194,13 @@ class _PaymentState extends State<Payment> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  color: Color.fromARGB(255, 34, 141, 203),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
                                     "البستنة",
                                     style: TextStyle(
                                         fontSize: 17,
-                                        color: Colors.white,
+                                        color: Color.fromARGB(255, 35, 39, 66),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),

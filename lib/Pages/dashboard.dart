@@ -177,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                                     MaterialPageRoute(
                                         builder: (context) => ChatPage())),
                                 child: Card(
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: Colors.white,
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
