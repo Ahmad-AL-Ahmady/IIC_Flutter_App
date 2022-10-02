@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'dart:math';
@@ -92,187 +93,204 @@ class _GardeningState extends State<Gardening> {
               elevation: 0, primary: Colors.transparent),
         ),
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: Form(
-            key: GardeningKey,
-            child: GestureDetector(
-              child: Stack(
-                children: [
-                  Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color.fromARGB(255, 0, 144, 201),
-                          Color.fromARGB(255, 103, 204, 255),
-                          Color.fromARGB(252, 201, 229, 255),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: Form(
+          key: GardeningKey,
+          child: GestureDetector(
+            child: Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromARGB(255, 0, 144, 201),
+                        Color.fromARGB(255, 103, 204, 255),
+                        Color.fromARGB(252, 201, 229, 255),
+                      ],
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, left: 20),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Center(
+                            child: Text(
+                              "صيانة الحدائق",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                            controler: amount,
+                            label: "المبلغ",
+                            type: TextInputType.number,
+                            hint: "ادخل المبلغ",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "من فضلك ادخل المبلغ المدفوع";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: credit,
+                            label: "البطاقة الائتمانية",
+                            type: TextInputType.number,
+                            hint: "ادخل رقم بطاقتك التأمينية",
+                            validation: (String? value) {
+                              var reg = RegExp(r'^[0-9]{16}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
+                                return "من فضلك ادخل رقم بطاقتك التأمينية";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: CVV,
+                            label: "CVV",
+                            type: TextInputType.number,
+                            hint: "اكتب رقم بطاقة تحقيق القيمة",
+                            prefixIcon: Icon(Icons.credit_card),
+                            validation: (String? value) {
+                              var reg = RegExp(r'^[0-9]{3}');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !reg.hasMatch(value)) {
+                                return "ادخل الرقم الصحيح";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          TextFormField(
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                print("null choice");
+                                return "ادخل تاريخ انتهاء صحيح";
+                              } else {
+                                return null;
+                              }
+                            },
+                            controller: ExpDate,
+                            decoration: InputDecoration(
+                              icon: Icon(Icons.calendar_month_rounded),
+                              labelText: "تاريخ انتهاء البطاقة",
+                            ),
+                            onTap: (() async {
+                              DateTime? pickeddate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2101),
+                              );
+                              if (pickeddate != null) {
+                                setState(
+                                  () {
+                                    ExpDate.text = DateFormat('yyyy-MM-dd')
+                                        .format(pickeddate);
+                                  },
+                                );
+                              } else {
+                                print('Failure');
+                              }
+                            }),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            controler: nameOnCard,
+                            label: "الاسم على البطاقة",
+                            type: TextInputType.name,
+                            hint: "اكتب الاسم الموجود على البطاقة",
+                            validation: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "من فضلك ادخل الاسم الصحيح";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: SizedBox(
+                              width: 250,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  if (GardeningKey.currentState!.validate()) {
+                                    int _amount = int.parse(amount.text);
+                                    var result = await PayGardening(_amount);
+                                    if (result == 'failure') {
+                                      print('Reporting Failed');
+                                    } else {
+                                      print(result);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Dashboard(),
+                                        ),
+                                      );
+                                      ShowMessage(context);
+                                    }
+                                    ;
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 20,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  primary: Color.fromARGB(255, 255, 255, 255),
+                                  padding: const EdgeInsets.all(30),
+                                ),
+                                child: const Text(
+                                  "إدفع",
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Color.fromARGB(255, 35, 39, 66),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Center(
-                              child: Text(
-                                "صيانة الحدائق",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            CustomTextField(
-                              controler: amount,
-                              label: "المبلغ",
-                              type: TextInputType.number,
-                              hint: "ادخل المبلغ",
-                              validation: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return "من فضلك ادخل المبلغ المدفوع";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            CustomTextField(
-                              controler: credit,
-                              label: "البطاقة الائتمانية",
-                              type: TextInputType.number,
-                              hint: "ادخل رقم بطاقتك التأمينية",
-                              validation: (String? value) {
-                                var reg = RegExp(r'^[0-9]{16}');
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !reg.hasMatch(value)) {
-                                  return "من فضلك ادخل رقم بطاقتك التأمينية";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            CustomTextField(
-                              controler: CVV,
-                              label: "CVV",
-                              type: TextInputType.number,
-                              hint: "اكتب رقم بطاقة تحقيق القيمة",
-                              prefixIcon: Icon(Icons.credit_card),
-                              validation: (String? value) {
-                                var reg = RegExp(r'^[0-9]{3}');
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !reg.hasMatch(value)) {
-                                  return "ادخل الرقم الصحيح";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            CustomTextField(
-                              controler: ExpDate,
-                              label: "تاريخ الانتهاء",
-                              type: TextInputType.datetime,
-                              hint: "تاريخ انتهاء البطاقة",
-                              validation: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return "من فضل ادخل تاريخ انتهاء البطاقة";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            CustomTextField(
-                              controler: nameOnCard,
-                              label: "الاسم على البطاقة",
-                              type: TextInputType.name,
-                              hint: "اكتب الاسم الموجود على البطاقة",
-                              validation: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return "من فضلك ادخل الاسم الصحيح";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 25),
-                              child: SizedBox(
-                                width: 250,
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    if (GardeningKey.currentState!.validate()) {
-                                      int _amount = int.parse(amount.text);
-                                      var result = await PayGardening(_amount);
-                                      if (result == 'failure') {
-                                        print('Reporting Failed');
-                                      } else {
-                                        print(result);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Dashboard(),
-                                          ),
-                                        );
-                                        ShowMessage(context);
-                                      }
-                                      ;
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 20,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    primary: Color.fromARGB(255, 255, 255, 255),
-                                    padding: const EdgeInsets.all(30),
-                                  ),
-                                  child: const Text(
-                                    "إدفع",
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        color: Color.fromARGB(255, 35, 39, 66),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

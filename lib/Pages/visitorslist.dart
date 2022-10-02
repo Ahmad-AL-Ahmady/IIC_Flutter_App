@@ -77,8 +77,6 @@ class _VisitorListState extends State<VisitorList> {
         leading: ElevatedButton.icon(
           onPressed: () async {
             Navigator.pop(context);
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setString('token', "");
           },
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('الرجوع'),
