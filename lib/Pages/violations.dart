@@ -25,8 +25,6 @@ class _ViolationsState extends State<Violations> {
     "مخالفة بناء",
     "مخالفة صيانة ممتلكات",
     "مخالفة سكن",
-    "مخالفة منطقة عامة",
-    "مخالفات اخرى",
   ];
   String value = "مخالفة بناء";
   void ShowMessage(BuildContext context) {
