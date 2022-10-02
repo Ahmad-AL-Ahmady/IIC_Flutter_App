@@ -15,8 +15,7 @@ class OtpScreen extends StatefulWidget {
 
 Future<String> OtpReset(String Otp, String phone) async {
   var response = await http.post(
-      Uri.https(
-          'iic-project.herokuapp.com', '/api/v1/forgotPassword/validateOtp'),
+      Uri.https('iic-v3.herokuapp.com', '/api/v1/forgotPassword/validateOtp'),
       headers: {
         'Content-Type': 'application/json',
       },

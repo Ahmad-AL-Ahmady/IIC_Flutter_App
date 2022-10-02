@@ -24,7 +24,7 @@ class _VisitorListState extends State<VisitorList> {
 
   Future<String> getVisitorsList() async {
     var response = await http.get(
-        Uri.https('iic-project.herokuapp.com', '/api/v1/visitorsList'),
+        Uri.https('iic-v3.herokuapp.com', '/api/v1/visitorsList'),
         headers: {
           'Content-Type': 'application/json',
           'authorization': await getStringValuesSF()

@@ -197,7 +197,7 @@ class _PaymentState extends State<Payment> {
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   padding: EdgeInsets.all(30),
                                   child: Text(
-                                    "البستنة",
+                                    "صيانة الحدائق",
                                     style: TextStyle(
                                         fontSize: 17,
                                         color: Color.fromARGB(255, 35, 39, 66),

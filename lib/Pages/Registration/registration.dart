@@ -29,7 +29,7 @@ class Registration extends StatefulWidget {
 
 Future<String> Register(String Phone, String UnitNumber) async {
   var response = await http.post(
-      Uri.https('iic-project.herokuapp.com', '/api/v1/register/unitAndPhone'),
+      Uri.https('iic-v3.herokuapp.com', '/api/v1/register/unitAndPhone'),
       headers: {
         'Content-Type': 'application/json',
       },

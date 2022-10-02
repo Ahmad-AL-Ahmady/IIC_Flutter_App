@@ -377,7 +377,8 @@ class _DashboardState extends State<Dashboard> {
                                 onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Payment())),
+                                        builder: (context) =>
+                                            ServiceTicketing())),
                                 child: Card(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
@@ -389,14 +390,14 @@ class _DashboardState extends State<Dashboard> {
                                       child: Column(
                                         children: <Widget>[
                                           Image.asset(
-                                            "assets/payment.png",
+                                            "assets/SERVICES.png",
                                             width: 80.0,
                                           ),
                                           SizedBox(
                                             height: 10.0,
                                           ),
                                           Text(
-                                            "قائمة الدفع",
+                                            "حجز خدمة",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 35, 39, 66),
@@ -420,8 +421,7 @@ class _DashboardState extends State<Dashboard> {
                                 onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            ServiceTicketing())),
+                                        builder: (context) => Payment())),
                                 child: Card(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   elevation: 2.0,
@@ -433,14 +433,14 @@ class _DashboardState extends State<Dashboard> {
                                       child: Column(
                                         children: <Widget>[
                                           Image.asset(
-                                            "assets/SERVICES.png",
+                                            "assets/payment.png",
                                             width: 80.0,
                                           ),
                                           SizedBox(
                                             height: 10.0,
                                           ),
                                           Text(
-                                            "حجز خدمة",
+                                            "قائة الدفع",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 35, 39, 66),

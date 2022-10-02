@@ -35,7 +35,7 @@ void ShowMessage(BuildContext context) {
 
 Future<String> PayGardening(int amount) async {
   var response = await http.post(
-    Uri.https('iic-project.herokuapp.com', '/api/v1/payService'),
+    Uri.https('iic-v3.herokuapp.com', '/api/v1/payService'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -126,7 +126,7 @@ class _GardeningState extends State<Gardening> {
                             ),
                             Center(
                               child: Text(
-                                "البستنة",
+                                "صيانة الحدائق",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,

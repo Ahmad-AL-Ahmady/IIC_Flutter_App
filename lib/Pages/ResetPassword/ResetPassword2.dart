@@ -36,8 +36,7 @@ void ShowMessagePass(BuildContext context) {
 Future<String> ResetPassFinal(
     String password, String phone, String _token) async {
   var response = await http.post(
-      Uri.https(
-          'iic-project.herokuapp.com', '/api/v1/forgotPassword/resetPassword'),
+      Uri.https('iic-v3.herokuapp.com', '/api/v1/forgotPassword/resetPassword'),
       headers: {'Content-Type': 'application/json', 'Authorization': _token},
       body: jsonEncode({"phone": phone, "password": password}));
 

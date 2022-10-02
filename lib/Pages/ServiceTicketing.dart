@@ -22,7 +22,7 @@ class ServiceTicketing extends StatefulWidget {
 
 Future<String> Send(String date, String type) async {
   var response = await http.post(
-      Uri.https('iic-project.herokuapp.com', '/api/v1/requestService'),
+      Uri.https('iic-v3.herokuapp.com', '/api/v1/requestService'),
       headers: {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),
@@ -65,7 +65,7 @@ void ShowMessage(BuildContext context) {
 }
 
 class _ServiceTicketingState extends State<ServiceTicketing> {
-  final List<String> items = ["الكهرباء", "السباكة", "البستنة"];
+  final List<String> items = ["الكهرباء", "السباكة", "صيانة الحدائق"];
   String value = "الكهرباء";
   final date = TextEditingController();
   @override

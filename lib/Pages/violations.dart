@@ -48,7 +48,7 @@ class _ViolationsState extends State<Violations> {
   Future<String> reportViolation(
       String _description, String _category, String _unitCode) async {
     var response = await http.post(
-        Uri.https('iic-project.herokuapp.com', '/api/v1/reportViolation'),
+        Uri.https('iic-v3.herokuapp.com', '/api/v1/reportViolation'),
         headers: {
           'Content-Type': 'application/json',
           'authorization': await getStringValuesSF()

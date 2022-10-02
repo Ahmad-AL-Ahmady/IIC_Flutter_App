@@ -24,7 +24,7 @@ class _QrCodeState extends State<QrCode> {
 
   Future<void> Generate_qrcode() async {
     var response = await http.post(
-        Uri.https('iic-project.herokuapp.com', '/qr/generate'),
+        Uri.https('iic-v3.herokuapp.com', '/qr/generate'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': await getStringValuesSF()
