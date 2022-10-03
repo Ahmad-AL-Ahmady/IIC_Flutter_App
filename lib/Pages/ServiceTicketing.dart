@@ -5,9 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-// import 'package:login_app/Pages/globels.dart';
-// import 'package:login_app/UI/dropdownlist.dart';
-// import 'package:login_app/UI/custom_text_field.dart';
 import 'package:http/http.dart' as http;
 import 'dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,9 +45,10 @@ getStringValuesSF() async {
   return token;
 }
 
+Random random = Random();
+late int randomNumber = random.nextInt(999999);
+
 void ShowMessage(BuildContext context) {
-  Random random = new Random();
-  late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
     title: Text("تم الطلب"),
     content: Text("تم طلب الخدمة و رقم الطلب ($randomNumber)"),
