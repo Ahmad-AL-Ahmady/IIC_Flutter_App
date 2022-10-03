@@ -440,7 +440,7 @@ class _DashboardState extends State<Dashboard> {
                                             height: 10.0,
                                           ),
                                           Text(
-                                            "قائة الدفع",
+                                            "قائمة الدفع",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 35, 39, 66),
