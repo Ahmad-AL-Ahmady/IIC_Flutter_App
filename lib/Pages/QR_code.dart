@@ -67,8 +67,6 @@ class _QrCodeState extends State<QrCode> {
           onPressed: () async {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Dashboard()));
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setString('token', "");
           },
           icon: const Icon(Icons.arrow_left_sharp),
           label: const Text('الرجوع'),
