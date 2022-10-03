@@ -11,7 +11,7 @@ import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool servicesNeedsPayment = false;
-List<String> serivces = [];
+List<String> services = [];
 
 class Maintenance extends StatefulWidget {
   const Maintenance({Key? key}) : super(key: key);
@@ -157,7 +157,7 @@ class _MaintenanceState extends State<Maintenance> {
                             type: TextInputType.number,
                             hint: "ادخل رقم بطاقتك التأمينية",
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{16}');
+                              var reg = RegExp(r'^[0-9]{16}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -177,7 +177,7 @@ class _MaintenanceState extends State<Maintenance> {
                             hint: "اكتب رقم بطاقة تحقيق القيمة",
                             prefixIcon: Icon(Icons.credit_card),
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{3}');
+                              var reg = RegExp(r'^[0-9]{3}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {

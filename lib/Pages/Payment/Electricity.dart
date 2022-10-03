@@ -11,7 +11,8 @@ import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool servicesNeedsPayment = false;
-List<String> serivces = [];
+List<String> services = [];
+String value = "";
 
 class Electricity extends StatefulWidget {
   const Electricity({Key? key}) : super(key: key);
@@ -81,7 +82,8 @@ class _ElectricityState extends State<Electricity> {
         if (prefs.getStringList("electricity")!.isNotEmpty) {
           setState(() {
             servicesNeedsPayment = true;
-            serivces = prefs.getStringList("electricity")!;
+            services = prefs.getStringList("electricity")!;
+            value = services[0];
           });
         }
       }
@@ -154,6 +156,51 @@ class _ElectricityState extends State<Electricity> {
                                   SizedBox(
                                     height: 10,
                                   ),
+                                  Container(
+                                    width: 300,
+                                    margin: EdgeInsets.all(16),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 14,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 3,
+                                      ),
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<String>(
+                                        value: value,
+                                        iconSize: 36,
+                                        hint: Text(
+                                          "اخترالخدمة",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 166, 163, 163),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        style: TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 0, 0, 0)),
+                                        icon: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                        isExpanded: true,
+                                        dropdownColor: Colors.white,
+                                        items: services
+                                            .map(buildMenuItem)
+                                            .toList(),
+                                        onChanged: (inp) =>
+                                            setState(() => value = inp!),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   CustomTextField(
                                     controler: amount,
                                     label: "المبلغ",
@@ -176,7 +223,7 @@ class _ElectricityState extends State<Electricity> {
                                     type: TextInputType.number,
                                     hint: "ادخل رقم بطاقتك التأمينية",
                                     validation: (String? value) {
-                                      var reg = RegExp(r'^[0-9]{16}');
+                                      var reg = RegExp(r'^[0-9]{16}$');
                                       if (value == null ||
                                           value.isEmpty ||
                                           !reg.hasMatch(value)) {
@@ -196,7 +243,7 @@ class _ElectricityState extends State<Electricity> {
                                     hint: "اكتب رقم بطاقة تحقيق القيمة",
                                     prefixIcon: Icon(Icons.credit_card),
                                     validation: (String? value) {
-                                      var reg = RegExp(r'^[0-9]{3}');
+                                      var reg = RegExp(r'^[0-9]{3}$');
                                       if (value == null ||
                                           value.isEmpty ||
                                           !reg.hasMatch(value)) {
@@ -263,13 +310,16 @@ class _ElectricityState extends State<Electricity> {
                                               print('Reporting Failed');
                                             } else {
                                               print(result);
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Dashboard(),
-                                                ),
-                                              );
+                                              SharedPreferences preferences =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              services.remove(value.toString());
+                                              await preferences.setStringList(
+                                                  'electricity', services);
+                                              if (services.isEmpty) {
+                                                servicesNeedsPayment = false;
+                                              }
+                                              Navigator.pop(context);
                                               ShowMessage(context);
                                             }
                                             ;
@@ -309,4 +359,15 @@ class _ElectricityState extends State<Electricity> {
                 child: const Text("ليس لديك خدمات تقوم بدفعها"),
               ));
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+      );
 }
