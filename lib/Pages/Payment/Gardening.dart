@@ -48,7 +48,7 @@ Future<String> PayGardening(int amount) async {
     body: jsonEncode(
       {
         "amount": amount,
-        "service": "Gardening",
+        "service": "صيانة الحدائق",
       },
     ),
   );

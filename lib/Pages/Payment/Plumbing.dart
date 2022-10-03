@@ -50,7 +50,7 @@ Future<String> PayPlumbing(
     body: jsonEncode(
       {
         "amount": amount,
-        "service": "Plumbing",
+        "service": "السباكة",
       },
     ),
   );

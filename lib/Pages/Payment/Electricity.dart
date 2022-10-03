@@ -47,7 +47,7 @@ Future<String> PayElectricity(int amount) async {
     body: jsonEncode(
       {
         "amount": amount,
-        "service": "Electricity",
+        "service": "الكهرباء",
       },
     ),
   );
@@ -306,6 +306,7 @@ class _ElectricityState extends State<Electricity> {
                                                 int.parse(amount.text);
                                             var result =
                                                 await PayElectricity(_amount);
+                                            print(_amount);
                                             if (result == 'failure') {
                                               print('Reporting Failed');
                                             } else {
