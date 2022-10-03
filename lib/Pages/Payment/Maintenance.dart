@@ -10,6 +10,9 @@ import 'dart:math';
 import 'package:login_app/UI/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+bool servicesNeedsPayment = false;
+List<String> serivces = [];
+
 class Maintenance extends StatefulWidget {
   const Maintenance({Key? key}) : super(key: key);
 
