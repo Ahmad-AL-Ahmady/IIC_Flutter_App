@@ -8,6 +8,7 @@ import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'dart:math';
 import 'package:login_app/UI/custom_text_field.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Electricity extends StatefulWidget {
@@ -155,7 +156,7 @@ class _ElectricityState extends State<Electricity> {
                             type: TextInputType.number,
                             hint: "ادخل رقم بطاقتك التأمينية",
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{16}');
+                              var reg = RegExp(r'^[0-9]{16}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -175,7 +176,7 @@ class _ElectricityState extends State<Electricity> {
                             hint: "اكتب رقم بطاقة تحقيق القيمة",
                             prefixIcon: Icon(Icons.credit_card),
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{3}');
+                              var reg = RegExp(r'^[0-9]{3}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -212,8 +213,8 @@ class _ElectricityState extends State<Electricity> {
                               if (pickeddate != null) {
                                 setState(
                                   () {
-                                    ExpDate.text = DateFormat('yyyy-MM-dd')
-                                        .format(pickeddate);
+                                    ExpDate.text =
+                                        DateFormat('MM/yy').format(pickeddate);
                                   },
                                 );
                               } else {

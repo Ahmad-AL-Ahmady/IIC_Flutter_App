@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:login_app/Pages/Payment.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:login_app/Pages/dashboard.dart';
 import 'dart:math';
 import 'package:login_app/UI/dropdownlist.dart';
@@ -23,7 +24,7 @@ void ShowMessage(BuildContext context) {
   late int randomNumber = random.nextInt(999999);
   final alert = AlertDialog(
     title: Text("تم"),
-    content: Text("تم دغع خدمة البستنة"),
+    content: Text("تم دفع خدمة صيانة الحدائق"),
   );
 
   showDialog(
@@ -158,7 +159,7 @@ class _GardeningState extends State<Gardening> {
                             type: TextInputType.number,
                             hint: "ادخل رقم بطاقتك التأمينية",
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{16}');
+                              var reg = RegExp(r'^[0-9]{16}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -178,7 +179,7 @@ class _GardeningState extends State<Gardening> {
                             hint: "اكتب رقم بطاقة تحقيق القيمة",
                             prefixIcon: Icon(Icons.credit_card),
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{3}');
+                              var reg = RegExp(r'^[0-9]{3}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -215,8 +216,8 @@ class _GardeningState extends State<Gardening> {
                               if (pickeddate != null) {
                                 setState(
                                   () {
-                                    ExpDate.text = DateFormat('yyyy-MM-dd')
-                                        .format(pickeddate);
+                                    ExpDate.text =
+                                        DateFormat('MM/yy').format(pickeddate);
                                   },
                                 );
                               } else {

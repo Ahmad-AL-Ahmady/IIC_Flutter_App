@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:login_app/Pages/Payment.dart';
 import 'package:login_app/Pages/dashboard.dart';
@@ -160,7 +161,7 @@ class _PlumbingState extends State<Plumbing> {
                             type: TextInputType.number,
                             hint: "ادخل رقم بطاقتك التأمينية",
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{16}');
+                              var reg = RegExp(r'^[0-9]{16}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -180,7 +181,7 @@ class _PlumbingState extends State<Plumbing> {
                             hint: "اكتب رقم بطاقة تحقيق القيمة",
                             prefixIcon: Icon(Icons.credit_card),
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{3}');
+                              var reg = RegExp(r'^[0-9]{3}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -217,8 +218,8 @@ class _PlumbingState extends State<Plumbing> {
                               if (pickeddate != null) {
                                 setState(
                                   () {
-                                    ExpDate.text = DateFormat('yyyy-MM-dd')
-                                        .format(pickeddate);
+                                    ExpDate.text =
+                                        DateFormat('MM/yy').format(pickeddate);
                                   },
                                 );
                               } else {
