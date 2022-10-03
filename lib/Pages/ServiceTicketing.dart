@@ -45,13 +45,10 @@ getStringValuesSF() async {
   return token;
 }
 
-Random random = Random();
-late int randomNumber = random.nextInt(999999);
-
-void ShowMessage(BuildContext context) {
+void ShowMessage(BuildContext context, int serviceNumber) {
   final alert = AlertDialog(
     title: Text("تم الطلب"),
-    content: Text("تم طلب الخدمة و رقم الطلب ($randomNumber)"),
+    content: Text("تم طلب الخدمة و رقم الطلب ($serviceNumber)"),
   );
 
   showDialog(
@@ -227,7 +224,33 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                                           builder: (context) => Dashboard(),
                                         ),
                                       );
-                                      ShowMessage(context);
+
+                                      var serviceType;
+                                      if (value == "الكهرباء") {
+                                        serviceType = "electricity";
+                                      } else if (value == "السباكة") {
+                                        serviceType = "plumbing";
+                                      } else {
+                                        serviceType = "gardening";
+                                      }
+
+                                      Random random = new Random();
+                                      int serviceNumber =
+                                          random.nextInt(999999);
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+
+                                      if (prefs.getStringList(serviceType) ==
+                                          null) {
+                                        prefs.setStringList(serviceType, []);
+                                      }
+
+                                      var newList =
+                                          prefs.getStringList(serviceType);
+                                      newList!.add(serviceNumber.toString());
+                                      prefs.setStringList(serviceType, newList);
+
+                                      ShowMessage(context, serviceNumber);
                                     }
                                     ;
                                   }
