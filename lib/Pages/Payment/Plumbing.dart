@@ -193,38 +193,23 @@ class _PlumbingState extends State<Plumbing> {
                           SizedBox(
                             height: 30,
                           ),
-                          TextFormField(
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
+                          CustomTextField(
+                            validation: (String? value) {
+                              final regex = RegExp(
+                                  r'^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$');
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !regex.hasMatch(value)) {
                                 print("null choice");
                                 return "ادخل تاريخ انتهاء صحيح";
                               } else {
                                 return null;
                               }
                             },
-                            controller: ExpDate,
-                            decoration: InputDecoration(
-                              icon: Icon(Icons.calendar_month_rounded),
-                              labelText: "تاريخ انتهاء البطاقة",
-                            ),
-                            onTap: (() async {
-                              DateTime? pickeddate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2101),
-                              );
-                              if (pickeddate != null) {
-                                setState(
-                                  () {
-                                    ExpDate.text = DateFormat('yyyy-MM-dd')
-                                        .format(pickeddate);
-                                  },
-                                );
-                              } else {
-                                print('Failure');
-                              }
-                            }),
+                            controler: ExpDate,
+                            label: "ادخل تاريخ انتهاء صحيح",
+                            type: TextInputType.datetime,
+                            hint: "MM/YY",
                           ),
                           SizedBox(
                             height: 30,
