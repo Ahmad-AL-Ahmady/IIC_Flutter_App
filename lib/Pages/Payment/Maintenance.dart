@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:login_app/Pages/Payment.dart';
@@ -154,7 +155,7 @@ class _MaintenanceState extends State<Maintenance> {
                             type: TextInputType.number,
                             hint: "ادخل رقم بطاقتك التأمينية",
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{16}');
+                              var reg = RegExp(r'^[0-9]{16}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
@@ -174,7 +175,7 @@ class _MaintenanceState extends State<Maintenance> {
                             hint: "اكتب رقم بطاقة تحقيق القيمة",
                             prefixIcon: Icon(Icons.credit_card),
                             validation: (String? value) {
-                              var reg = RegExp(r'^[0-9]{3}');
+                              var reg = RegExp(r'^[0-9]{3}$');
                               if (value == null ||
                                   value.isEmpty ||
                                   !reg.hasMatch(value)) {
