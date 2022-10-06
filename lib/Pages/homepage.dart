@@ -85,21 +85,22 @@ class _homepageState extends State<homepage> {
                             padding: const EdgeInsets.symmetric(vertical: 25),
                             child: Container(
                               width: 250,
-                              child: RaisedButton(
+                              child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => LoginScreen()));
                                 },
-                                splashColor: Colors.white,
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 20,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  primary: Colors.white,
+                                  padding: const EdgeInsets.all(30),
                                 ),
-                                color: Color.fromARGB(255, 249, 249, 249),
-                                padding: EdgeInsets.all(30),
-                                child: Text(
+                                child: const Text(
                                   "تسجيل الدخول",
                                   style: TextStyle(
                                       fontSize: 17,
@@ -119,7 +120,7 @@ class _homepageState extends State<homepage> {
                             padding: const EdgeInsets.symmetric(vertical: 25),
                             child: Container(
                               width: 250,
-                              child: RaisedButton(
+                              child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
                                       context,
@@ -127,14 +128,15 @@ class _homepageState extends State<homepage> {
                                           builder: (context) =>
                                               Registration()));
                                 },
-                                splashColor: Colors.white,
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 20,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  primary: Colors.white,
+                                  padding: const EdgeInsets.all(30),
                                 ),
-                                color: Color.fromARGB(255, 248, 253, 255),
-                                padding: EdgeInsets.all(30),
-                                child: Text(
+                                child: const Text(
                                   "التسجيل لأول مرة",
                                   style: TextStyle(
                                       fontSize: 17,

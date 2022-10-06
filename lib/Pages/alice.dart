@@ -53,7 +53,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<String> EndSession() async {
     var response = await http.post(
-      Uri.https('iic-v3.herokuapp.com', '/api/v1/endSession'),
+      Uri.https('iic-v6.herokuapp.com', '/api/v1/endSession'),
       headers: {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),
@@ -75,7 +75,7 @@ class _ChatPageState extends State<ChatPage> {
     tilelist = [];
 
     var response = await http.post(
-      Uri.https('iic-v3.herokuapp.com', '/api/v1/sendText'),
+      Uri.https('iic-v6.herokuapp.com', '/api/v1/sendText'),
       headers: {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),

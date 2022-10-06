@@ -46,7 +46,7 @@ class _ViolationsState extends State<Violations> {
   Future<String> reportViolation(
       String _description, String _category, String _unitCode) async {
     var response = await http.post(
-        Uri.https('iic-v3.herokuapp.com', '/api/v1/reportViolation'),
+        Uri.https('iic-v6.herokuapp.com', '/api/v1/reportViolation'),
         headers: {
           'Content-Type': 'application/json',
           'authorization': await getStringValuesSF()
@@ -252,7 +252,7 @@ class _ViolationsState extends State<Violations> {
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
                                 width: 250,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () async {
                                     if (violationKey.currentState!.validate()) {
                                       String result = await reportViolation(
@@ -271,15 +271,16 @@ class _ViolationsState extends State<Violations> {
                                       }
                                     }
                                   },
-                                  splashColor: Colors.white,
-                                  elevation: 20,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Colors.white,
+                                    padding: const EdgeInsets.all(30),
                                   ),
-                                  color: Colors.white,
-                                  padding: EdgeInsets.all(30),
-                                  child: Text(
-                                    "إبلاغ",
+                                  child: const Text(
+                                    "الإبلاغ",
                                     style: TextStyle(
                                         fontSize: 17,
                                         color: Color.fromARGB(255, 35, 39, 66),

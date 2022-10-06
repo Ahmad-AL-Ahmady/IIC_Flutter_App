@@ -34,7 +34,7 @@ class _ResetpasswordState extends State<Resetpassword> {
   Future<String> Forgetpass(String phone, String unitnumber) async {
     var response = await http.post(
         Uri.https(
-            'iic-v3.herokuapp.com', '/api/v1/forgotPassword/unitAndPhone'),
+            'iic-v6.herokuapp.com', '/api/v1/forgotPassword/unitAndPhone'),
         headers: {
           'Content-Type': 'application/json',
         },

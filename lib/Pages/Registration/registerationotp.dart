@@ -16,7 +16,7 @@ class RegistrationOtp extends StatefulWidget {
 
 Future<String> OtpRegister(String Otp, String phone) async {
   var response = await http.post(
-      Uri.https('iic-v3.herokuapp.com', '/api/v1/register/validateOTP'),
+      Uri.https('iic-v6.herokuapp.com', '/api/v1/register/validateOTP'),
       headers: {
         'Content-Type': 'application/json',
       },

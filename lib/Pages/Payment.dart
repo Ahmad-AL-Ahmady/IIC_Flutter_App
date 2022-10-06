@@ -80,7 +80,7 @@ class _PaymentState extends State<Payment> {
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
                                 width: 250,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
@@ -88,14 +88,15 @@ class _PaymentState extends State<Payment> {
                                             builder: (context) =>
                                                 Maintenance()));
                                   },
-                                  splashColor: Colors.white,
-                                  elevation: 20,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Colors.white,
+                                    padding: const EdgeInsets.all(30),
                                   ),
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  padding: EdgeInsets.all(30),
-                                  child: Text(
+                                  child: const Text(
                                     "الصيانة",
                                     style: TextStyle(
                                         fontSize: 17,
@@ -125,7 +126,7 @@ class _PaymentState extends State<Payment> {
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
                                 width: 250,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
@@ -133,14 +134,15 @@ class _PaymentState extends State<Payment> {
                                             builder: (context) =>
                                                 Electricity()));
                                   },
-                                  splashColor: Colors.white,
-                                  elevation: 20,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Colors.white,
+                                    padding: const EdgeInsets.all(30),
                                   ),
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  padding: EdgeInsets.all(30),
-                                  child: Text(
+                                  child: const Text(
                                     "الكهرباء",
                                     style: TextStyle(
                                         fontSize: 17,
@@ -154,21 +156,22 @@ class _PaymentState extends State<Payment> {
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
                                 width: 250,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => Plumbing()));
                                   },
-                                  splashColor: Colors.white,
-                                  elevation: 20,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Colors.white,
+                                    padding: const EdgeInsets.all(30),
                                   ),
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  padding: EdgeInsets.all(30),
-                                  child: Text(
+                                  child: const Text(
                                     "السباكة",
                                     style: TextStyle(
                                         fontSize: 17,
@@ -182,21 +185,22 @@ class _PaymentState extends State<Payment> {
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
                                 width: 250,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => Gardening()));
                                   },
-                                  splashColor: Colors.white,
-                                  elevation: 20,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Colors.white,
+                                    padding: const EdgeInsets.all(30),
                                   ),
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  padding: EdgeInsets.all(30),
-                                  child: Text(
+                                  child: const Text(
                                     "صيانة الحدائق",
                                     style: TextStyle(
                                         fontSize: 17,

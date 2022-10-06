@@ -25,7 +25,7 @@ Future<String> LOGIN(String email, String password) async {
   }
 
   var response = await http.post(
-      Uri.https('iic-v3.herokuapp.com', '/api/v1/login'),
+      Uri.https('iic-v6.herokuapp.com', '/api/v1/login'),
       headers: {
         'Content-Type': 'application/json',
       },

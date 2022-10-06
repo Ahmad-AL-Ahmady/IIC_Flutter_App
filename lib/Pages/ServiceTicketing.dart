@@ -19,7 +19,7 @@ class ServiceTicketing extends StatefulWidget {
 
 Future<String> Send(String date, String type) async {
   var response = await http.post(
-      Uri.https('iic-v3.herokuapp.com', '/api/v1/requestService'),
+      Uri.https('iic-v6.herokuapp.com', '/api/v1/requestService'),
       headers: {
         'Content-Type': 'application/json',
         'authorization': await getStringValuesSF(),
@@ -186,7 +186,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                               DateTime? pickeddate = await showDatePicker(
                                 context: context,
                                 initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
+                                firstDate: DateTime.now(),
                                 lastDate: DateTime(2101),
                               );
                               if (pickeddate != null) {
@@ -208,7 +208,7 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                             padding: const EdgeInsets.symmetric(vertical: 25),
                             child: Container(
                               width: 250,
-                              child: RaisedButton(
+                              child: ElevatedButton(
                                 onPressed: () async {
                                   if (_Service.currentState!.validate()) {
                                     String? _type = value;
@@ -255,15 +255,16 @@ class _ServiceTicketingState extends State<ServiceTicketing> {
                                     ;
                                   }
                                 },
-                                splashColor: Colors.white,
-                                elevation: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 20,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  primary: Colors.white,
+                                  padding: const EdgeInsets.all(30),
                                 ),
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                padding: EdgeInsets.all(30),
-                                child: Text(
-                                  "طلب",
+                                child: const Text(
+                                  "احجز",
                                   style: TextStyle(
                                       fontSize: 17,
                                       color: Color.fromARGB(255, 35, 39, 66),

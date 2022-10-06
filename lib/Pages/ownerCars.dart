@@ -23,7 +23,7 @@ class _ownersCarsState extends State<ownersCars> {
 
   Future<String> getOwnersCars() async {
     var response = await http
-        .get(Uri.https('iic-v3.herokuapp.com', '/api/v1/cars'), headers: {
+        .get(Uri.https('iic-v6.herokuapp.com', '/api/v1/cars'), headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
     });

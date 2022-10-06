@@ -35,7 +35,7 @@ void ShowMessage(BuildContext context) {
 
 Future<String> ReortIncident(String _description) async {
   var response = await http.post(
-    Uri.https('iic-v3.herokuapp.com', '/api/v1/reportIncident'),
+    Uri.https('iic-v6.herokuapp.com', '/api/v1/reportIncident'),
     headers: {
       'Content-Type': 'application/json',
       'authorization': await getStringValuesSF()
@@ -189,7 +189,7 @@ class _IncedentsState extends State<Incedents> {
                               padding: const EdgeInsets.symmetric(vertical: 25),
                               child: Container(
                                 width: 250,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () async {
                                     if (inc.currentState!.validate()) {
                                       String Description = incedent.text;
@@ -210,15 +210,16 @@ class _IncedentsState extends State<Incedents> {
                                       ;
                                     }
                                   },
-                                  splashColor: Colors.white,
-                                  elevation: 20,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    primary: Colors.white,
+                                    padding: const EdgeInsets.all(30),
                                   ),
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  padding: EdgeInsets.all(30),
-                                  child: Text(
-                                    "الإبلاغ",
+                                  child: const Text(
+                                    "ابلغ",
                                     style: TextStyle(
                                         fontSize: 17,
                                         color: Color.fromARGB(255, 35, 39, 66),
